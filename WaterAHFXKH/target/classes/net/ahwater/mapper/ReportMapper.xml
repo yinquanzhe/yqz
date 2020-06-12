@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--suppress ALL -->
+<mapper namespace="net.ahwater.dao.ReportDao">
+
+    <resultMap id="Report" type="net.ahwater.bean.Hh_repprob">
+        <id property="repno" column="repno"/>
+        <result property="rlrcno" column="rlrcno"/>
+        <result property="rlrcnm" column="rlrcnm"/>
+        <result property="tpno" column="tpno"/>
+        <result property="tpnm" column="tpnm"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="qadrs" column="qadrs"/>
+        <result property="ln" column="ln"/>
+        <result property="lt" column="lt"/>
+        <result property="qdesc" column="qdesc"/>
+        <result property="reptm" column="reptm" jdbcType="DATE" javaType="java.util.Date"/>
+        <result property="tm" column="tm" jdbcType="DATE" javaType="java.util.Date"/>
+        <collection property="pics" javaType="ArrayList" ofType="net.ahwater.bean.Hh_reppic">
+            <id property="picno" column="pic_picno"/>
+            <result property="repno" column="pic_repno"/>
+            <result property="flpath" column="pic_flpath"/>
+            <result property="tm" column="pic_tm" jdbcType="DATE" javaType="java.util.Date"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insertReport" parameterType="net.ahwater.bean.Hh_repprob">
+        <selectKey keyColumn="repno" resultType="java.lang.Integer" keyProperty="repprob.repno" order="BEFORE">
+            select hh_repprob_seq.nextval as repno
+            from DUAL
+        </selectKey>
+        insert into hh_repprob(repno, rlrcno, tpno, rlrcnm, name, phone, qadrs, ln, lt, qdesc, reptm)
+        values(#{repprob.repno}, #{repprob.rlrcno}, #{repprob.tpno}, #{repprob.rlrcnm}, #{repprob.name},
+          #{repprob.phone}, #{repprob.qadrs}, #{repprob.ln}, #{repprob.lt}, #{repprob.qdesc},
+          #{repprob.reptm})
+    </insert>
+
+    <insert id="insertReportPic" parameterType="net.ahwater.bean.Hh_reppic">
+        insert into hh_reppic(picno, repno, flpath, tm)
+        values(hh_reppic_seq.nextval, #{reppic.repno}, #{reppic.flpath}, #{reppic.tm})
+    </insert>
+
+    <select id="listReport" resultMap="Report">
+        select r.*,
+        rp.picno pic_picno, rp.repno pic_repno, rp.flpath pic_flpath, rp.tm pic_tm,
+        rt.tpnm
+        from hh_repprob r, hh_reppic rp, hh_reptp rt
+        where r.repno=rp.repno
+        and r.tpno=rt.tpno
+        <if test="rlrcnos != null">
+            and r.rlrcno in
+            <foreach item="item" index="index" collection="rlrcnos" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="stm != null">
+            <![CDATA[
+                and r.reptm >= #{stm}
+            ]]>
+        </if>
+        <if test="etm != null">
+            <![CDATA[
+                and r.reptm <= #{etm}
+            ]]>
+        </if>
+    </select>
+
+    <select id="listReportType" resultType="net.ahwater.bean.Hh_reptp">
+        select *
+        from hh_reptp
+        where status=1
+    </select>
+
+</mapper>

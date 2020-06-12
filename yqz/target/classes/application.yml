@@ -1,0 +1,36 @@
+##启动该文件选择
+spring:
+  jmx:
+    enabled: false
+  profiles:
+    active: dev
+  main:
+    banner-mode: "off"
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+#mybatisplus
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: net.ahwater.yqz.entity
+  global-config:
+    banner: "false"
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+
+logging:
+  level:
+    root: info
+    net.ahwater.yqz: debug
+#    org.springframework.web: info
+#    me.chanjar.weixin: debug
+  file: C:/bzhjsLogs/app.log
+
+##开发环境
+server:
+  port: 8080
+
+basePath: http://qy.czswj.cn:7000

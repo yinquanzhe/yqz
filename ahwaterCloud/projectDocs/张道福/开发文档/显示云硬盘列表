@@ -1,0 +1,18 @@
+public class VolumeElement {
+	private String volumeId;
+	private String volumeName;     //名字
+	private String volumeDescription;    //描述
+	private int volumeSize;    //配置（大小）
+	private Volume.Status volumeStatus;   //状态
+	private String volumeType;    //类型
+	private List<VolumeServerAttachment> volumeAttachment= new ArrayList<>();
+	}
+	
+	
+public class VolumeServerAttachment {
+	private String attachmentId;
+	private String device;
+	private String serverId;
+	private String volumeId;
+	private String serverName;
+	}

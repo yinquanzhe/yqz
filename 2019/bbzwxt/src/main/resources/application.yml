@@ -1,0 +1,15 @@
+server:
+  port: 8080
+logging:
+  level:
+    root: info
+    org.springframework.web: ERROR
+    net.ahwater.bbzwxt: DEBUG
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 5MB
+  jackson:
+    default-property-inclusion: non_null

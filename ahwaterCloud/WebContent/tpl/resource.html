@@ -1,0 +1,212 @@
+<div ng-controller="resCtrl" class="content">
+	<h4>默认配额</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+			<form>
+				<input type="text" placeholder="开发中" />
+			<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+			</form>	
+			<div class="actionBtn">
+				<button type="button" class="btn btn-primary" ng-click="editRes()">修改配额</button>
+			</div>
+		</div>
+		<div class="cloudlist col-xs-12" id="quotaTable">
+			<table style="text-align: left;" cellspacing="6" cellpadding="10" width="100%">
+				<thead>
+					<tr>
+						<th style="width: 35%; text-align: left; padding-left: 20px;">配额名称</th>
+						<th style="text-align: left;">限制值</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="2">
+							<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+						</td>
+					</tr>
+					<tr>							
+						<td>元数据条目</td>
+						<td>{{limitList.maxImageMeta}}</td>							
+					</tr>
+					<tr >							
+						<td>注入的文件</td>
+						<td>{{limitList.maxPersonality}}</td>							
+					</tr>
+					<tr >							
+						<td>注入的文件内容字节数</td>
+						<td>{{limitList.maxPersonalitySize}}</td>							
+					</tr>
+					<tr >							
+						<td>主机组成员</td>
+						<td>{{limitList.maxServerGroupMembers}}</td>							
+					</tr>
+					<tr >							
+						<td>主机组</td>
+						<td>{{limitList.maxServerGroups}}</td>							
+					</tr>
+					<tr >							
+						<td>虚拟内核</td>
+						<td>{{limitList.maxTotalCores}}</td>							
+					</tr>
+					
+					<tr >							
+						<td>浮动IP</td>
+						<td>{{limitList.maxTotalFloatingIps}}</td>							
+					</tr>
+					<tr >							
+						<td>云主机</td>
+						<td>{{limitList.maxTotalInstances}}</td>							
+					</tr>
+					<tr >							
+						<td>内存</td>
+						<td>{{limitList.maxTotalRAMSize}}</td>							
+					</tr>
+					<tr >							
+						<td>云硬盘和快照的总大小(GB)</td>
+						<td>{{limitList.maxGigabytes}}</td>							
+					</tr>
+					<tr >							
+						<td>云硬盘快照</td>
+						<td>{{limitList.maxSnapShots}}</td>							
+					</tr>
+					<tr >							
+						<td>云硬盘</td>
+						<td>{{limitList.maxVolumes}}</td>							
+					</tr>
+					<tr >							
+						<td>密钥对</td>
+						<td>{{limitList.maxTotalKeypairs}}</td>							
+					</tr>
+					<tr >							
+						<td>安全组规则</td>
+						<td>{{limitList.maxSecurityGroupRules}}</td>							
+					</tr>
+					<tr >							
+						<td>安全组</td>
+						<td>{{limitList.maxSecurityGroups}}</td>							
+					</tr>
+					<tr >							
+						<td>子网数</td>
+						<td>{{limitList.maxSubnet}}</td>							
+					</tr>	
+					<tr >							
+						<td>路由数</td>
+						<td>{{limitList.maxRouter}}</td>							
+					</tr>	
+					<tr >							
+						<td>端口</td>
+						<td>{{limitList.maxPort}}</td>							
+					</tr>	
+					<tr >							
+						<td>网络</td>
+						<td>{{limitList.maxNetwork}}</td>							
+					</tr>	
+				</tbody>
+			</table>
+		</div>
+		
+		<!--修改默认值-->
+		<div class="modal fade rbtajsEcsModal" id="updateResModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	修改默认配额
+		        </h4>
+		      </div>
+		      <div class="modal-body" style="overflow: hidden;">
+		      	<div class="form-left col-xs-6">
+		      		<form class="">
+			      		<div class="form-group">
+				    			<label for="metaCount" class="control-label  ">元数据条目:</label>
+				    			<input type="number" class="form-control" id="metaCount" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="fileLimit" class="control-label  ">注入的文件:</label>
+				    			<input type="number" class="form-control" id="fileLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="fileByte" class="control-label  ">文件字节数:</label>
+				    			<input type="number" class="form-control" id="fileByte" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="serverGroupMember" class="control-label  ">主机组成员:</label>
+				    			<input type="number" class="form-control" id="serverGroupMember" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="serverGroup" class="control-label  ">主机组:</label>
+				    			<input type="number" class="form-control" id="serverGroup" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="cpuLimit" class="control-label  ">CPU:</label>
+			    				<input type="number" class="form-control" id="cpuLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="ipsCount" class="control-label  ">浮动IP:</label>
+			    				<input type="number" class="form-control" id="ipsCount" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="serverLimit" class="control-label  ">云主机:</label>
+			    				<input type="number" class="form-control" id="serverLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="memoryLimit" class="control-label  ">内存:</label>
+			    				<input type="number" class="form-control" id="memoryLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="keyLimit" class="control-label  ">密钥对:</label>
+			    				<input type="number" class="form-control" id="keyLimit" />
+				    		</div>
+				    	</form>		        
+		      	</div>
+		      	<div class="form-right col-xs-6">
+		      		<form class="">
+		      			<div class="form-group">
+				    			<label for="volShotLimit" class="control-label">云硬盘和快照总大小:</label>
+				    			<input type="number" class="form-control" id="volShotLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="snapShotLimit" class="control-label  ">云硬盘快照:</label>
+				    			<input type="number" class="form-control" id="snapShotLimit" />
+				    		</div>
+		      			<div class="form-group">
+				    			<label for="volLimit" class="control-label  ">云硬盘:</label>
+				    			<input type="number" class="form-control" id="volLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="ruleLimit" class="control-label  ">安全组规则:</label>
+				    			<input type="number" class="form-control" id="ruleLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="seGroupLimit" class="control-label  ">安全组:</label>
+				    			<input type="number" class="form-control" id="seGroupLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="subnetLimit" class="control-label  ">子网数:</label>
+				    			<input type="number" class="form-control" id="subnetLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="routeLimit" class="control-label  ">路由数:</label>
+				    			<input type="number" class="form-control" id="routeLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="portLimit" class="control-label  ">端口:</label>
+				    			<input type="number" class="form-control" id="portLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="netLimit" class="control-label  ">网络:</label>
+				    			<input type="number" class="form-control" id="netLimit" />
+				    		</div>
+				    		<div class="form-group " style="margin-top: 40px;">
+				    			<button type="button" class="btn btn-default" data-dismiss="modal" style="margin: 0 20px;">取消</button>
+		        			<button type="button" class="btn btn-primary" ng-click="updateResAction()">保存</button>
+				    		</div>
+		      		</form>
+		      	</div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>

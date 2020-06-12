@@ -1,0 +1,95 @@
+<div ng-controller="adimgCtrl" class="content">
+  <h4>沃特云镜像</h4>
+  <div class="container-fluid list">
+    <div class="classified">     
+      <button type="button" class="btn btn-danger deleteImg" ng-click="deleteImgBatch()">
+        <span class="glyphicon glyphicon-remove"></span>
+        	删除镜像
+      </button>    
+		</div>
+    <div class="cloudlist col-xs-12" id="adImageBox">
+      <table  cellpadding="6" cellspacing="10" width="100%">
+        <thead>
+        <tr>
+          <th><input type="checkbox"/></th>
+          <th style="text-align: left; width: 12%;">沃特云项目</th>
+          <th style='width:15%;text-align: left;'>镜像名称</th>
+          <th>是否公有</th>
+          <th>受保护的</th>
+          <th>类型</th>
+          <th>状态</th>
+          <th>镜像格式</th>
+          <th>配置</th>
+          
+        </tr>
+        </thead>
+        <tbody>
+        	<tr>
+						<td colspan="10">
+							<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+						</td>
+					</tr>	
+        	<tr ng-repeat="item in adminimgList ">
+	          <td><input iid={{item.imageId}} ng-click="choose($event)" type="checkbox"/></td>
+	          <td style="text-align: left;">
+	          	{{item.imageOwnerName}}
+	          </td>
+	          <td class="imageAllName">
+	          	<span>
+	          		<b style="cursor: pointer;margin-right: 5px;" class="fa fa-pencil" ostype={{item.imageOStype}} osvesion={{item.imageOSVersion}} osbit={{item.imageOSBit}} iid={{item.imageId}} ng-click="editImage($event)"></b>
+	          		<a href="javascript:void(0)" ng-click="togDetailBox($event)" iid={{item.imageId}}>{{item.imagePersonalName}}</a>
+	          		<i ng-mouseover="showtoolBar($event)" data-toggle="tooltip" data-placement="top" ng-init="title=item.imageOStype+'&nbsp;'+item.imageOSVersion+'&nbsp;'+item.imageOSBit+'位'"  title={{title}} class={{item.imageOStype}}></i>
+	          		<!--镜像详情弹框-->
+	          		<div class="imageDetailBox animated fadeIn">
+	          			<div class="imageClose text-right">
+	          				<span style="cursor: pointer;" ng-click="imageDetailClose()">&times;</span>
+	          			</div>
+	          			<div class="imgDetailCont">
+	          				<ul class="imgDetailTab list-unstyled">
+										  <li role="presentation" class="active">
+										  	<a href=".imgDetailP1">基本信息</a>
+										  </li>
+										  <li role="presentation">
+										  	<a href=".imgDetailP2" >规格</a>
+										  </li>
+										  <li role="presentation" ng-if='item.imageType=="快照"' >
+										  	<a href=".imgDetailP3">其他属性</a>
+										  </li>
+										</ul>
+										
+										<div class="tab-content">
+										  <div class="active imgDetailP1">
+										  	<p><span>ID：</span>{{imgDetailData.imageId}}</p>
+										  	<p><span>公有：</span>{{imgDetailData.imageisPublic}}</p>
+										  	<p><span>拥有者：</span>{{imgDetailData.imageOwner}}</p>
+										  	<p><span>校验和：</span>{{imgDetailData.imageCheckSum}}</p>
+										  	<p><span>更新于：</span>{{imgDetailData.imageUpdateDate}}</p>
+										  </div>
+										  <div  class="imgDetailP2">
+										  	<p><span>大小：</span>{{imgDetailData.imageSize}}</p>
+										  	<p><span>容器格式：</span>{{imgDetailData.imageContainerFormat}}</p>
+										  	<p><span>磁盘格式：</span>{{imgDetailData.imageFormat}}</p>
+										  </div>
+										  <div  class="imgDetailP3" ng-if='item.imageType=="快照"' >
+										  	其他信息
+										  	<!--TODO:其他信息-->
+										  </div>
+										</div>
+	
+	          			</div>
+	          		</div>
+	          	</span>
+	          </td>
+	          <td>{{item.imageisPublic}}</td>
+	          <td>{{item.imageisProtected}}</td>
+	          <td>{{item.imageType}}</td>
+	          <td class="run">{{item.imageStatus}}</td>
+	          <td>{{item.imageFormat}}</td>
+	          <td>{{item.imageSize}}</td>
+	         
+        	</tr>
+        </tbody>       
+      </table>
+    </div>  
+  </div> 
+</div>

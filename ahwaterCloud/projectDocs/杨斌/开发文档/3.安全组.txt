@@ -1,0 +1,76 @@
+安全组
+	       注意事项：
+	   				（1）允许创建同名安全组
+	   				（2）以Id作为唯一标识
+   			列表:
+		           url:“/contr/ListAllSecurityGroup”
+          	       输出字段：Id(securityGroupId),(不显示)
+          	       				   名称(securityGroupName)，
+          	       				   描述(description)
+   		  1.创建
+                   url:“/contr/CreateSecurityGroup”
+                   输入字段：名称(securityGroupName)，
+          	       				   描述(description)
+                   输出字段：errorMsg(“success”,"Exception")
+          2.删除
+                   url:"/contr/DeleteSecurityGroup"
+                   输入字段：Id(securityGroupId)
+                   输出字段：errorMsg("success","Exception")
+          3.编辑
+          		   url:"/contr/EditSecurityGroup"
+          		   输入字段：Id(securityGroupId)
+          	       				   名称(securityGroupName)，
+          	       				   描述(description)
+          		   输出字段：errorMsg("success","Exception")
+          
+          4.查询给定主机所属安全组和可用安全组（不在安全组界面实现，用于主机界面“编辑安全组”操作）
+          		   url:"/contr/ListServerGroups"
+          		   输入字段：主机Id(serverId)
+          		   输出字段：形如：[[{},{},{}],[{},{},{}]]
+          		   				   “{}”中内容为：
+          		   				   {
+          		   				   		Id(securityGroupId),(不显示)
+          	       				   		名称(securityGroupName)，
+          	       				   		描述(description)，（总是为空，可不查看）
+          		   				   }
+          5.管理规则
+  				   url:"/contr/ListGroupRules"
+  				   参见下文 规则->列表 
+  				
+  	规则：
+  		   1.列表：
+  		           url:"/contr/ListGroupRules"
+  		           输入字段：
+  		           				   安全组名称(securityGroupName)
+  		           输出字段：
+  		           				   规则ID(ruleId 不显示)
+  		           				   方向(direction),
+  		           				   以太网类型(etherType)，
+  		           				   IP协议(protocol)，
+  		           				   端口范围(portRange)，
+  		           				   远程IP前缀(cidr),
+  		           				   远程安全组(remoteSecurityGroup)
+  		   2.添加规则
+  		           url:“/contr/CreateRule”
+  		           输入字段：
+  		           				{
+  		           					安全组id:(securityGroupId)
+  		           					规则：(protocol)(如果选择其他协议选项，则把填写的“IP协议”内容传入)
+  		           					方向：(direction)(取值为 入口：ingress，出口：egress)
+  		           					是否指定端口：(hasPort)（取值为false或true）(若为true则填写起始端口号和终止端口号，只有一个端口选项时，设置起始端口号和终止端口号为同一值)
+  		           					起始端口号：（portRangeMin）
+  		           					终止端口号：（portRangeMax）
+  		           					是否定制ICMP协议：(isCustomisedIcmp)(取值为false或true)（若为true则设置ICMP类型和ICMP编码字段）
+  		           					ICMP类型：（icmpType）
+  		           					ICMP编码：（icmpCode）
+  		           					是否设置CIDR：（isCIDR）（取值为false或true）（取值为true则设置cidr字段，为false则设置安全组id和以太网类型字段）
+  		           					CIDR：（remoteIpPrefix）
+  		           					安全组id（remoteGroupId）
+  		           					以太网类型(etherType)
+  		           				}
+  		           输出字段：errorMsg("success","Exception")
+  		   3.删除规则
+  		           url:“/contr/DeleteRule”
+  		           输入字段：规则ID(ruleId)
+  		           输出字段：errorMsg("success","Exception")
+  		

@@ -1,0 +1,243 @@
+<div ng-controller="adServerCtrl" class="content">
+    <h4>沃特云主机列表</h4>
+    <div class="container-fluid list">
+        <div class="search col-xs-12">
+            <form>        	
+                <select name="searchBy" id="searchBy" onchange="changeTip(this)">
+                    <option value="1">云主机名称</option>
+                    <option value="2">状态</option>
+                    <option value="3">主机</option>
+                    <option value="4">项目</option>
+                </select>
+                <input type="text" placeholder="功能开发中"/>
+                <button type="button" class="btn btn-default" ng-click="searchServer($event)">搜索</button>
+            </form>            
+            <div class="actionBtn">
+                <button type="button" class="btn btn-danger deleteBatch" ng-click="deleteBatch()">
+                	<i class="fa fa-trash"></i> 删除实例</button>
+            </div>
+        </div>
+        <div class="cloudlist col-xs-12">
+            <table  cellpadding="6" cellspacing="10" width="100%">
+                <thead>
+                <tr>
+                    <th><input type="checkbox"/></th>
+                    <th style="width: 10%; text-align: left; padding-left: 6px;">沃特云项目</th>
+                    <th style="width: 12%; text-align: left;">云主机名称</th>
+                    <th style="width: 15%; text-align: left;padding-left: 30px;">镜像名称</th>
+                    <th>ip地址</th>
+                    <th style="width: 15%;">配置</th>
+                    <th style="width: 8%;">状态</th>
+                    <th>运行时间</th>
+                    <th style="width: 10%;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                	<tr>
+                		<td colspan="10">
+                			<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                			<span>请稍后...</span>
+                		</td>
+                	</tr>
+                <tr ng-repeat="item in adminServerData track by $index">
+                    <td class="mysid">
+                    	<input sid={{item.serverId}} type="checkbox" ng-click="choose($event)"/>
+                    </td>
+                    <td style="text-align: left;padding-left: 6px;">{{item.tenanantName}}</td>
+                    <td class="myServerName imageAllName" style="text-align: left;">
+                    	<span style="float: none;">
+                    		<a sid={{item.serverId}} href="javascript:void(0)" ng-click="serverDetail($event)">{{item.serverName}}</a>
+                    		<i ng-mouseover="showtoolBar($event)" data-toggle="tooltip" data-placement="top" ng-init="title=item.imageOStype+'&nbsp;'+item.imageOSVersion+'&nbsp;'+item.imageOSBit+'位'"  title={{title}} class={{item.imageOStype}}></i>
+                    	</span>
+                    </td>
+                    <td style="text-align: left;padding-left: 30px;">{{item.imagePersonalName}}</td>
+                    <td>
+                    	<p ng-repeat="ip in item.ipAddr">{{ip}}</p>
+                    </td>
+                    <td flavorId={{item.flavorId}} class="configure">
+                        	CPU:{{item.vcpus}}核，内存:{{item.ram>1024?item.ram/1024+'GB':item.ram+'MB'}}，硬盘:{{item.disk}}G
+                    </td>
+                    <td  class={{item.status}}>
+                    	<span class="ecs-status">
+                    		<i></i>
+                    		{{item.status}}
+                    	</span>
+                    </td>
+                    <td>{{item.timeFromCreated}}</td>
+                    <!--运行中的操作-->
+                    <td class="action" ng-if="item.status=='运行中'">
+                        <a href="javascript:void(0)" ng-click='createFastShot($event)'>创建快照</a>&nbsp;
+                        <a href="javascript:void(0)" ng-click="pauseServer($event)">暂停</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="VNCConsole($event)" href="javascript:void(0)">控制台</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem"  href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="serverDetail($event)" role="menuitem" href="javascript:void(0)">查看日志</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="suspendEcs($event)"  href="javascript:void(0)">挂起实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="shelveEcs($event)" href="javascript:void(0)">废弃实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="softRebootEcs($event)" role="menuitem" href="javascript:void(0)">软重启</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="hardRebootEcs($event)" role="menuitem"  href="javascript:void(0)">硬重启</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="migrateEcs($event)" role="menuitem"  href="javascript:void(0)">迁移实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} hname={{item.host}} ng-click="hotmigrateEcs($event)" role="menuitem"  href="javascript:void(0)">热迁移实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem"  href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                 
+                    <!--暂停部分操作-->
+                    <td class="action" ng-if="item.status=='暂停'">
+                        <a href="javascript:void(0)" ng-click='createFastShot($event)'>创建快照</a>&nbsp;
+                        <a href="javascript:void(0)" sid={{item.serverId}} ng-click='resumeEcs($event,"unPause")'>恢复</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" >
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem" href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem" href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                
+                		<!--挂起部分操作-->
+                		<td class="action" ng-if="item.status=='挂起'">
+                        <a href="javascript:void(0)" ng-click='createFastShot($event)'>创建快照</a>&nbsp;
+                        <a href="javascript:void(0)" sid={{item.serverId}} ng-click='resumeEcs($event,"resume")'>恢复</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem"  href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem" href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!--卸载搁置部分操作-->
+                    <td class="action" ng-if="item.status=='卸载搁置'">
+                        <a href="javascript:void(0)" sid={{item.serverId}} ng-click="unShelveEcs($event)">取消废弃</a>&nbsp;
+                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem"  href="javascript:void(0)">删除实例</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation">
+                                    	<a ng-click="editEcs($event)" href="javascript:void(0)" sname={{item.serverName}} sid={{item.serverId}}>编辑云主机</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!--关机部分操作-->
+                    <td class="action" ng-if="item.status=='关机'">
+                        <a href="javascript:void(0)" ng-click='hardRebootEcs($event)' sid={{item.serverId}}>启动</a>&nbsp;
+                        <a href="javascript:void(0)" ng-click="migrateEcs($event)" sid={{item.serverId}}>迁移实例</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem" href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem" href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!--错误部分操作-->
+                    <td class="action"  ng-if="item.status=='错误'">
+                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" href="javascript:void(0)">删除实例</a>
+                    </td>
+                    
+                    <!--创建中-->
+                    <td class="action"  ng-if="item.status=='创建中'">
+                        	等待创建完成
+                    </td>
+                </tr>
+                </tbody>                
+            </table>
+        </div>      	
+    
+    		<div class="modal fade rbtajsEcsModal" id="migEcsModal"  role="dialog">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">		       
+				        <h4 class="modal-title text-center">
+				        	迁移云主机
+				        </h4>
+				      </div>
+				      <div class="modal-body">
+				        <p id="currentHost"></p>	        
+				        <form class="form-horizontal">
+								  <div class="form-group">
+								    <label for="typeChangeBox" class="col-xs-3 control-label">选择主机:</label>
+								    <div class="col-xs-8">
+								      <select class="form-control" id="hostBox">
+				        				<option ng-repeat='item in hostData track by $index' value={{item.host}}>{{item.host}}</option>
+				        			</select>
+								    </div>
+								  </div>
+								  <label class="checkbox-inline col-xs-offset-4">
+									  <input type="checkbox" id="overCheckbox">允许磁盘超量
+									</label>
+									<label class="checkbox-inline">
+									  <input type="checkbox" id="blockCheckbox"> 块迁移
+									</label>
+								</form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				        <button type="button" class="btn btn-primary" ng-click="migrateAction()">确定</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+    </div>
+</div>

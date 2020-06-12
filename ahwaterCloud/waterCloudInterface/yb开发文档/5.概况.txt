@@ -1,0 +1,74 @@
+概况
+
+配额统计
+	  url:"/contr/GetUsageAndLimit"
+	  输出字段：
+	  				实例(usedInstances/maxInstances)
+	  				内存(usedRAMSize/maxRAMSize)
+	  				内核(usedCores/maxCores)
+	  				
+	  				
+	  				FloatingIPs(usedFloatingIPs/maxFloatingIPs)
+	  				安全组(usedSecurityGroups/maxSecurityGroups)
+	  				云硬盘(usedVolumes/maxVolumes)
+	  				卷存储(usedVolumeSize/maxVolumeSize)
+	  
+使用统计(指定时间范围)
+	  url:"/contr/ListServersByTime"
+	  输入字段：
+	  				 开始时间：(startTime)（年-月-日）
+	  				 结束时间：(endTime)（年-月-日）
+	  输出字段：
+	  				{
+	  					id(serverId)
+	  					名称(serverName)
+	  					虚拟内核(vcpus)
+	  					磁盘(disk)
+	  					内存(ram)
+	  					创建以来(timeFromCreated)
+	  				}  
+
+租户概况：
+       url:"/contr/ListTenantUsages"
+       输入：
+               开始时间（startTime，形如2017-01-01）
+               结束时间（endTime）
+               
+       输出：
+               租户名称（tenantName）
+               内核（vcpu）
+               内存（memory）
+               硬盘（diskSize）
+               内存用量（memoryMbUsage）
+               内核用量（vcpuUsage）
+               磁盘用量（diskGbUsage）
+       
+ 默认值：
+ 默认值字段：
+    maxImageMeta;//元数据条目
+	maxPersonality;//注入的文件
+	maxPersonalitySize;//注入的文件内容字节数
+	maxServerGroupMembers;//主机组成员
+	maxServerGroups;//主机组
+	maxServerMeta;//
+	maxTotalCores;//虚拟内核
+	maxTotalFloatingIps;//浮动IP
+	maxTotalInstances;//实例
+	maxTotalRAMSize;//内存 (MB)
+	
+	maxGigabytes;//磁盘总大小
+	maxSnapShots;//快照数
+	maxVolumes;//虚拟磁盘数
+	
+	maxTotalKeypairs;//密钥对
+	maxSecurityGroupRules;//安全组规则数
+	maxSecurityGroups;//安全组个数
+	maxSubnet;//子网数
+	maxRouter;//路由数
+	maxPort;//端口
+	maxNetwork;//网络
+
+url:
+获取默认值：/contr/GetLimits
+设置默认值：/contr/SetLimits
+ 

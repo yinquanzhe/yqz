@@ -1,0 +1,22 @@
+
+1.角色列表
+/ahwaterCloud/ctr/listRoles
+
+2.创建角色
+/ahwaterCloud/ctr/createRole
+前台需要给后台穿数据
+roleName
+
+3.删除角色
+/ahwaterCloud/ctr/deleteRole
+前台需要给后台穿数据 roleId
+
+4.批量删除角色
+/ahwaterCloud/ctr/PatchDeleteRole
+
+前台需要给后台传数据 roleIdListStr （角色ID数组的字符串）
+
+5.编辑角色
+
+/ahwaterCloud/ctr/editRole
+前台需要给后台传递 roleId newRoleName

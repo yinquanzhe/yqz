@@ -1,0 +1,16 @@
+1.列出租户所有云主机的实时监控信息
+/ahwaterCloud/ctr/listNewMonitor
+
+
+2.列出所有租户所有云主机的实时监控信息(针对管理员)
+/ahwaterCloud/ctr/listAllTenantNewMonitor
+
+
+3.列出某个云主机的过去几小时的历史监控信息
+/ahwaterCloud/ctr/listOneServerMonitor
+
+前台需要给后台传递参数
+uuid=c6855cff-4b0b-4dd7-bfb8-1ecb994ddb26（云主机id）
+hours（事件数）
+
+

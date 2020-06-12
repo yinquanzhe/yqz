@@ -1,0 +1,22 @@
+1.查询所有的云硬盘快照
+    url：/ahwaterCloud/cont/listAllVolumeSnapshot
+ 
+2.删除一个云硬盘的快照
+    url：/ahwaterCloud/cont/deleteVolumeSnapshot
+           参数：volumeSnapshotId
+
+3.修改云硬盘的名字和描述
+    url：/ahwaterCloud/cont/editVolumeSnapshot
+            参数：volumeSnapshotId   newVolumeSnapshotName   newVolumeSnapshotDescription
+            
+4.批量删除云硬盘快照
+    url:/ahwaterCloud/cont/deleteMultiVolumeSnapshots
+             参数：volumeSnapshotIds
+             
+5.列出云平台上所有的云硬盘快照
+    url：/ahwaterCloud/cont/adminListAllVolumeSnapshots
+            参数：tenantId
+            
+6. 创建云硬盘快照
+    url：/ahwaterCloud/cont/createVolumeSnapshot
+            参 数：volumeSnapshotName  volumeSnapshotDescription  volumeId

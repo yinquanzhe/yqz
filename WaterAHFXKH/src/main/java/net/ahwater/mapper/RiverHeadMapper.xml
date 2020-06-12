@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.ahwater.dao.RiverHeadDao">
+
+    <select id="listRiverHead" resultType="net.ahwater.bean.Hh_river_head">
+       SELECT hrh.ADDVCD,hrh.ENNMCD,hrh.SPENNMCD,
+               hrh.RCBGNM,hrh.RCEDNM,hrh.BNDS,
+               hrh.RCLN,hrh.RCAVWD,hrh.HDNO,hrh.RM,
+               hrh.RCRCNO,hrh.RCBGLN,hrh.RCBGLT,hrh.RCEDLN,hrh.RCEDLT,
+               hrh.STATUS,hrh.TM,hrh.RCNM
+       FROM  HH_RIVER_HEAD hrh
+    </select>
+
+    <select id="listRiverHeadByAddvcd" resultType="net.ahwater.bean.Hh_river_head">
+        SELECT hrh.ADDVCD,hrh.ENNMCD,hrh.SPENNMCD,
+                hrh.RCBGNM,hrh.RCEDNM,hrh.BNDS,
+                hrh.RCLN,hrh.RCAVWD,hrh.HDNO,hrh.RM,
+                hrh.RCRCNO,hrh.RCBGLN,hrh.RCBGLT,hrh.RCEDLN,hrh.RCEDLT,
+                hrh.STATUS,hrh.TM,hrh.RCNM
+        FROM  HH_RIVER_HEAD hrh
+        WHERE hrh.ADDVCD = #{addvcd}
+    </select>
+
+    <select id="listRiverHeadByEnnmcd" resultType="net.ahwater.bean.Hh_river_head">
+        SELECT hrh.ADDVCD,hrh.ENNMCD,hrh.SPENNMCD,
+                hrh.RCBGNM,hrh.RCEDNM,hrh.BNDS,
+                hrh.RCLN,hrh.RCAVWD,hrh.HDNO,hrh.RM,
+                hrh.RCRCNO,hrh.RCBGLN,hrh.RCBGLT,hrh.RCEDLN,hrh.RCEDLT,
+                hrh.STATUS,hrh.TM,hrh.RCNM
+        FROM  HH_RIVER_HEAD hrh
+        WHERE hrh.ENNMCD = #{ennmcd}
+    </select>
+
+    <select id="getRiverHeadByAddvcdAndEnnmcd" resultType="net.ahwater.bean.Hh_river_head">
+        SELECT hrh.ADDVCD,hrh.ENNMCD,hrh.SPENNMCD,
+                hrh.RCBGNM,hrh.RCEDNM,hrh.BNDS,
+                hrh.RCLN,hrh.RCAVWD,hrh.HDNO,hrh.RM,
+                hrh.RCRCNO,hrh.RCBGLN,hrh.RCBGLT,hrh.RCEDLN,hrh.RCEDLT,
+                hrh.STATUS,hrh.TM,hrh.RCNM
+        FROM  HH_RIVER_HEAD hrh
+        WHERE hrh.ADDVCD = #{addvcd} AND hrh.ENNMCD = #{ennmcd}
+    </select>
+
+    <select id="listRiverHeadByHdNo" resultType="net.ahwater.bean.Hh_river_head">
+        SELECT hrh.ADDVCD,hrh.ENNMCD,hrh.SPENNMCD,
+               hrh.RCBGNM,hrh.RCEDNM,hrh.BNDS,
+               hrh.RCLN,hrh.RCAVWD,hrh.HDNO,hrh.RM,
+               hrh.RCRCNO,hrh.RCBGLN,hrh.RCBGLT,hrh.RCEDLN,hrh.RCEDLT,
+               hrh.STATUS,hrh.TM,hrh.RCNM
+        FROM  HH_RIVER_HEAD hrh
+    </select>
+
+    <select id="listRiverMsgAndRvhdMsgByAddvcd" resultType="java.util.HashMap" parameterType="java.lang.String">
+      select t.addvcd,t.name,t.adminjob,t.rvjob,t.ennmcd,t.rcnm,r.rvgd
+        from (
+          select rv.addvcd,rv.name,rv.adminjob,rv.rvjob,rh.ennmcd,rh.rcnm
+          from hh_rvhd rv
+          left join hh_river_head rh
+          on rh.hdno like '%,'||rv.hdno||',%'
+          or rh.hdno=rv.hdno||''
+          where rv.addvcd=#{addvcd}
+        ) t
+        left join hh_river r
+        on t.ennmcd=r.ennmcd
+        order by t.rvjob
+    </select>
+
+    <!--<update id="updateBoardInfo">
+        update HH_RIVER_HEAD
+        set RKCARDNM=#{picPath}, RCCARDLN=#{ln}, RCCARDLT=#{lt}
+        where RCRCNO=#{rcno}
+    </update>
+
+    <update id="updateAddHdnoByRcrcno">
+        update HH_RIVER_HEAD
+        set hdno = (
+          case
+          when hdno is null then Translate(#{hdno} USING NCHAR_CS)
+          else Translate(hdno||#{hdno}||',' USING NCHAR_CS)
+          end
+        )
+        where rcrcno=#{rcrcno}
+    </update>
+
+    <update id="updateDeleteHdnoByRcrcno">
+        update HH_RIVER_HEAD
+        set hdno = (
+          case
+          when hdno=#{hdno}||'' then null
+          else regexp_replace(hdno, ','||#{hdno}, '')
+          end
+        )
+        where rcrcno=#{rcrcno}
+    </update>-->
+
+</mapper>

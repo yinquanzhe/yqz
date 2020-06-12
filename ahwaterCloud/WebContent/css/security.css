@@ -1,0 +1,55 @@
+.main .content .securityBox > div > div {
+  margin-bottom: 20px;
+}
+.main .content .securityBox > div .search {
+  margin: 0;
+  height: 40px;
+  color: #fff;
+  line-height: 40px;
+}
+.main .content .securityBox > div .search button {
+  float: right;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  outline: none;
+  height: 26px;
+  line-height: 23px;
+  font-size: 12px;
+  margin-top: 7px;
+  margin-left: 5px;
+}
+.main .content .securityBox > div .cloudlist {
+  border: none;
+  height: auto;
+  overflow: hidden;
+}
+.main .content .securityBox > div .cloudlist table tbody tr {
+  height: 65px;
+}
+.main .content .list .floatIpBox > div {
+  border: 1px solid #009795;
+}
+.main .content .list .floatIpBox .search {
+  background-color: #009795;
+}
+.main .content .list .keycodeBox > div {
+  border: 1px solid #DE577B;
+}
+.main .content .list .keycodeBox .search {
+  background-color: #DE577B;
+}
+.main .content .list .seGroupBox > div {
+  border: 1px solid #4A8BC2;
+}
+.main .content .list .seGroupBox .search {
+  background-color: #4A8BC2;
+}
+.KeyPairDetail {
+  position: absolute;
+  right: 0;
+  height: 200px;
+  top: -100px;
+  width: 300px;
+  border: 1px solid #ddd;
+}

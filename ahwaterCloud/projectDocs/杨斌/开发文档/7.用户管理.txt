@@ -1,0 +1,53 @@
+用户管理
+    用户列表
+          url:"contr/ListAllUser"
+          输入：
+          输出：
+                  {
+                      用户Id:(userId)
+                      用户名:(userName)
+                      邮箱:(mail)
+                      激活:(enabled)
+                  }
+    用户详情
+           url:"contr/GetUserDetail"
+           输入：userId
+           输出：
+                   {
+                       用户Id:(userId)
+                       用户名:(userName)
+                       邮箱:(mail)
+                       激活:(enabled)
+                       项目Id:(tenantId)
+                   }
+    创建用户
+           url:"contr/CreateUser"
+           输入：
+                    用户名:(userName)
+                    邮箱:(email)
+                    激活:(enabled)
+                    密码:(password)
+                    关联角色名:(roleName)
+                    默认租户id:(tenantId)
+          输出：
+          			errorMsg("success"、"Failed to create a user"、“Failed to associate the role to newly created user”)
+          			
+     删除用户
+           url:"contr/DeleteUser"
+           输入：
+                     用户Id:(userId)
+           输出：
+                     errorMsg("success"、"Failed to delete the user“）
+                     
+     修改信息
+            url:"contr/UpdateUserInfo"
+            输入：
+                    用户Id:(userId)(必填)
+                    用户名:(userName)(选填)
+                    邮箱:(mail)(选填)
+                    激活:(enabled)(选填)（enabled取值："true"(激活)、“false"(。。。)）
+                    项目Id:(tenantId)(选填)
+                    密码:(password)(选填)
+           输出：
+           			errorMsg("success"、"Failed to edit "）
+                    

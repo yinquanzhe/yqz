@@ -1,0 +1,54 @@
+
+spring:
+  jmx:
+    enabled: false
+  profiles:
+    active: dev
+  main:
+    banner-mode: "log"
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 50
+  jms:
+    cache:
+      session-cache-size: 5
+##mybatisplus
+mybatis-plus:
+  check-config-location: "false"
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: net.ahwater.swqcgl.entity
+  global-config:
+    banner: false
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+logging:
+  level:
+    root: error
+    net.ahwater.swqcgl: debug
+    org.springframework.web: info
+    me.chanjar.weixin: debug
+
+
+server:
+  port: 7000
+
+basePath: http://qy.czswj.cn:7000
+
+
+wechat:
+  cp:
+    corpId: wx231e5464e3dd3de4
+    appConfigs:
+      - agentId: 1000003
+        secret: TwTizo5AbU-7TK37Gm9x3sAOYPkZffI9CDiMSqZ-va0
+        token: zhongy
+        aesKey: rjtvx2PO1OvYrx7VMhNTXDMBbaBXvaxKAwc7QhBDf7y
+      - agentId: 1000009
+        secret: fZ9iZEz0sK3NEMJxsl-ZmC4TV9j-NqhvvKvSh0Egv0I
+        token: zhongy
+        aesKey: rjtvx2PO1OvYrx7VMhNTXDMBbaBXvaxKAwc7QhBDf7y
+

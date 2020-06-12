@@ -1,0 +1,42 @@
+密钥对
+	注意事项：
+					（1）不允许创建同名key
+	列表：
+			url:"/contr/ListAllKeyPairs"
+			输出字段：
+							KeyPairListElements
+							{
+							密钥对名称(keypairName)，
+							指纹(fingerPrint)
+							}
+	详情：（密钥对名称超链接）
+			url:"/contr/DisplayKeyPairDetails"
+			输入字段：密钥对名称(keypairName)
+			输出字段：
+							KeyPairDetailInfo
+							{
+							密钥对名称(keypairName),
+			    			id(id),
+			    			指纹(fingerPrint),
+			    			创建时间(timeCreated),
+			    			UserId(userID),
+			    			公钥(publicKey)
+			    			}
+	创建：
+			url:"/contr/CreateKeyPair"
+			输入字段：密钥对名称(keypairName)
+			输出字段：
+							{
+							errorMsg(“success”,"Existed Name","Exception")
+							私钥(privateKey)(保存为:name.pem文件提供下载)
+							}
+	导入：
+			url:"/contr/ImportKeyPair"
+			输入字段：密钥对名称(keypairName)，
+						    公钥(publicKey)
+			输出字段：errorMsg("success","Existed Name","Illegal PublicKey","Exception")
+	删除：
+			url:"/contr/DeleteKeyPair"
+			输入字段：密钥对名称(keypairNames)（可同时删除多个，以数组传递）
+			输出字段：errorMsgs("success","Name not Exist","Exception")
+			

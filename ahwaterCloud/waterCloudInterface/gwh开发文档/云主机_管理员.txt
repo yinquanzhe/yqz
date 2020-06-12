@@ -1,0 +1,72 @@
+一．	实例列表
+/ahwaterCloud/ctr/listAllTenantServers
+
+（1）
+if status=="运行中"
+有操作：
+编辑云主机(editServer)
+创建快照(createSnapshot)
+控制台(console)
+查看日志(lookLog)
+暂停（pause）
+挂起（suspend）
+废弃云主机（shelve）
+软重启实例(softReBootServer)
+硬重启实例(hardRebootServer)
+迁移云主机
+热迁移云主机
+删除云主机(deleteServer)
+
+（2）
+if status=="暂停"
+编辑云主机(editServer)
+创建快照(createSnapshot)
+恢复云主机(unPause)
+删除云主机(deleteServer)
+
+（3）
+if status=="挂起 "
+编辑云主机(editServer)
+创建快照(createSnapshot)
+恢复云主机(resume)
+删除云主机(deleteServer)
+
+（4）
+if status=="卸载搁置 "
+编辑云主机(editServer)
+取消废弃云主机（unShelve）
+删除云主机(deleteServer)
+
+（5）
+if status=="关机"
+编辑云主机(editServer)
+迁移云主机
+硬重启实例(hardRebootServer)
+删除云主机(deleteServer)
+
+
+
+二、
+操作，其他操作跟以前一样。
+
+有两个操作除外。
+
+（1）迁移云主机
+/ahwaterCloud/ctr/migrate
+
+前台需要给后台传递
+serverId
+
+返回msg（就是一个字符串）：成功则msg=”succ”，否则msg是失败信息。
+
+（2）热迁移云主机
+/ahwaterCloud/ctr/liveMigrate
+
+前台需要给后台传递
+String serverId
+String host
+boolean enabled
+boolean blocked
+
+返回msg（就是一个字符串）：成功则msg=”succ”，否则msg是失败信息。
+

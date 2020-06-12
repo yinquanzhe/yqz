@@ -1,0 +1,41 @@
+浮动IP
+	列表：
+			url:"/contr/ListAllFloatingIp"
+			输入字段：
+			输出字段：
+							FloatingIpInfo
+							{
+							Id(id)(不显示)
+							IP地址（floatingIpAddress）
+							固定IP地址(fixedIpAddress)
+							资源池(pool)
+							状态(state)(是否可用)
+							}
+	
+	分配IP：
+			url:"/contr/AllocateFloatingIp"
+			输入字段：
+							资源池(pool)
+			输出字段：
+							errorMsg("success","Exception")
+	
+	获取资源池列表：（用于分配IP时显示）
+			url:"/contr/GetPoolNames"
+			输入字段：
+			输出字段：
+							资源池(pool)(数组，形如：["public","other"])
+							
+	释放IP：
+			url:"/contr/DeallocateFloatingIp"
+			输入字段：
+							Id(id)
+			输出字段：
+							errorMsg("success","Exception")
+							
+	关联IP:
+			url:"/contr/AddFloatingIp"		
+			输入字段：
+							IP地址(floatingIpAddress)
+							主机Id(serverId)
+			输出字段：errorMsg("success","Exception")
+							

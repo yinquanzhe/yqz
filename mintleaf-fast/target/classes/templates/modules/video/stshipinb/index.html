@@ -1,0 +1,99 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>黄委视频监控</title>
+	<link rel="stylesheet" type="text/css" href="${ctxPath!}/plugins/easyui/themes/metro/easyui.css">
+	<link rel="stylesheet" type="text/css" href="${ctxPath!}/plugins/easyui/themes/icon.css">
+
+	<script type="text/javascript" src="${ctxPath!}/plugins/jquery/jquery.min.js" ></script>
+	<script type="text/javascript" src="${ctxPath!}/plugins/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${ctxPath!}/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="${ctxPath!}/plugins/easyui/jquery-easyui-datagridview/datagrid-groupview.js"></script>
+	<script>
+        $(function(){
+			//初始化的方法
+            function init(){
+                $.ajax({
+                    type : "get",
+                    url : "${ctxPath!}/stshipinb/all.json",
+                    success : function(Data) {
+                        //TODO 在后台写树结构数据
+                        var arryFx=[]; var arryFl=[];
+                        for(var i=0;i<Data.length;i++){
+                            Data[i].text=Data[i].name;
+                            Data[i].id=Data[i].videoId;
+                            if(Data[i].sszz=="国家防汛二期监测点"){
+                                arryFx.push(Data[i]);
+                            }else if(Data[i].sszz=="黄河防凌防汛监控点"){
+                                arryFl.push(Data[i]);
+                            }
+                        }
+						//渲染树
+                        $('#tree').tree({
+                            data: [{
+                                text: '国家防汛二期监测点',
+                                state: 'open',
+                                children:arryFx
+                            },{
+                                text: '黄河防凌防汛监控点',
+								state: 'open',
+								children:arryFl
+                                }],
+                            onClick: function(node){
+                                var url="${ctxPath!}/stshipinb/player.html?videoId="+node.id;
+                                addTab(node.text, url)
+                            },
+                            formatter:function(node){
+                                var s;
+                                if(node.pass=="正常"){
+                                    s ='<font color="#009688" >'+node.text+'</font>';
+                                }else if(node.pass=="异常"){
+                                    s ='<font color="#FF5722" >'+node.text+'</font>';
+                                }
+                                if (node.children){
+                                    s = '<font color="black" >'+node.text+'</font>&nbsp;<span style=\'color:#01AAED\'>(' + node.children.length + ')</span>';
+                                }
+                                return s;
+                            }
+                        });
+                    },
+                    error:function(error){
+                        console.log(error);
+                    }
+                });
+            }
+			//添加tab页的方法
+            function addTab(title, url){
+                if ($('#tt').tabs('exists', title)){
+                    $('#tt').tabs('select', title);
+                } else {
+                    var content = "<iframe scrolling='auto' frameborder='0'  src='"+url+"' style='width:100%;height:100%;'></iframe>";
+                    $('#tt').tabs('add',{
+                        title:title,
+                        content:content,
+                        closable:true
+                    });
+                }
+            }
+			//页面初始化
+            init();
+
+        });
+	</script>
+</head>
+<body class="easyui-layout" >
+
+<div data-options="region:'west',split:true,title:'直播列表',iconCls:''" style="width:270px;padding:10px;">
+	<ul id="tree"></ul>
+</div>
+
+<div data-options="region:'center',title:'黄委视频监控',iconCls:''">
+	<div id="tt" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
+		<div title="花园口黄河大桥" data-options="href:''" style="padding:10px">
+			<iframe id="indexFrame"  scrolling="auto" frameborder="0"  src="/stshipinb/player.html?videoId=41010000001320000143%40016%240" style="width:100%;height:100%;"></iframe>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

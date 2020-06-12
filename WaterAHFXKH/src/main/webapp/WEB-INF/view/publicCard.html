@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>公示牌</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="static/css/mui.min.css">
+	<style>
+		.mui-row>.inputContainer {
+			float: left;
+			width: 56px;
+			height: 56px;
+			padding: 4px;
+			width: 20%;
+			background-image: url('static/img/input.png');
+			background-size:100% 100%;
+		}
+
+		.rowContainer {
+			margin-top: 0.8em;
+			padding: 0px 20px;
+		}
+		.rowContainer>.mui-row {
+			margin: 0 auto;
+			display: table!important;
+			width: 100%;
+		}
+
+		.inputContainer>input {
+			width: 100%;
+			height: 100%;
+			visibility: hidden;
+		}
+
+		.inputContainer>img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.mui-col-sm-8, .mui-col-xs-8  {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			padding-left: 20px;
+			padding-right: 10px;
+		}
+
+		.mui-col-sm-4, .mui-col-xs-4 {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			padding-left: 10px;
+			padding-right: 20px;
+		}
+
+		button {
+			margin: 0 auto;
+			line-height: 0.6!important;
+		}
+
+		.inputActive {
+			border: 1px solid #2AC845;
+		}
+
+		#location {
+			border: 0px;
+			border-radius: 5px;
+			background: #FFFFFF!important;
+			color: #333;
+			margin-bottom: 17px;
+			padding: 10px 15px;
+			font-size: 12px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="mui-content">
+	<div id="loading"><span></span></div>
+	<div style="height: 50px;background-repeat:no-repeat;background-size:100% 100%;">
+		<p style="margin: 0 auto;width: 100px;margin-top: 60px;font-size: 18px;font-weight:bold">公示牌上报</p>
+	</div>
+
+	<form enctype="multipart/form-data" method="post"
+		  action="http://60.174.203.118:9098/hhglxx/wx/insertBillboard">
+		<div class="rowContainer">
+			<div class="mui-row" style="height: 110px;">
+				<div class="inputContainer inputActive" style="width: 35%;height: 101px;margin-left: 9%;">
+					<img />
+					<input type="file" id="f1" name="files" accept="image/*"/>
+				</div>
+
+				<div class="inputContainer" style="float: right; width: 35%;height: 101px;margin-right: 9%;">
+					<img />
+
+					<input type="file" name="files" accept="image/*"/>
+				</div>
+
+				<div style="clear: both;"></div>
+			</div>
+			<span style="margin-left: 20%;">正面</span><span style="float: right;margin-right: 20%;">反面</span>
+		</div>
+
+		<div class="mui-row">
+			<div class="mui-col-sm-8 mui-col-xs-8">
+				<button id="inputfile" type="button" class="mui-btn mui-btn-primary mui-btn-block">上传照片</button>
+			</div>
+			<div class="mui-col-sm-4 mui-col-xs-4">
+				<button id="delBtn" type="button" class="mui-btn mui-btn-danger mui-btn-block">删除</button>
+			</div>
+		</div>
+
+		<div class="mui-row">
+			<div class="mui-input-row mui-col-sm-10 mui-col-xs-10" style="padding-left: 20px;width: 93.33333%;">
+				<div id='allmap' style='width:100%; height: 200px; display: block;'></div>
+			</div>
+		</div>
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+			<input id="locat" type="text" class="mui-input-text" name="locat"
+				    placeholder="请在地图上选择公示牌位置" style="border: 0px;border-radius: 5px;">
+		</div>
+
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+			<input id="hdnm" type="text" class="mui-input-text" name="hdnm"
+				   maxlength="8" placeholder="请输入河长姓名" style="border: 0px;border-radius: 5px;">
+		</div>
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+			<input id="hdph" type="tel" class="mui-input-text" name="hdph"
+				   maxlength="11" placeholder="请输入河长手机号码" style="border: 0px;border-radius: 5px;">
+		</div>
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+			<input id="staddr" type="text" class="mui-input-text" name="staddr"
+				   placeholder="请输入起点" style="border: 0px;border-radius: 5px;">
+		</div>
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+			<input id="etaddr" type="text" class="mui-input-text" name="etaddr"
+				   placeholder="请输入讫点" style="border: 0px;border-radius: 5px;">
+		</div>
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+			<div data-toggle="">
+				<select id="city" name="city" onchange="ct()" class="mui-input-row" style="padding-left: 15px;padding-right: 20px; width: 100%;">
+					<option value="">-请选择市-</option>
+				</select>
+				<select id ="addvcd" name="addvcdt" onchange="hu()" class="mui-input-row" style="padding-left: 15px;padding-right: 20px; width: 100%;">
+
+				</select>
+				<input type="hidden" name="addvcd" id="addvcdInput">
+			</div>
+		</div>
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;width: 100%;">
+			<select id="admlev" name="admlev" onchange="setType()" class="mui-input-text mui-col-sm-4 mui-col-xs-4"
+					style="border: 0px;border-radius: 5px;padding-left: 15px;width: 100%;">
+				<option value="">-请选择行政级别-</option>
+				<option value="省级">省级</option>
+				<option value="市级">市级</option>
+				<option value="县级">县级</option>
+				<option value="乡级">乡级</option>
+				<option value="村级">村级</option>
+			</select>
+			<input type="hidden" name="admlev" id="admlevInput">
+			<select id="type" name="type" onchange="sethu()" class="mui-input-text mui-col-sm-4 mui-col-xs-4"
+					style="border: 0px;border-radius: 5px;padding-left: 15px;width: 100%;">
+				<option value="">-请选择公示牌类别-</option>
+				<option value="河段">河段</option>
+				<option value="湖段">湖段</option>
+				<option value="水库">水库</option>
+			</select>
+			<input type="hidden" name="type" id="typeInput">
+
+		</div>
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+			<input id="sctnm" type="text" class="mui-input-text" name="sctnm"
+				   placeholder="请输入河段/湖段/水库名称" style="border: 0px;border-radius: 5px;">
+		</div>
+
+		<div class="mui-input-row" style="padding-left: 20px;padding-right: 20px;">
+
+		</div>
+
+		<input type="hidden" name="ln" id="ln">
+		<input type="hidden" name="lt" id="lt">
+	</form>
+	<div class="mui-row" style="padding: 0px 20px;">
+		<button id="btn" class="mui-btn mui-btn-primary mui-btn-block">提交</button>
+	</div>
+
+</div>
+
+<script src="static/js/jquery-1.11.3.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="http://www.jq22.com/demo/jQueryDistpicker20160621/js/distpicker.data.js"></script>
+<script src="http://www.jq22.com/demo/jQueryDistpicker20160621/js/distpicker.js"></script>
+<script src="static/js/mui.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SPA0qM3Gkgq3BhqqrtiFBo4Tpf1A4GM0&s=1"></script>
+
+<script>
+    //市
+    function ct(){
+        var obj = document.getElementById("city"); //定位id
+        var index = obj.selectedIndex; // 选中索引
+        var text = obj.options[index].text; // 选中文本
+        var value = obj.options[index].value; // 选中值
+        $("select[name=addvcdt]").empty();      //清空
+        console.log(value);
+        if(value!=""){
+            $.ajax({
+                url: 'http://60.174.203.118:8018/forward/forward4Png?_url_=http://10.34.0.105:8080/hhsl/listAddvcdOfCountyByAddvcd?addvcd='+value,
+                type: 'get',
+                traditional: true,
+                dataType: 'json',
+                success: function (f) {
+                    if (f) {
+                        var array = f;
+                        for (var i=0;i<array.length;i++) {
+                            var t =f[i].addvcd;
+                            var d =f[i].addvnm;
+                            var option ="<option value=\""+ t+"\"";
+                            option += ">"+d+"</option>";
+                            $("select[name=addvcdt]").append(option);
+                        }
+                        hu();
+
+                    } else {
+                        mui.toast('获取地区失败!');
+                    }
+                    mui("#loading").progressbar().hide();
+                },
+                error: function () {
+                    mui.toast('网络连接失败!');
+                    mui("#loading").progressbar().hide();
+                }
+            });
+        }else{
+            var t="";
+            var d="-请输入区/县-";
+            var option ="<option value=\""+ t+"\"";
+            option += ">"+d+"</option>";
+            $("select[name=addvcdt]").append(option);
+        }
+
+    }
+
+    //区
+    function hu(){
+
+        var tyName = $('#addvcd').find("option:selected").val();
+        console.log('addvcd:' + tyName);
+        $('#addvcdInput').val(tyName);
+
+    }
+
+
+    function setType() {
+        var tyName = $('#admlev').find("option:selected").text();
+        console.log('tyName:' + tyName);
+        $('#admlevInput').val(tyName);
+    }
+    function sethu() {
+        var tyName = $('#type').find("option:selected").text();
+        console.log('tyName:' + tyName);
+        $('#typeInput').val(tyName);
+    }
+</script>
+<script>
+    var width = $('.inputContainer:eq(0)').width();
+    $('.inputContainer').height(width);
+
+    /*
+     *  方法:Array.remove(dx)
+     *  功能:根据元素位置值删除数组元素.
+     *  参数:元素值
+     *  返回:在原数组上修改数组
+     */
+    Array.prototype.remove = function (dx) {
+        if (isNaN(dx) || dx > this.length) {
+            return false;
+        }
+        for (var i = 0, n = 0; i < this.length; i++) {
+            if (this[i] != this[dx]) {
+                this[n++] = this[i];
+            }
+        }
+        this.length -= 1;
+    };
+
+    var imgs = [];
+    var ln="";
+    var lt = "";
+    var fd = "";
+    mui.init();
+
+    mui.ready(function() {
+
+        $.ajax({
+            url: 'http://60.174.203.118:8018/forward/forward4Png?_url_=http://10.34.0.105:8080/hhsl/listAddvcdOfCity',
+            type: 'get',
+            traditional: true,
+            dataType: 'json',
+            success: function (f) {
+                if (f) {
+                    var array = f;
+                    for (var i=0;i<array.length;i++) {
+                        var t =f[i].addvcd;
+                        var d =f[i].addvnm;
+                        var option ="<option value=\""+ t+"\"";
+                        option += ">"+d+"</option>";
+                        $("select[name=city]").append(option);
+                    }
+                    ct();
+                    hu();
+
+                } else {
+                    mui.toast('获取地区失败!');
+                }
+                mui("#loading").progressbar().hide();
+            },
+            error: function () {
+                mui.toast('网络连接失败!');
+                mui("#loading").progressbar().hide();
+            }
+        });
+
+        $('.inputContainer').click(function() {
+            $('.inputContainer').removeClass('inputActive');
+            $(this).addClass('inputActive');
+        });
+
+        $(':file').change(function() {
+            var inputImg = $(this).get(0);
+            if (inputImg.files && inputImg.files[0]) {
+                mui("#loading").progressbar().show();
+                var f = $(this).get(0).files;
+                console.log(f);
+                $('#fileName').val(f[0].name);
+                fd = new FormData();
+                fd.append("file",  $(this).get(0).files[0]);
+                imgs.push(fd);
+                console.log(imgs);
+                var obj = $(this).get(0).files[0];
+                var img = $(inputImg).siblings('img');
+                var reader = new FileReader();
+                reader.onload = function(){
+                    $(img).attr("src",this.result);
+
+                }
+                reader.readAsDataURL(obj);
+
+            } else {
+                mui.toast('file  null');
+            }
+        });
+
+        $('#inputfile').click(function() {
+            for (var i = 0; i < $(':file').length; i ++) {
+                if ($(':file').eq(i).val()== '') {
+                    $(':file').eq(i).click();
+                    return;
+                }
+            }
+        });
+
+        $('#delBtn').click(function () {
+            var index = $('.inputActive').index();
+            var value = $('input:file').eq(index).val();
+            if (value) {
+                for (var i = 0; i < imgs.length; i++) {
+                    var imgSrc = $('.inputContainer img:eq(' + index+ ')').get(0).src;
+                    if (imgSrc == imgs[i]) {
+                        imgs.remove(i);
+                    }
+                }
+                $('.inputContainer img').eq(index).attr('src', null).attr('style', '');
+                $('.inputContainer input').eq(index).val('');
+            }
+        });
+
+
+    });
+    $('#btn').click(function () {
+        //console.log(imgs);
+		var f1 = $("#f1").val();
+        var hdph = $('#hdph').val();
+        var hdnm = $('#hdnm').val();
+        var staddr = $('#staddr').val();
+        var etaddr = $('#etaddr').val();
+        var sctnm = $("#sctnm").val();
+        var addvcd = $("#addvcdInput").val();
+        var admlev=$("#admlevInput").val();
+        var ty = $("#typeInput").val();
+        ln = $("#ln").val();
+        lt = $("#lt").val();
+        if(!f1 || f1.length ==0){
+            mui.toast('请上传公示牌正面照片!');
+            return ;
+		}
+
+        if (!hdph || !(/^1[3|4|5|8][0-9]\d{4,8}$/.test(hdph))) {
+            mui.toast('请输入正确的手机号!');
+            return ;
+        }
+        if (!hdnm || hdnm == "") {
+            mui.toast('请输入姓名');
+            return ;
+        }
+        if (!staddr || staddr == '') {
+            mui.toast('请填写起点!');
+            return;
+        }
+        if (!etaddr || etaddr == '') {
+            mui.toast('请填写讫点!');
+            return;
+        }
+        if (!sctnm || sctnm == '') {
+            mui.toast('请填写河段/湖段/水库!');
+            return;
+        }
+        if (!addvcd || addvcd == '') {
+            mui.toast('请选择区/县');
+            return;
+        }
+        if (!admlev || admlev == '') {
+            mui.toast('请选择行政级别');
+            return;
+        }
+        if (!ty || ty == '') {
+            mui.toast('请选择公示牌类别');
+            return;
+        }
+        if(!ln || ln==""){
+            mui.toast('请选择公示牌位置');
+            return;
+        }
+        if(!lt || lt==""){
+            mui.toast('请选择公示牌位置');
+            return;
+        }
+        $.ajax({
+            url: 'http://60.174.203.118:9098/wx/wx/insertBillboard',
+            type: 'POST',
+            cache: false,
+            data: new FormData($('form')[0]),
+            processData: false,
+            contentType: false
+        }).done(function(res) {
+            mui.toast('上传成功');
+            console.log(res);
+        }).fail(function(res) {
+            console.log(res);
+        });
+    });
+
+</script>
+<script>
+
+    var map = new BMap.Map("allmap");
+    var geoc = new BMap.Geocoder();   //地址解析对象
+    var markersArray = [];
+    var geolocation = new BMap.Geolocation();
+
+    var point = new BMap.Point(117.288, 31.865);
+    map.centerAndZoom(point, 12); // 中心点
+
+
+    var localSearch = new BMap.LocalSearch(map);
+    localSearch.enableAutoViewport(); //允许自动调节窗体大小
+
+    //单击获取点击的经纬度
+    map.addEventListener("click",function(e){
+        var jingdu_value = e.point.lng;
+        var weidu_value = e.point.lat;
+        document.getElementById("lt").value = weidu_value;
+        document.getElementById("ln").value = jingdu_value;
+    });
+
+
+    // 用经纬度设置地图中心点 并在地图上显示标注
+    if(document.getElementById('ln').value != "" && document.getElementById('lt').value != ""){
+        map.clearOverlays();
+        var new_point = new BMap.Point(document.getElementById('lig').value,document.getElementById('lat').value);
+        var marker = new BMap.Marker(new_point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        map.panTo(new_point);
+    }
+
+    geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            var mk = new BMap.Marker(r.point);
+            map.addOverlay(mk);
+            map.panTo(r.point);
+            map.enableScrollWheelZoom(true);
+        }
+        else {
+            alert('failed' + this.getStatus());
+        }
+    }, {enableHighAccuracy: true})
+    map.addEventListener("click", showInfo);
+
+    //清除标识
+    function clearOverlays() {
+        if (markersArray) {
+            for (i in markersArray) {
+                map.removeOverlay(markersArray[i])
+            }
+        }
+        map.clearOverlays();
+    }
+
+    //地图上标注
+    function addMarker(point) {
+        var marker = new BMap.Marker(point);
+        markersArray.push(marker);
+        clearOverlays();
+        map.addOverlay(marker);
+    }
+    //点击地图时间处理
+    function showInfo(e) {
+        map.clearOverlays();
+        document.getElementById('ln').value = e.point.lng;
+        document.getElementById('lt').value =  e.point.lat;
+        geoc.getLocation(e.point, function (rs) {
+            var addComp = rs.addressComponents;
+            var address = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+            $("#locat").val(address);
+            mui.toast(address);
+        });
+        addMarker(e.point);
+    }
+
+</script>
+<!-- <script>
+     $('#locationBtn').click(function () {
+         mui("#loading").progressbar().show();
+         $.ajax({
+             url: 'sna',
+             async: false,
+             type: 'post',
+             dataType: 'json',
+             data: {
+                 "url": decodeURIComponent(location.href.split('#')[0])
+             },
+             success: function(data, textStatus) {
+                 if(textStatus == "success") {
+                     wx.config({
+                         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                         appId: data.appid, // 必填，公众号的唯一标识
+                         timestamp: data.timestamp, // 必填，生成签名的时间戳
+                         nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                         signature: data.signature, // 必填，签名，见附录1
+                         jsApiList: ["openLocation", "getLocation", "hideMenuItems", "hideAllNonBaseMenuItem"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                     });
+                     wx.ready(function() {
+                         wx.hideAllNonBaseMenuItem();
+                         isWXmap = true;
+                         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+                         wx.getLocation({
+                             type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                             success: function(res) {
+                                 console.log(res);
+                                 var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                                 var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                                 lt = latitude;
+                                 ln = longitude;
+                                 $('#lt').val(lt);
+                                 $('#ln').val(ln);
+                                 myLocation = longitude + ',' + latitude;
+                                 mui("#loading").progressbar().show();
+                                 $.ajax({
+                                     url : 'getLocation',
+                                     type : 'post',
+                                     dataType : 'text',
+                                     data : {lng : longitude, lat : latitude},
+                                     success : function (data) {
+                                         $('#location').text(data);
+                                         $('#locationInput').val(data);
+                                         mui("#loading").progressbar().hide();
+                                     },
+                                     error : function () {
+                                         mui("#loading").progressbar().hide();
+                                         mui.toast('网络连接失败')
+                                     }
+                                 });
+                             }
+                         });
+                     });
+                     wx.error(function(res) {
+                         mui.toast("未得到地理定位授权!");
+                         mui("#loading").progressbar().hide();
+                     });
+                 }
+                 mui("#loading").progressbar().hide();
+             },
+             error: function(XMLHttpRequest, textStatus, errorThrown) {
+                 mui.toast("未得到地理定位授权!!");
+                 mui("#loading").progressbar().hide();
+             }
+         });
+     });
+     $('#locationBtn').click();
+ </script>-->
+</body>
+
+</html>

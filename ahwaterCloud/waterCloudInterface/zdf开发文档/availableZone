@@ -1,0 +1,13 @@
+
+
+
+1.列出可用域
+    url：/ahwaterCloud/cont/listAvailabilityZone
+             参数：tenantId
+
+
+
+
+
+availableZone的url
+http://ahwater-cloud-controller:8774/v2/6a98f9d2278d40cb8f58bf348db66ecc/os-availability-zone

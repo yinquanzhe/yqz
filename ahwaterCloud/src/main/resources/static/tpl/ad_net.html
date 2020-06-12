@@ -1,0 +1,48 @@
+<div ng-controller="adnetCtrl" class="content">
+	<h4>沃特云网络</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+			<form>
+				<input type="text" placeholder="请输入关键字搜索" />
+			<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+			</form>
+		</div>		
+		<div class="cloudlist col-xs-12">
+			<table cellspacing="6" cellpadding="10" width="100%">
+				<thead>
+					<tr>
+						<th style="text-align: left; padding-left: 20px;">沃特云项目</th>
+						<th style="text-align: left;">网络名称</th>
+						<th style="text-align: left; width: 25%;">子网</th>
+						<th>是否共享</th>
+						<th>网络状态</th>							
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="5">
+							<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+						</td>
+					</tr>						
+					<tr ng-repeat="item in adnetData" ng-init="outIndex=$index">
+						<td style="text-align: left; padding-left: 20px;">{{item.tenantName}}</td>
+						<td style="text-align: left;"><a  ng-href="#/netDetail/{{item.networkId}}">{{item.networkName}}</a></td>
+						<td class="subNetBox">
+							<ul class="list-unstyled" style="margin: 0;">
+								<li style="text-align: left;" ng-repeat="subNetItem in item.networkSubnet track by $index">
+									{{subNetItem}}
+								</li>							
+							</ul>
+						</td>
+						<td>
+							{{item.networkIsShared}}
+						</td>
+						<td>
+							{{item.networkState}}
+						</td>												
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

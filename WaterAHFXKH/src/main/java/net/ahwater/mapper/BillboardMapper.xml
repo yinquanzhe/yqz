@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--suppress ALL -->
+<mapper namespace="net.ahwater.dao.BillBoardDao">
+    <insert id="insertOne" parameterType="net.ahwater.bean.Hh_billboard">
+        insert into hh_billboard (
+          bbno, apath, bpath, ln, lt,
+          admlev, type, sctnm, hdnm, hdph,
+          addvcd, staddr, etaddr
+        )
+        values (
+          hh_billboard_seq.nextval, #{entity.apath}, #{entity.bpath}, #{entity.ln}, #{entity.lt},
+          #{entity.admlev}, #{entity.type}, #{entity.sctnm}, #{entity.hdnm}, #{entity.hdph},
+          #{entity.addvcd}, #{entity.staddr}, #{entity.etaddr}
+        )
+    </insert>
+    <select id="listAllByAddvcdAndLevel" resultType="net.ahwater.bean.Hh_billboard">
+        select *
+        from hh_billboard
+        where 1=1
+        <if test="addvcd != null and addvcd != ''">
+            and addvcd like #{addvcd}||'%'
+        </if>
+        <if test="level != null and level != ''">
+            and admlev=#{level}
+        </if>
+    </select>
+
+</mapper>

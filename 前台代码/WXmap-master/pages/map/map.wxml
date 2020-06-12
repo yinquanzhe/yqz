@@ -1,0 +1,88 @@
+<!--index.wxml-->
+
+<view class="page">
+
+    <view class="page__bd">
+        <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+                <view class="weui-search-bar__box">
+                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索全国" value="{{inputVal}}" focus="{{inputShowed}}"
+                        bindinput="inputTyping" />
+                    <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                        <icon type="clear" size="14"></icon>
+                    </view>
+                </view>
+                <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                    <icon class="weui-icon-search" type="search" size="14"></icon>
+                    <view class="weui-search-bar__text">搜索全国</view>
+                </label>
+            </view>
+            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        </view>
+        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+            <block wx:for="{{searchResults}}" wx:key="{{item.id}}">
+                <view url="" class="weui-cell" hover-class="weui-cell_active" bindtap="select" data-object="{{item}}">
+                    <view class="weui-cell__bd">
+                        <view class="reTextSm" hover-class="none" hover-stop-propagation="false">
+                            {{item.province}}-{{item.city}}-{{item.district}} -({{item.category}})
+                            <view class="reTextLa">{{item.title}}</view>
+                        </view>
+
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>
+
+<view class='view'>
+    <map longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" show-location show-compass enable-zoom
+        enable-rotate  bindmarkertap="tapMark" polyline="{{polyline}}">
+        <cover-view class="coverText" wx:if="{{distance>0}}">
+            距离:{{distance}} 米
+        </cover-view>
+        <cover-view class="cover">
+            <cover-image class="pbImg" src="../../img/driver.png" data-type="3" bindtap="guihua"></cover-image>
+            <cover-image class="pbImg" src="../../img/bike.png" data-type="2" bindtap="guihua"></cover-image>
+            <cover-image class="pbImg" src="../../img/walk.png" data-type="1" bindtap="guihua"></cover-image>
+        </cover-view>
+    </map>
+</view>
+
+<!-- <view class="CovImg" hover-class="none" hover-stop-propagation="false">
+
+    <view class="imgView1">
+        <image src="../../img/school.png" class="img1" data-title="学校" bindtap="clickImg"></image>
+        <view class="btnText" hover-class="none" hover-stop-propagation="false" data-title="学校" bindtap="clickImg">
+            学校
+        </view>
+    </view>
+    <view class="imgView2">
+        <image src="../../img/hotel.png" class="img1 " data-title="酒店" bindtap="clickImg"></image>
+        <view class="btnText" hover-class="none" hover-stop-propagation="false" data-title="酒店" bindtap="clickImg">
+            酒店
+        </view>
+    </view>
+    <view class="imgView2">
+        <image src="../../img/meat.png" class="img1 " data-title="餐饮" bindtap="clickImg"></image>
+        <view class="btnText" hover-class="none" hover-stop-propagation="false" data-title="餐饮" bindtap="clickImg">
+            餐饮
+        </view>
+    </view>
+    <view class="imgView2">
+        <image src="../../img/game.png" class="img1 " data-title="娱乐" bindtap="clickImg"></image>
+        <view class="btnText" hover-class="none" hover-stop-propagation="false" data-title="娱乐" bindtap="clickImg">
+            娱乐
+        </view>
+    </view>
+
+    <view class="imgView2">
+        <image src="../../img/fj.png" class="img1 " data-title="附近" bindtap="getPoint"></image>
+        <view class="btnText" hover-class="none" hover-stop-propagation="false" data-title="附近" bindtap="getPoint">
+            附近
+        </view>
+    </view> 
+
+
+</view> -->

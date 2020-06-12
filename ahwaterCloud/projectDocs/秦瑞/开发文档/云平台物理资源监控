@@ -1,0 +1,6 @@
+a.cinder(bstorage)云硬盘物理空间分配问题，获取服务器用于块存储的vg，添加到虚拟机管理器位置
+ 	Free  PE / Size       123390 / 481.99 GiB
+ 	
+ b.监控云平台中所有宿主机的cpu%、memory%、disk%
+ 主要监控宿主机节点云主机虚拟磁盘使用的fileStorage path空间
+ 

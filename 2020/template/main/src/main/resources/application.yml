@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: template
+  profiles:
+    active: dev
+  main:
+    banner-mode: off
+  jackson:
+    default-property-inclusion: NON_NULL
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-bigdecimal-as-plain: true
+
+server:
+  port: 8081
+

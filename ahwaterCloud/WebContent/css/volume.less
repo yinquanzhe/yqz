@@ -1,0 +1,119 @@
+.volModal .modal-dialog .modal-content{
+    background-color: #2E3846;
+    border-radius: 3px;
+    width: 75%;
+    color: #fff;
+    margin: 0 auto;
+    .modal-header{
+        border: none;
+        >p{
+            border-bottom: 1px dashed #fff;
+            padding-bottom: 15px;
+            font-size: 15px;
+        }
+    }
+    .modal-body{
+        overflow: hidden;
+        padding-top: 0;
+    }
+    
+    .modal-footer{
+        text-align: center;
+        button{
+            color: #fff;
+            border-radius: 3px;
+            outline: none;
+            border: none;
+            padding: 6px 30px;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+        button:last-child{
+            background-color: #F44A56;
+        }
+        button:first-child{
+            background-color: #7659A8;
+        }
+        button:hover{
+            background-color:#3E4B5D;
+        }
+        
+    }
+}
+
+#volumeListTab{
+    li a{
+        padding: 10px 30px;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #009795;
+        color: #fff;
+        font-size: 14px;
+    }
+    li.active a{
+        border: 1px solid #009795;
+        border-bottom: none;
+        color: #009795;
+        background: #fff;
+    }
+}
+
+.list>div>div.tab-content{
+    padding: 0 30px;
+    border-top: 1px solid #009795;
+    overflow: hidden;
+}
+
+
+#volumeList .cloudlist .connectServer{
+    >button{
+        border-radius: 0;
+        outline: none;
+        border: none;
+        font-size: 12px;
+    }
+    #AddtoServerModal .modal-dialog{
+        position: absolute;
+        margin: 0;
+        top: 40%;     
+        left: 50%;
+        width: 20%;
+        height: 216px;
+        margin-left: -10%;
+        margin-top: -108px;
+        background: #122B40;
+        border-radius: 4px;
+        .modal-content{
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            color: #fff;
+           // box-shadow: none;
+            .modal-header{
+                border: none;
+            }
+            .modal-footer{
+                text-align: center;
+                border: none;
+                >button:first-child{
+                    background: #7659A8;
+                }
+                >button:last-child{
+                    background: #F44A56;
+                }
+                >button{
+                    border-radius: 3px;
+                    color: #fff;
+                    transition: background 0.3s;
+                    padding: 5px 30px;
+                    margin-left: 15px;
+                    outline:none; 
+                    &:hover{
+                        background: #2E3846;
+                    }
+                }
+            }
+        }
+    }
+}

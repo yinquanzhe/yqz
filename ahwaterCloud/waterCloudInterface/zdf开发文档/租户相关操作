@@ -1,0 +1,29 @@
+
+1. 列出云平台上的所有租户
+     url： /ahwaterCloud/cont/listAllTenant
+
+2. 创建租户
+     url：/ahwaterCloud/cont/createTenant
+               参 数：tenantName  tenantDescription  tenantEnable
+               
+       
+/***(注：3,4合并为5)***/
+       
+5. 修改租户的名字和描述
+     url：/ahwaterCloud/cont/updateTenantNameDes
+               参 数：tenantId, newName  newDescription
+               
+6. 添加删除用户
+     url：/ahwaterCloud/cont/addDeleteUsers
+     
+7. 删除租户
+     url：/ahwaterCloud/cont/deleteTenant
+               参 数：tenantId
+     
+8. 批量删除租户
+     url：/ahwaterCloud/cont/deleteMultiTenants
+               参 数：tenantIds
+           
+9. 显示选中的租户里包含的用户以及用户的角色
+     url：/ahwaterCloud/cont/listUserIdRoleId
+                参 数：tenantId

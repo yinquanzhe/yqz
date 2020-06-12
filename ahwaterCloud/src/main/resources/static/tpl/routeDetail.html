@@ -1,0 +1,93 @@
+<div ng-controller="routeDetailCtrl" class="content cloudDetail">
+	
+	<h4>
+		<img src="img/routerlogo.png" alt="" />
+		&nbsp;{{route.routerName}}
+	</h4>
+	<div class="loading-wrap">
+		<i class="fa fa-spinner fa-pulse fa-fw"></i>
+		加载中...
+	</div>
+	<!--<div class="actionBox">
+		<button type="button" class="refresh" ng-click="getRouteInfoBtn()">
+			<i class="fa fa-refresh"></i>
+			刷新</button>		
+	</div>
+	-->
+	<div role="tabpanel">
+  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs cloudInfoTab" role="tablist" id="routeInfoTab">
+	    <li role="presentation" class="active">
+	    	<a href="#routeInfo"  role="tab" ng-click="getrouteInfoBtn()">概况</a>
+	    </li>	     
+	  </ul>	
+	  <!-- Tab panes -->
+	  <div class="tab-content list">
+	    <div role="tabpanel" class="tab-pane active" id="routeInfo">
+	    	<div class="serverBox row">
+					<!--基本信息-->
+					<div class="col-xs-12 col-md-4">
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+						  	基本信息						  					  	
+						  </div>
+						  <div class="panel-body">
+						    <ul class="list-group">
+								  <li class="list-group-item">
+								  	<span>名称：</span>
+								  	<a>{{route.routerName}}</a>
+								  	<i style="margin-left: 3px; cursor: pointer;" class="fa fa-pencil" style="cursor: pointer; display: none;" ng-click="editRouter($event)"></i>
+								  </li>
+								  <li class="list-group-item"><span>ID：</span>{{route.routerId}}</li>
+								  <li class="list-group-item"><span>项目ID：</span>{{route.projectId}}</li>
+								  <li class="list-group-item"><span>状态：</span>{{route.state}}</li>
+								  <li class="list-group-item"><span>管理员状态：</span>{{route.adminState}}</li>								  
+								</ul>
+							</div>
+						</div>
+						<div class="panel panel-default">
+						  <div class="panel-heading">外部网关</div>
+						  <div class="panel-body">
+						    <ul class="list-group">
+								  <li class="list-group-item"><span>网络名称：</span>{{route.externalNetworkName}}</li>
+								  <li class="list-group-item"><span>网络ID：</span>{{route.externalNetworkId}}</li>
+								  <li class="list-group-item"><span>额外固定ID：</span>{{route.externalNetworkId}}</li>
+								  <li class="list-group-item"><span>SNAT：</span>{{route.snat}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				  <!--静态路由表-->  		
+					<div class="col-xs-12 col-md-8">
+						<h4 class="text-center">静态路由表</h4>
+						<div class="cloudlist">
+							<table cellspacing="6" cellpadding="10" width="100%">						
+								<thead>
+									<tr>
+										<th style="text-align: left;padding-left: 20px;">目的CIDR</th>
+										<th style="text-align: left">下一跳</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="2">
+											<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+										</td>
+									</tr>						
+									<tr ng-repeat="item in routeTable">
+										<td style="text-align: left;padding-left: 20px;">{{item.destination}}</td>
+										<td style="text-align: left">{{item.nextHop}}</td>	
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>		
+	    </div>	    
+	  </div>
+	</div>
+	
+</div>
+
+
+

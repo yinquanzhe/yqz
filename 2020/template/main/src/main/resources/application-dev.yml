@@ -1,0 +1,15 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    database:
+  rabbitmq:
+    host: 192.168.11.165
+    port: 5672
+    username: rabbit
+    password: rbt0422$
+
+server:
+  port: 8081
+

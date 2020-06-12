@@ -1,0 +1,379 @@
+<div ng-controller="imgCtrl" class="content">
+  <h4>镜像列表</h4>
+  <div class="container-fluid list">
+    <div class="classified">
+      <div class="class-group">
+        <a ng-click='showAllImg()' class="active projImg "  href="#">云项目资源管理(<span>{{imgListAllData.length}}</span>)</a>
+        <a ng-click='showShareImg()' disabled class="shareImg"  href="#">与我共享(<span>{{imgListShareData.length}}</span>)</a>
+        <a ng-click='showPubImg()' class="pubImg" href="#">公有(<span>{{imgListPubData.length}}</span>)</a>
+      </div>
+      <button type="button" class="btn btn-warning deleteImg" ng-click="deleteImgBatch()">
+        <span class="glyphicon glyphicon-remove"></span>
+        删除镜像
+      </button>
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createImgModal">
+      <span class="glyphicon glyphicon-plus"></span>
+      创建镜像
+      </button>
+      <!--创建镜像模态框-->
+      <div class="modal fade" id="createImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&lotimes;</span>
+              </button>
+              <h4 class="modal-title text-center">创建镜像</h4>
+            </div>
+            <div class="modal-body">
+              <p>目前只支持HTTP URL可用镜像。镜像服务必须能够访问到镜像地址。支持镜像的二进制压缩格式(.zip,.tar,.gz.)</p>
+              <p style="border-bottom: 1px dashed #fff;padding-bottom: 15px;margin-bottom: 20px">镜像地址必须是有效的直接定位到镜像二进制文件的URL。URL被重定向或者服务器返回错误页面将导致镜像不可用。</p>
+              <form class="form-horizontal" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="creatName" class="control-label col-xs-3">名称</label>
+                  <div class="col-xs-9">
+                    <input type="text" class="form-control" id="creatName" placeholder="请输入镜像名称"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="describe" class="control-label col-xs-3">描述</label>
+                  <div class="col-xs-9">
+                    <input type="text" class="form-control" id="describe" placeholder="请输入镜像的描述"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="source" class="control-label col-xs-3">镜像源</label>
+                  <div class="col-xs-9">
+                    <select class="form-control" id="source">
+                      <option value="1">镜像地址</option>
+                      <option value="2">镜像文件</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="address" class="control-label col-xs-3">镜像地址</label>
+                  <div class="col-xs-9">
+                    <input type="url" class="form-control" id="address" placeholder="请输入镜像地址"/>
+                  </div>
+                </div>
+                <div ng-show="false" class="form-group">
+                  <label for="fromFile" class="control-label col-xs-3">镜像文件</label>
+                  <div class="col-xs-9">
+                    <input type="file" id="fromFile"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="imgFormat" class="control-label col-xs-3">镜像格式</label>
+                  <div class="col-xs-9">
+                    <select class="form-control" id="imgFormat">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="imgFramework" class="control-label col-xs-3">镜像架构</label>
+                  <div class="col-xs-9">
+                    <input type="text" class="form-control" id="imgFramework" placeholder="请输入镜像架构"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="imgDisksize" class="control-label col-xs-3">最小磁盘(GB)</label>
+                  <div class="col-xs-9">
+                    <input type="number" class="form-control" id="imgDisksize"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="imgMemsize" class="control-label col-xs-3">最低内存(MB)</label>
+                  <div class="col-xs-9">
+                    <input type="number" class="form-control" id="imgMemsize"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-9 col-xs-offset-3">
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="dataCopy" value="option1">数据复制
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="imgPublic" value="option2">公有
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="imgProtect" value="option3">受保护的
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn cancal" data-dismiss="modal">取消</button>
+              <button type="button" class="btn confirm" ng-click="goCreate()">创建</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cloudlist col-xs-12">
+      <table  cellpadding="6" cellspacing="10" width="100%">
+        <thead>
+        <tr>
+          <th style="padding: 0;"><input type="checkbox"/></th>
+          <th></th>
+          <th style='width:15%;text-align: left;'>镜像名称</th>
+          <th>是否公有</th>
+          <th>受保护的</th>
+          <th>类型</th>
+          <th>状态</th>
+          <th>镜像格式</th>
+          <th>配置</th>
+          <th style="width: 15%;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in imgList track by $index">
+          <td style="padding: 0;"><input iid={{item.imageId}} ng-click="choose($event)" type="checkbox"/></td>
+          <td>
+          	<i style="cursor: pointer; font-size: 24px; color: #D30303;" class="fa fa-trash" iid={{item.imageId}} ng-show={{item.showSomeaction}} ng-click="deleteImg($event)"></i>
+          </td>
+          <td class="imageAllName">
+          	<span>
+          		<b style="cursor: pointer;" class="fa fa-pencil" iid={{item.imageId}} ng-show={{item.showSomeaction}} ng-click="editImage($event)"></b>
+          		<a href="javascript:void(0)" ng-click="togDetailBox($event)" iid={{item.imageId}}>{{item.imagePersonalName}}</a>
+          		<i ng-mouseover="showtoolBar($event)" data-toggle="tooltip" data-placement="top" ng-init="title=item.imageOStype+'&nbsp;'+item.imageOSVersion+'&nbsp;'+item.imageOSBit+'位'"  title={{title}} class={{item.imageOStype}}></i>
+          		<!--镜像详情弹框-->
+          		<div class="imageDetailBox animated fadeIn">
+          			<div class="imageClose text-right">
+          				<span style="cursor: pointer;" ng-click="imageDetailClose()">&times;</span>
+          			</div>
+          			<div class="imgDetailCont">
+          				<ul class="imgDetailTab list-unstyled">
+									  <li role="presentation" class="active">
+									  	<a href=".imgDetailP1">基本信息</a>
+									  </li>
+									  <li role="presentation">
+									  	<a href=".imgDetailP2" >规格</a>
+									  </li>
+									  <li role="presentation" ng-if='item.imageType=="快照"' >
+									  	<a href=".imgDetailP3">其他属性</a>
+									  </li>
+									</ul>
+									
+									<div class="tab-content">
+									  <div class="active imgDetailP1">
+									  	<p><span>ID：</span>{{imgDetailData.imageId}}</p>
+									  	<p><span>公有：</span>{{imgDetailData.imageisPublic}}</p>
+									  	<p><span>拥有者：</span>{{imgDetailData.imageOwner}}</p>
+									  	<p><span>校验和：</span>{{imgDetailData.imageCheckSum}}</p>
+									  	<p><span>更新于：</span>{{imgDetailData.imageUpdateDate}}</p>
+									  </div>
+									  <div  class="imgDetailP2">
+									  	<p><span>大小：</span>{{imgDetailData.imageSize}}</p>
+									  	<p><span>容器格式：</span>{{imgDetailData.imageContainerFormat}}</p>
+									  	<p><span>磁盘格式：</span>{{imgDetailData.imageFormat}}</p>
+									  </div>
+									  <div  class="imgDetailP3" ng-if='item.imageType=="快照"' >
+									  	其他信息
+									  	<!--TODO:其他信息-->
+									  </div>
+									</div>
+
+          			</div>
+          		</div>
+          	</span>
+          </td>
+          <td>{{item.imageisPublic}}</td>
+          <td>{{item.imageisProtected}}</td>
+          <td>{{item.imageType}}</td>
+          <td class="run"><span class="glyphicon glyphicon-play-circle"></span>{{item.imageStatus}}</td>
+          <td>{{item.imageFormat}}</td>
+          <td>{{item.imageSize}}</td>
+          <td class="action">
+            <a href="javascript:void(0)" data-toggle="modal" iid={{item.imageId}} data-target="#startCloud" ng-click="createHost($event)">创建云主机</a>
+            <a iid={{item.imageId}} iname={{item.imagePersonalName}}  ng-click="createVolume($event)" href="javascript:void(0)">创建云硬盘</a>            
+          </td>
+        </tr>
+        </tbody>       
+      </table>
+    </div>
+    
+    <!--创建云主机-->
+    <div class="modal fade" id="startCloud" role="dialog" aria-labelledby="startCloudLabel" aria-hidden="true">
+	      <div class="modal-dialog modal-lg">
+	          <div class="modal-content">
+	              <div class="modal-header">
+	                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                  <h3 class="modal-title" id="startCloudLabel">创建云主机</h3>
+	              </div>
+	              <div class="modal-body">
+	                  <div role="tabpanel">
+	                      <ul class="nav nav-tabs nav-justified" role="tablist" id="myTab">
+	                          <li role="presentation" class="active"><a ng-click="percent20()" href="#detail" aria-controls="home" role="tab" data-toggle="tab">详情</a></li>
+	                          <li role="presentation"><a ng-click="percent40()" href="#security" aria-controls="profile" role="tab" data-toggle="tab">访问&安全</a></li>
+	                          <li role="presentation"><a ng-click="percent60()" href="#network" aria-controls="messages" role="tab" data-toggle="tab">网络</a></li>
+	                          <li role="presentation"><a ng-click="percent80()" href="#created" aria-controls="settings" role="tab" data-toggle="tab">创建后</a></li>
+	                          <li role="presentation"><a ng-click="percent100()" href="#Advanced" aria-controls="settings" role="tab" data-toggle="tab">高级选项</a></li>
+	                      </ul>
+	                      <div class="progress">
+	                          <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow={{percentage}} aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+	                          </div>
+	                      </div>
+	                      <div class="tab-content" style="overflow: hidden">
+	                          <div role="tabpanel" class="tab-pane active" id="detail">
+	                            <div class="detail-left">
+	                              <form enctype="multipart/form-data">
+	                                <div class="form-group">
+	                                  <label for="availableField">可用域</label>
+	                                  <select class="form-control" id="availableField">
+	                                    <option ng-repeat="item in fieldList track by $index" value={{item}}>{{item}}</option>
+	                                  </select>
+	                                </div>
+	                                <div class="form-group">
+	                                  <label for="serverName">云主机名称</label>
+	                                  <input type="text" class="form-control"  id="serverName" placeholder="请输入云主机名称"/>
+	                                </div>
+	                                <div class="form-group">
+	                                  <label for="serverType">云主机类型</label>
+	                                  <select class="form-control" id="serverType">
+	                                    <option ng-repeat="item in typeList track by $index" value={{item.flavorId}}>{{item.flavorName}}</option>
+	                                  </select>
+	                                </div>
+	                                <div class="form-group">
+	                                  <label for="serverCount">云主机数量</label>
+	                                  <input type="number" id="serverCount" class="form-control" value="1" placeholder="请输入云主机数量"/>
+	                                </div>
+	                             
+	                                <div class="form-group imageBox">
+	                                  <label for="imgName">镜像名称</label>
+	                                  <select id="imgName" class="form-control">                                    
+	                                    <option ng-repeat="item in imageList track by $index" value={{item.imageId}}>{{item.imagePersonalName}}</option>
+	                                  </select>
+	                                </div>
+	                                
+	                              
+	                              </form>
+	                            </div>
+	                            <div class="detail-right">
+	                              <p>指定创建云主机的详细信息</p>
+	                              <p>详细说明启动云主机的情况,下面的图表显示此项目所使用的资源和关联的项目配额。</p>
+	                              <table class="table table-striped">
+	                                
+	                              </table>
+	                              
+	                            </div>
+	                          </div>
+	                          <div role="tabpanel" class="tab-pane" id="security">
+	                            <div class="security-left">
+	                              <form>
+	                                <div class="form-group">
+	                                  <label for="codeKey">密钥对</label>
+	                                  <select id="codeKey" class="form-control">
+	                                  	<option value="">请选择</option>
+	                                    <option ng-repeat="item in keyList track by $index" value={{item}}>{{item}}</option>
+	                                  </select>
+	                                  <!--todo createKey-->
+	                                  
+	                                </div>
+	                                <div class="form-group">
+	                                  <label for="securityGroup">安全组</label>
+	                                  <div id="securityGroup">
+	                                    <div ng-repeat="item in securityList track by $index" class="checkbox">
+	                                      <label>
+	                                        <input type="radio" name="securityItem" value={{item}}>
+	                                        <span>{{item}}</span>
+	                                      </label>
+	                                    </div>
+	                                  </div>
+	                                </div>
+	                              </form>
+	                            </div>
+	                            <div class="security-right">
+	                              <p>通过密钥对、防火墙、和其它机制控制你的云主机权限</p>
+	                              <p>安全组不选则默认default</p>
+	                            </div>
+	                          </div>
+	                          <div role="tabpanel" class="tab-pane" id="network">
+	                            <div class="network-left">
+	                              <form>
+	                                <div class="form-group">
+	                                  <label for="chooseNet">已选择的网络</label>
+	                                  <div id="chooseNet">
+	                                    <div class="checkbox" ng-repeat="item in ipList track by $index">
+	                                    	<label>
+	                                    		<input type="checkbox" name="netWorkItem" value={{item.networkId}} />
+	                                    		<span>{{item.networkName}}</span>
+	                                    	</label>
+	                                    </div>
+	                                  </div>
+	                                </div>
+	                              </form>
+	                            </div>
+	                            <div class="network-right">
+	                              <p>请选择云主机所在的网络</p>
+	                            </div>
+	                          </div>
+	                          <div role="tabpanel" class="tab-pane" id="created">
+	                            <div class="created-left">
+	                              <form enctype="multipart/form-data">
+	                                <div class="form-group">
+	                                  <label for="scriptSrc">定制脚本源</label>
+	                                  <select id="scriptSrc" class="form-control">
+	                                    <option value="1">直接输入</option>
+	                                    <option value="2">文件</option>
+	                                  </select>
+	                                </div>
+	                                <div ng-show="false" class="form-group">
+	                                  <label style="vertical-align: top" for="scriptData">脚本数据</label>
+	                                  <div>
+	                                    <textarea class="form-control" style="resize: none;margin-top: 10px" id="scriptData" cols="30" rows="10"></textarea>
+	                                  </div>
+	                                </div>
+	
+	                                <div class="form-group">
+	                                  <label for="scriptFile">脚本文件</label>
+	                                  <input type="file" id="scriptFile"/>
+	                                </div>
+	                              </form>
+	                            </div>
+	                            <div class="created-right">
+	                              <p>当你的实例使用下面选项启动后，你可以定制它。</p>
+	                              <p>"定制脚本"与其它系统中的"用户数据"类似.</p>
+	                            </div>
+	                          </div>
+	                          <div role="tabpanel" class="tab-pane" id="Advanced">
+	                            <div class="advanced-left">
+	                              <form>
+	                                <div class="form-group">
+	                                  <label for="partition">磁盘分区</label>
+	                                  <select class="form-control" id="partition">
+	                                    <option value="1">手动</option>
+	                                    <option value="2">自动</option>
+	                                  </select>
+	                                </div>
+	                                <div class="form-group">
+	                                  <div class="checkbox">
+	                                    <label>
+	                                      <input type="checkbox"/>配置驱动器
+	                                    </label>
+	                                  </div>
+	                                </div>
+	                              </form>
+	                            </div>
+	                            <div class="advanced-right">
+	                              <p>指定启动实例时使用的高级选项</p>
+	                            </div>
+	                          </div>
+	                      </div>
+	                  </div>
+	              </div>
+	              <div class="modal-footer">
+	                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                  <button type="button" class="btn btn-primary" ng-click="goAction()">创建</button>
+	              </div>
+	          </div>
+	      </div>
+	  </div>
+  </div> 
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/activemq-all-5.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/backport-util-concurrent-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-dbcp-1.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-j2ee-management_1.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="lib/quartz-all-1.6.5.jar"/>
+	<classpathentry kind="lib" path="lib/spring-2.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/spring-beans-2.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/spring-context-2.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/spring-core-2.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/spring-jms-2.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/xbean-spring-3.4.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

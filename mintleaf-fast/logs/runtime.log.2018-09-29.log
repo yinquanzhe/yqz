@@ -1,0 +1,379 @@
+2018-09-29 15:51:49.735 [restartedMain] INFO  org.mintleaf.Application - Starting Application on DESKTOP-II1N2AO with PID 12652 (D:\project\mintleaf-fast\target\classes started by 47163 in D:\project\mintleaf-fast)
+2018-09-29 15:51:49.737 [restartedMain] INFO  org.mintleaf.Application - No active profile set, falling back to default profiles: default
+2018-09-29 15:51:49.778 [restartedMain] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1f5b2b4: startup date [Sat Sep 29 15:51:49 CST 2018]; root of context hierarchy
+2018-09-29 15:51:49.874 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.0.5.Final
+2018-09-29 15:51:50.679 [restartedMain] WARN  com.ibeetl.starter.BeetlSqlStarterClassPathScanner - BeetlSql没有在 '[org.mintleaf.modules.zframe.dao]' 包中找到任何Mapper，请检查配置
+2018-09-29 15:51:50.713 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-09-29 15:51:50.960 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.apache.shiro.spring.boot.autoconfigure.ShiroBeanAutoConfiguration' of type [org.apache.shiro.spring.boot.autoconfigure.ShiroBeanAutoConfiguration$$EnhancerBySpringCGLIB$$1e802024] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:50.997 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.apache.shiro.spring.boot.autoconfigure.ShiroAnnotationProcessorAutoConfiguration' of type [org.apache.shiro.spring.boot.autoconfigure.ShiroAnnotationProcessorAutoConfiguration$$EnhancerBySpringCGLIB$$21135ec9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.018 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'shiroConfig' of type [org.mintleaf.config.ShiroConfig$$EnhancerBySpringCGLIB$$9bc4b5e4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.051 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dataSourceConfig' of type [org.mintleaf.config.DataSourceConfig$$EnhancerBySpringCGLIB$$225eea8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.110 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'core' of type [com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.123 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.context.properties.ConfigurationPropertiesBinderBuilder$ConversionServiceFactory' of type [org.springframework.boot.context.properties.ConfigurationPropertiesBinderBuilder$ConversionServiceFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.240 [restartedMain] INFO  o.h.validator.internal.engine.ValidatorFactoryImpl - HV000238: Temporal validation tolerance set to 0.
+2018-09-29 15:51:51.262 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.266 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.266 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreBeetlSqlDataSourceBean' of type [org.beetl.sql.ext.spring4.BeetlSqlDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:51.267 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreSqlManagerFactoryBean' of type [org.beetl.sql.ext.spring4.SqlManagerFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.406 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2018-09-29 15:51:56.451 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreSqlManagerFactoryBean' of type [org.beetl.sql.core.SQLManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.452 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreUserDao' of type [org.beetl.sql.ext.spring4.BeetlSqlFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.469 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreUserDao' of type [com.sun.proxy.$Proxy61] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.474 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreRoleDao' of type [org.beetl.sql.ext.spring4.BeetlSqlFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.479 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreRoleDao' of type [com.sun.proxy.$Proxy63] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.482 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreMenuDao' of type [org.beetl.sql.ext.spring4.BeetlSqlFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.485 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreMenuDao' of type [com.sun.proxy.$Proxy64] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.488 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreButtonDao' of type [org.beetl.sql.ext.spring4.BeetlSqlFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.491 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'coreButtonDao' of type [com.sun.proxy.$Proxy65] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.491 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'myRealm' of type [org.mintleaf.common.Realm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.662 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.675 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:56.694 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'eventBus' of type [org.apache.shiro.event.support.DefaultEventBus] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-29 15:51:57.002 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8017 (http)
+2018-09-29 15:51:57.011 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2018-09-29 15:51:57.012 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-09-29 15:51:57.020 [localhost-startStop-1] INFO  org.apache.catalina.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\jdk\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;D:\jdk\bin;D:\jdk\jre\bin;C:\Program Files\TortoiseSVN\bin;D:\apache-maven-3.5.3\bin;D:\node\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\ffmpeg\bin;C:\Program Files\Git\cmd;C:\Users\47163\AppData\Local\Microsoft\WindowsApps;C:\Users\47163\AppData\Roaming\npm;;.]
+2018-09-29 15:51:57.122 [localhost-startStop-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2018-09-29 15:51:57.122 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 7344 ms
+2018-09-29 15:51:57.144 [localhost-startStop-1] INFO  org.mintleaf.config.DruidConfig - init Druid Servlet Configuration 
+2018-09-29 15:51:57.328 [localhost-startStop-1] INFO  o.s.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'statViewServlet' to [/druid/*]
+2018-09-29 15:51:57.329 [localhost-startStop-1] INFO  o.s.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2018-09-29 15:51:57.332 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-29 15:51:57.332 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-29 15:51:57.332 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-29 15:51:57.332 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-29 15:51:57.333 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webStatFilter' to urls: [/*]
+2018-09-29 15:51:57.333 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-09-29 15:52:00.604 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-2} inited
+2018-09-29 15:52:01.106 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/captcha/getCaptcha.jpg]}" onto public void org.mintleaf.modules.core.controller.CaptchaController.getKaptchaImage(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2018-09-29 15:52:01.107 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/captcha/test.do]}" onto public java.lang.String org.mintleaf.modules.core.controller.CaptchaController.hello(javax.servlet.http.HttpServletRequest)
+2018-09-29 15:52:01.107 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/captcha/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CaptchaController.login()
+2018-09-29 15:52:01.109 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreButtonController.index()
+2018-09-29 15:52:01.109 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/add.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreButtonController.add()
+2018-09-29 15:52:01.110 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/add.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreButtonController.add(org.mintleaf.modules.core.entity.CoreButton)
+2018-09-29 15:52:01.110 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/edit.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreButtonController.update(org.mintleaf.modules.core.entity.CoreButton)
+2018-09-29 15:52:01.110 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/delete.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreButtonController.delete(org.mintleaf.modules.core.entity.CoreButton)
+2018-09-29 15:52:01.110 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/all.json]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreButtonController.all()
+2018-09-29 15:52:01.110 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/page.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreButtonController.page(org.mintleaf.modules.core.entity.CoreButton,java.lang.Long,java.lang.Long)
+2018-09-29 15:52:01.110 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/deleteBatch.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreButtonController.deleteBatch(java.lang.String)
+2018-09-29 15:52:01.111 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/findById.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreButtonController.updateCoreMenu(org.mintleaf.modules.core.entity.CoreButton) throws java.lang.Exception
+2018-09-29 15:52:01.111 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreButton/edit.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreButtonController.edit()
+2018-09-29 15:52:01.114 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreMenuController.index()
+2018-09-29 15:52:01.114 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/add.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreMenuController.add()
+2018-09-29 15:52:01.114 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/add.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreMenuController.add(org.mintleaf.modules.core.entity.CoreMenu)
+2018-09-29 15:52:01.114 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/edit.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreMenuController.update(org.mintleaf.modules.core.entity.CoreMenu)
+2018-09-29 15:52:01.114 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/delete.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreMenuController.delete(org.mintleaf.modules.core.entity.CoreMenu)
+2018-09-29 15:52:01.115 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/all.json]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreMenuController.all()
+2018-09-29 15:52:01.115 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/page.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreMenuController.page(org.mintleaf.modules.core.entity.CoreMenu,java.lang.Long,java.lang.Long)
+2018-09-29 15:52:01.115 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/deleteBatch.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreMenuController.deleteBatch(java.lang.String)
+2018-09-29 15:52:01.115 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/findById.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreMenuController.updateCoreMenu(org.mintleaf.modules.core.entity.CoreMenu) throws java.lang.Exception
+2018-09-29 15:52:01.115 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreMenu/edit.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreMenuController.edit()
+2018-09-29 15:52:01.117 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreRoleController.index()
+2018-09-29 15:52:01.117 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/add.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreRoleController.add()
+2018-09-29 15:52:01.118 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/add.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.add(org.mintleaf.modules.core.entity.CoreRole)
+2018-09-29 15:52:01.118 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/edit.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.update(org.mintleaf.modules.core.entity.CoreRole)
+2018-09-29 15:52:01.118 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/delete.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.delete(org.mintleaf.modules.core.entity.CoreRole)
+2018-09-29 15:52:01.119 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/getPermission.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.getPermission(java.lang.String)
+2018-09-29 15:52:01.119 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/all.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.all()
+2018-09-29 15:52:01.120 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/permission.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreRoleController.permission()
+2018-09-29 15:52:01.120 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/page.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.page(org.mintleaf.modules.core.entity.CoreRole,java.lang.Long,java.lang.Long)
+2018-09-29 15:52:01.120 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/deleteBatch.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.deleteBatch(java.lang.String)
+2018-09-29 15:52:01.121 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/findById.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.updateCoreMenu(org.mintleaf.modules.core.entity.CoreRole) throws java.lang.Exception
+2018-09-29 15:52:01.121 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/addPermission.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.addPermission(java.lang.String,java.lang.String)
+2018-09-29 15:52:01.121 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/getMenuTree.json]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreRoleController.getMenuTree()
+2018-09-29 15:52:01.121 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreRole/edit.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreRoleController.edit()
+2018-09-29 15:52:01.126 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/index.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreUserController.index()
+2018-09-29 15:52:01.126 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/add.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreUserController.add()
+2018-09-29 15:52:01.127 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/add.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.add(org.mintleaf.modules.core.entity.CoreUser)
+2018-09-29 15:52:01.127 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/edit.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.update(org.mintleaf.modules.core.entity.CoreUser)
+2018-09-29 15:52:01.127 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/delete.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.delete(org.mintleaf.modules.core.entity.CoreUser)
+2018-09-29 15:52:01.128 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/all.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.all()
+2018-09-29 15:52:01.128 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/page.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.page(org.mintleaf.modules.core.entity.CoreUser,java.lang.Long,java.lang.Long)
+2018-09-29 15:52:01.128 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/deleteBatch.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.deleteBatch(java.lang.String)
+2018-09-29 15:52:01.128 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/findById.json],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.updateCoreMenu(org.mintleaf.modules.core.entity.CoreUser) throws java.lang.Exception
+2018-09-29 15:52:01.129 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/updatePwd.do],methods=[POST],params=[oldPwd && newPwd && confirm]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.CoreUserController.updatePwd(java.lang.String,java.lang.String,java.lang.String)
+2018-09-29 15:52:01.129 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/updatePwd.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreUserController.updatePwd()
+2018-09-29 15:52:01.129 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/coreUser/edit.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.CoreUserController.edit()
+2018-09-29 15:52:01.130 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/gen/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.GenController.index()
+2018-09-29 15:52:01.130 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/gen/gen.do],methods=[POST || GET]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.GenController.genDo(org.mintleaf.modules.core.controller.dto.GenDto)
+2018-09-29 15:52:01.130 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/img/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.ImgController.index()
+2018-09-29 15:52:01.132 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/home.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.IndexController.test()
+2018-09-29 15:52:01.132 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.IndexController.home()
+2018-09-29 15:52:01.132 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.IndexController.login()
+2018-09-29 15:52:01.132 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/404.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.IndexController.error404()
+2018-09-29 15:52:01.132 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login.do],methods=[POST]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.IndexController.loginDo(javax.servlet.http.HttpServletRequest)
+2018-09-29 15:52:01.132 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/loginOut.do],methods=[GET || POST]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.IndexController.loginOut()
+2018-09-29 15:52:01.133 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/403.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.IndexController.error403()
+2018-09-29 15:52:01.133 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/getMenus.json],methods=[GET || POST]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.IndexController.getMenus()
+2018-09-29 15:52:01.133 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/redis/setGet.json]}" onto public java.lang.String org.mintleaf.modules.core.controller.RedisStringController.setGet(java.lang.String) throws java.lang.Exception
+2018-09-29 15:52:01.134 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/upload/index.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.core.controller.UploadController.home()
+2018-09-29 15:52:01.134 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/upload/upload.do],methods=[POST]}" onto public org.mintleaf.vo.ResultMsg org.mintleaf.modules.core.controller.UploadController.upload(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile)
+2018-09-29 15:52:01.135 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/upload/uploads.do],methods=[POST]}" onto public java.lang.String org.mintleaf.modules.core.controller.UploadController.uploads(javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile[])
+2018-09-29 15:52:01.136 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.video.controller.StShipinBController.index()
+2018-09-29 15:52:01.137 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/list.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.video.controller.StShipinBController.list()
+2018-09-29 15:52:01.137 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/all.json]}" onto public java.util.List<org.mintleaf.modules.video.entity.StShipinB> org.mintleaf.modules.video.controller.StShipinBController.all()
+2018-09-29 15:52:01.137 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/page.json]}" onto public org.springframework.http.ResponseEntity<java.lang.Object> org.mintleaf.modules.video.controller.StShipinBController.page(javax.servlet.http.HttpServletRequest)
+2018-09-29 15:52:01.137 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/delete.do],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.Object> org.mintleaf.modules.video.controller.StShipinBController.deleteStShipinB(org.mintleaf.modules.video.entity.StShipinB) throws java.lang.Exception
+2018-09-29 15:52:01.137 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/update.do],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.Object> org.mintleaf.modules.video.controller.StShipinBController.updateStShipinB(org.mintleaf.modules.video.entity.StShipinB) throws java.lang.Exception
+2018-09-29 15:52:01.138 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/add.do],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.Object> org.mintleaf.modules.video.controller.StShipinBController.addStShipinB(org.mintleaf.modules.video.entity.StShipinB) throws java.lang.Exception
+2018-09-29 15:52:01.138 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/hlsplayer.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.video.controller.StShipinBController.hlsplayer(java.lang.String)
+2018-09-29 15:52:01.138 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/player.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.video.controller.StShipinBController.player(java.lang.String)
+2018-09-29 15:52:01.138 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/stshipinb/ckplayer.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.video.controller.StShipinBController.ckplayer(java.lang.String)
+2018-09-29 15:52:01.138 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/tracking/index.html]}" onto public org.springframework.web.servlet.ModelAndView org.mintleaf.modules.video.controller.TrackingController.index()
+2018-09-29 15:52:01.142 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-09-29 15:52:01.143 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-09-29 15:52:01.143 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-09-29 15:52:01.149 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-09-29 15:52:01.149 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-29 15:52:01.348 [restartedMain] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2018-09-29 15:52:01.568 [restartedMain] INFO  o.h.validator.internal.engine.ValidatorFactoryImpl - HV000238: Temporal validation tolerance set to 0.
+2018-09-29 15:52:01.703 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1f5b2b4: startup date [Sat Sep 29 15:51:49 CST 2018]; root of context hierarchy
+2018-09-29 15:52:01.773 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-29 15:52:01.773 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-29 15:52:01.832 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-29 15:52:02.309 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2018-09-29 15:52:02.390 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2018-09-29 15:52:02.391 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Bean with name 'core' has been autodetected for JMX exposure
+2018-09-29 15:52:02.391 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Bean with name 'video' has been autodetected for JMX exposure
+2018-09-29 15:52:02.391 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Bean with name 'zframe' has been autodetected for JMX exposure
+2018-09-29 15:52:02.396 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Located MBean 'core': registering with JMX server as MBean [com.alibaba.druid.pool:name=core,type=DruidDataSource]
+2018-09-29 15:52:02.397 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Located MBean 'zframe': registering with JMX server as MBean [com.alibaba.druid.pool:name=zframe,type=DruidDataSource]
+2018-09-29 15:52:02.398 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Located MBean 'video': registering with JMX server as MBean [com.alibaba.druid.pool:name=video,type=DruidDataSource]
+2018-09-29 15:52:02.401 [restartedMain] INFO  o.s.context.support.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+2018-09-29 15:52:02.401 [restartedMain] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Context refreshed
+2018-09-29 15:52:02.413 [restartedMain] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2018-09-29 15:52:02.439 [restartedMain] INFO  s.d.spring.web.scanners.ApiListingReferenceScanner - Scanning for api listing references
+2018-09-29 15:52:02.633 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingGET_1
+2018-09-29 15:52:02.637 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_1
+2018-09-29 15:52:02.725 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_2
+2018-09-29 15:52:02.727 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingGET_2
+2018-09-29 15:52:02.730 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingGET_3
+2018-09-29 15:52:02.731 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingHEAD_1
+2018-09-29 15:52:02.733 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_3
+2018-09-29 15:52:02.735 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPUT_1
+2018-09-29 15:52:02.736 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPATCH_1
+2018-09-29 15:52:02.738 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingDELETE_1
+2018-09-29 15:52:02.739 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingOPTIONS_1
+2018-09-29 15:52:02.741 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingTRACE_1
+2018-09-29 15:52:02.744 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingGET_1
+2018-09-29 15:52:02.745 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingHEAD_1
+2018-09-29 15:52:02.747 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPOST_1
+2018-09-29 15:52:02.748 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPUT_1
+2018-09-29 15:52:02.750 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPATCH_1
+2018-09-29 15:52:02.751 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingDELETE_1
+2018-09-29 15:52:02.753 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingOPTIONS_1
+2018-09-29 15:52:02.755 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingTRACE_1
+2018-09-29 15:52:02.760 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteUsingPOST_1
+2018-09-29 15:52:02.765 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteUsingGET_1
+2018-09-29 15:52:02.769 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteBatchUsingPOST_1
+2018-09-29 15:52:02.771 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteBatchUsingGET_1
+2018-09-29 15:52:02.773 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingGET_1
+2018-09-29 15:52:02.774 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingHEAD_1
+2018-09-29 15:52:02.776 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingPOST_1
+2018-09-29 15:52:02.777 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_1
+2018-09-29 15:52:02.779 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingPATCH_1
+2018-09-29 15:52:02.780 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingDELETE_1
+2018-09-29 15:52:02.782 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingOPTIONS_1
+2018-09-29 15:52:02.783 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingTRACE_1
+2018-09-29 15:52:02.785 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingGET_1
+2018-09-29 15:52:02.787 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingHEAD_1
+2018-09-29 15:52:02.788 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPOST_1
+2018-09-29 15:52:02.790 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPUT_1
+2018-09-29 15:52:02.791 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPATCH_1
+2018-09-29 15:52:02.792 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingDELETE_1
+2018-09-29 15:52:02.794 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingOPTIONS_1
+2018-09-29 15:52:02.795 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingTRACE_1
+2018-09-29 15:52:02.799 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingPOST_1
+2018-09-29 15:52:02.801 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingGET_1
+2018-09-29 15:52:02.805 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateUsingPOST_1
+2018-09-29 15:52:02.810 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateUsingGET_1
+2018-09-29 15:52:02.813 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateCoreMenuUsingPOST_1
+2018-09-29 15:52:02.816 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateCoreMenuUsingGET_1
+2018-09-29 15:52:02.824 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_4
+2018-09-29 15:52:02.827 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingGET_4
+2018-09-29 15:52:02.830 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingGET_5
+2018-09-29 15:52:02.832 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingHEAD_2
+2018-09-29 15:52:02.834 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_5
+2018-09-29 15:52:02.836 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPUT_2
+2018-09-29 15:52:02.837 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPATCH_2
+2018-09-29 15:52:02.839 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingDELETE_2
+2018-09-29 15:52:02.841 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingOPTIONS_2
+2018-09-29 15:52:02.843 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingTRACE_2
+2018-09-29 15:52:02.852 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPOST_2
+2018-09-29 15:52:02.857 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingGET_2
+2018-09-29 15:52:02.861 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteUsingPOST_2
+2018-09-29 15:52:02.864 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteUsingGET_2
+2018-09-29 15:52:02.868 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteBatchUsingPOST_2
+2018-09-29 15:52:02.871 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteBatchUsingGET_2
+2018-09-29 15:52:02.873 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingGET_2
+2018-09-29 15:52:02.875 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingHEAD_2
+2018-09-29 15:52:02.877 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingPOST_2
+2018-09-29 15:52:02.879 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_2
+2018-09-29 15:52:02.882 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingPATCH_2
+2018-09-29 15:52:02.883 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingDELETE_2
+2018-09-29 15:52:02.885 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingOPTIONS_2
+2018-09-29 15:52:02.887 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingTRACE_2
+2018-09-29 15:52:02.914 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingGET_2
+2018-09-29 15:52:02.917 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingHEAD_2
+2018-09-29 15:52:02.919 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPOST_2
+2018-09-29 15:52:02.920 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPUT_2
+2018-09-29 15:52:02.922 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPATCH_2
+2018-09-29 15:52:02.924 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingDELETE_2
+2018-09-29 15:52:02.926 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingOPTIONS_2
+2018-09-29 15:52:02.929 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingTRACE_2
+2018-09-29 15:52:02.935 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingPOST_2
+2018-09-29 15:52:02.938 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingGET_2
+2018-09-29 15:52:02.961 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateUsingPOST_2
+2018-09-29 15:52:02.964 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateUsingGET_2
+2018-09-29 15:52:02.967 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateCoreMenuUsingPOST_2
+2018-09-29 15:52:02.970 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateCoreMenuUsingGET_2
+2018-09-29 15:52:02.979 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_6
+2018-09-29 15:52:02.987 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingGET_6
+2018-09-29 15:52:02.990 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: addUsingGET_7
+2018-09-29 15:52:02.994 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPOST_3
+2018-09-29 15:52:02.996 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingGET_3
+2018-09-29 15:52:03.001 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteUsingPOST_3
+2018-09-29 15:52:03.004 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteUsingGET_3
+2018-09-29 15:52:03.009 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteBatchUsingPOST_3
+2018-09-29 15:52:03.011 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: deleteBatchUsingGET_3
+2018-09-29 15:52:03.015 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: editUsingGET_3
+2018-09-29 15:52:03.018 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingGET_3
+2018-09-29 15:52:03.023 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingPOST_3
+2018-09-29 15:52:03.031 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingGET_3
+2018-09-29 15:52:03.035 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateUsingPOST_3
+2018-09-29 15:52:03.039 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateUsingGET_3
+2018-09-29 15:52:03.044 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateCoreMenuUsingPOST_3
+2018-09-29 15:52:03.048 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateCoreMenuUsingGET_3
+2018-09-29 15:52:03.066 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingGET_4
+2018-09-29 15:52:03.067 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingHEAD_3
+2018-09-29 15:52:03.067 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPOST_3
+2018-09-29 15:52:03.068 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPUT_3
+2018-09-29 15:52:03.068 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPATCH_3
+2018-09-29 15:52:03.069 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingDELETE_3
+2018-09-29 15:52:03.069 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingOPTIONS_3
+2018-09-29 15:52:03.070 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingTRACE_3
+2018-09-29 15:52:03.071 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingGET_5
+2018-09-29 15:52:03.071 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingHEAD_4
+2018-09-29 15:52:03.072 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPOST_4
+2018-09-29 15:52:03.072 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPUT_4
+2018-09-29 15:52:03.073 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPATCH_4
+2018-09-29 15:52:03.073 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingDELETE_4
+2018-09-29 15:52:03.073 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingOPTIONS_4
+2018-09-29 15:52:03.073 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingTRACE_4
+2018-09-29 15:52:03.102 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingGET_1
+2018-09-29 15:52:03.103 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingHEAD_1
+2018-09-29 15:52:03.104 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingPOST_1
+2018-09-29 15:52:03.105 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingPUT_1
+2018-09-29 15:52:03.105 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingPATCH_1
+2018-09-29 15:52:03.106 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingDELETE_1
+2018-09-29 15:52:03.107 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingOPTIONS_1
+2018-09-29 15:52:03.108 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: loginUsingTRACE_1
+2018-09-29 15:52:03.140 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingGET_4
+2018-09-29 15:52:03.142 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingHEAD_2
+2018-09-29 15:52:03.143 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPOST_4
+2018-09-29 15:52:03.145 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPUT_2
+2018-09-29 15:52:03.147 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingPATCH_2
+2018-09-29 15:52:03.149 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingDELETE_2
+2018-09-29 15:52:03.151 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingOPTIONS_2
+2018-09-29 15:52:03.152 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: allUsingTRACE_2
+2018-09-29 15:52:03.165 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingGET_6
+2018-09-29 15:52:03.167 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingHEAD_5
+2018-09-29 15:52:03.169 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPOST_5
+2018-09-29 15:52:03.171 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPUT_5
+2018-09-29 15:52:03.172 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPATCH_5
+2018-09-29 15:52:03.174 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingDELETE_5
+2018-09-29 15:52:03.175 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingOPTIONS_5
+2018-09-29 15:52:03.177 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingTRACE_5
+2018-09-29 15:52:03.197 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingGET_4
+2018-09-29 15:52:03.201 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: pageUsingPOST_4
+2018-09-29 15:52:03.217 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingGET_7
+2018-09-29 15:52:03.218 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingHEAD_6
+2018-09-29 15:52:03.218 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPOST_6
+2018-09-29 15:52:03.219 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPUT_6
+2018-09-29 15:52:03.219 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingPATCH_6
+2018-09-29 15:52:03.219 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingDELETE_6
+2018-09-29 15:52:03.220 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingOPTIONS_6
+2018-09-29 15:52:03.220 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: indexUsingTRACE_6
+2018-09-29 15:52:03.222 [restartedMain] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: homeUsingGET_1
+2018-09-29 15:52:03.224 [restartedMain] WARN  s.d.s.w.readers.parameter.ParameterDataTypeReader - Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2018-09-29 15:52:03.245 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8017"]
+2018-09-29 15:52:03.258 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8017"]
+2018-09-29 15:52:03.268 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2018-09-29 15:52:03.281 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8017 (http) with context path ''
+2018-09-29 15:52:03.285 [restartedMain] INFO  org.mintleaf.Application - Started Application in 13.803 seconds (JVM running for 15.429)
+2018-09-29 15:53:10.728 [http-nio-8017-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-09-29 15:53:10.728 [http-nio-8017-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2018-09-29 15:53:10.752 [http-nio-8017-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 24 ms
+2018-09-29 15:53:11.082 [http-nio-8017-exec-9] ERROR o.a.c.c.C.[.[localhost].[/].[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: getOutputStream() has already been called for this response] with root cause
+java.lang.IllegalStateException: getOutputStream() has already been called for this response
+	at org.apache.catalina.connector.Response.getWriter(Response.java:625)
+	at org.apache.catalina.connector.ResponseFacade.getWriter(ResponseFacade.java:211)
+	at javax.servlet.ServletResponseWrapper.getWriter(ServletResponseWrapper.java:109)
+	at org.beetl.ext.web.WebRender.render(WebRender.java:126)
+	at org.beetl.ext.spring.BeetlSpringView.renderMergedTemplateModel(BeetlSpringView.java:123)
+	at org.springframework.web.servlet.view.AbstractTemplateView.renderMergedOutputModel(AbstractTemplateView.java:165)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:314)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1325)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1069)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1008)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:870)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:855)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:108)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2018-09-29 15:53:11.099 [http-nio-8017-exec-9] WARN  o.s.w.s.m.support.DefaultHandlerExceptionResolver - Resolved exception caused by Handler execution: org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation

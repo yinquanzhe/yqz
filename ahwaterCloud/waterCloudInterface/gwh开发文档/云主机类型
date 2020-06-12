@@ -1,0 +1,75 @@
+(1)	云主机类型列表
+/ahwaterCloud/ctr/listAllFlavors
+返回
+String ID;
+	String name;
+	int vcpus;
+	int ram;
+	int disk;
+	int ephemeral;
+	int swap;
+	boolean isPublic;
+	Map<String,String> extraSpecs;(即元数据，可以考虑不显示)
+
+（2）创建云主机类型
+/ahwaterCloud/ctr/createFlavor
+需要给后台返回的数据
+（云主机ID不要用户填）
+	String flavorName;
+	int ram;
+	int vcpus;
+	int disk;
+	int ephemeral;
+	int swap;
+	String tenantIdListStr;（最终租户列表字符串）
+返回msg，成功则msg=“succ”，否则是错误信息
+
+（3）更改使用权
+/ahwaterCloud/ctr/changeTenantAccess
+需要给后台返回的数据
+String tenantIdListStr
+String flavorId
+返回msg，成功则msg=“succ”
+
+（4）删除云主机类型
+/ahwaterCloud/ctr/deleteFlavor
+
+需要给后台返回的数据
+flavorId
+
+返回msg，成功则msg=“succ”，否则是错误信息
+
+（5）批量删除云主机类型
+/ahwaterCloud/ctr/patchDeleteFlavor
+需要给后台返回的数据
+flavorIdListStr（类型ID列表字符串）
+返回msg，成功则msg=“succ”
+
+
+（6）更改元数据不需要。
+
+（7）列出所有租户（项目）
+/ahwaterCloud/ctr/listAllTenants
+
+返回的是一个对象数组。
+每个对象包括：
+	String tenantId;
+	String tennatName;
+	
+(8)编辑云主机类型
+
+/ahwaterCloud/ctr/editFlavor
+
+需要给后台返回的数据
+    String flavorId;
+	String flavorName;
+	int ram;
+	int vcpus;
+	int disk;
+	int ephemeral;
+	int swap;
+	String tenantIdListStr;（最终租户列表字符串）
+返回msg，成功则msg=“succ”，否则是错误信息
+
+（9）某云主机类型的租户列表
+/ahwaterCloud/ctr/haveTenantList

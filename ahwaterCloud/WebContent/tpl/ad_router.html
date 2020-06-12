@@ -1,0 +1,45 @@
+<div ng-controller="adrouterCtrl" class="content">
+	<h4>路由列表</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+			<form>
+				<input type="text" placeholder="请输入关键字搜索" />
+			<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+			</form>			
+		</div>		
+		<div class="cloudlist col-xs-12">
+			<table cellspacing="6" cellpadding="10" width="100%">
+				<thead>
+					<tr>
+						<th><input type="checkbox" /></th>
+						<th style="text-align: left;padding-left: 6px; width: 15%;">沃特云项目</th>
+						<th>路由名称</th>
+						<th>状态</th>
+						<th>外部网络</th>
+						<th>管理员状态</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="6">
+							<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+						</td>
+					</tr>						
+					<tr ng-repeat="item in AdrouterData">	
+						<td >
+							<input type="checkbox" rid={{item.routerId}} />
+						</td>
+						<td style="text-align: left;padding-left: 6px;">{{item.projectName}}</td>
+						<td>
+							<a  ng-href="#/routerDetail/{{item.routerId}}">{{item.routerName}}</a>
+							<i class="fa fa-pencil" ng-click="editAdminRouter($event)" style="cursor: pointer; display: none;" rid={{item.routerId}}></i>
+						</td>
+						<td>{{item.state}}</td>
+						<td>{{item.externalNetworkName}}</td>	
+						<td>{{item.adminState}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

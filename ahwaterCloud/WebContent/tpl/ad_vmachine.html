@@ -1,0 +1,95 @@
+<div ng-controller="ad_vmCtrl" class="content vmachineContent" >
+	<h4>虚拟机管理器</h4>
+	<div class="ad_pieBox" style="height: 200px;">
+		<div class="col-xs-4 col-md-2" id="cpuPie" style="height: 200px;"></div>
+		<div class="col-xs-4 col-md-2" id="memPie" style="height: 200px;"></div>
+		<div class="col-xs-4 col-md-2" id="diskPie" style="height: 200px;"></div>
+	</div>
+	<div class="list cmpServicelist" style="position: relative;">
+		<div class="cloudlist">
+			<table cellspacing="6" cellpadding="10" width="100%">
+				<thead>
+					<tr>
+						<th>主机名称</th>
+						<th>类型</th>
+						<th>CPU(已用/总共)</th>
+						<th>内存(已用/总共)</th>
+						<th>本地存储(已用/总共)</th>
+						<th>实例个数</th>
+						<th>状态</th>
+						<th>最后更新</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+        		<td colspan="9">
+        			<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+        		</td>
+        	</tr>
+        	<tr ng-repeat="item in vmachineData track by $index">
+        		<td>
+        			<a href="javascript:void(0)" ng-click="toggleConnectDev($event)" vid={{item.id}}>
+        				{{item.hostname}}
+        			</a>
+        		</td>
+        		<td>
+        			{{item.type}}
+        		</td>
+        		<td>
+        			{{item.usedVcpu}}/{{item.vcpus}}
+        		</td>
+        		<td>
+        			{{item.localMemoryUsed}}GB/{{item.localMemory}}GB
+        		</td>
+        		<td>
+        			{{item.localDiskUsed}}TB/{{item.localDisk}}TB
+        		</td>
+        		<td>
+        			{{item.runningVM}}
+        		</td>
+        		<td>
+        			{{item.status}}
+        		</td>
+        		<td>
+        			{{item.updated}}
+        		</td>
+        		<td>
+        			<button style="font-size: 12px; border-radius: 3px; padding: 6px 20px; border: none;outline: none; background: #D8312C;" class="btn btn-danger" ng-if="item.status=='enabled'" ng-click="shutDownService($event)" vname={{item.hostname}}>关闭服务</button>
+        			<button style="font-size: 12px; border-radius: 3px; padding: 6px 20px; border: none;outline: none; background: #4BACF1;" class="btn btn-primary" ng-if="item.status=='disabled'" ng-click="startService($event)" vname={{item.hostname}}>开启服务</button>
+        		</td>
+        	</tr>
+				</tbody>
+			</table>
+		</div>
+	
+		<div class="connectDevBox">
+			<h4 class="text-center">
+				连接的云主机<span ng-click="disShowBox()">&times;</span>
+			</h4>
+			<div class="cloudlist">
+				<table width="100%" cellpadding="10" cellspacing="6">
+					<thead>
+						<tr>
+							<th>云主机名称</th>
+							<th>云主机ID</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+	        		<td colspan="2">
+	        			<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+	        		</td>
+	        	</tr>
+						<tr ng-repeat="item in connectDevData">
+							<td>
+								<a ng-href="#/server/{{item.uuid}}">{{item.name}}</a>
+							</td>
+							<td>{{item.uuid}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>	
+</div>

@@ -1,0 +1,21 @@
+1.列出当前租户拥有的网络
+    url：/ahwaterCloud/cont/listAllNetwork
+    
+2.列出一个网络下的所有的端口
+    url：/ahwaterCloud/cont/listPorts
+            参数：networkId
+            
+3.列出一个网络下的所有的子网
+    url：/ahwaterCloud/cont/listSubnet
+             参数：networkId
+             
+4.网络的详细信息
+    url：/ahwaterCloud/cont/networkDetail
+            参数：networkId
+            
+5.子网的详细信息
+    url：/ahwaterCloud/cont/subnetDetail
+            参数：subnetId
+
+6.列出云平台上的所有的的网络
+    url：/ahwaterCloud/cont/adminListAllNetworks

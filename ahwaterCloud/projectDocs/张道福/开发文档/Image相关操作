@@ -1,0 +1,22 @@
+1.列出当前租户拥有的镜像
+    url： /ahwaterCloud/cont/listAllImages
+             参数：tenantId
+2.列出公有的镜像url： /ahwaterCloud/cont/listPublicImages
+3.共享镜像url：暂无
+4.删除单个镜像
+    url：/ahwaterCloud/cont/deleteImage
+            参数：imageId
+5.批量删除镜像
+    url:/ahwaterCloud/cont/deleteMultiImage
+           参数：imageIds
+6.修改镜像的名字
+    url:/ahwaterCloud/cont/updateImageName
+            参数：newName  imageId
+
+7.列出镜像的详细信息
+    url：/ahwaterCloud/cont/imageDetail
+             参数：imageId
+
+8.列出云平台上的所有镜像
+    url：/ahwaterCloud/cont/adminListAllImages
+    

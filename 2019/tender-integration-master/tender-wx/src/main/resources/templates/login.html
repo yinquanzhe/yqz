@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html class="ui-page-login" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>账号绑定</title>
+    <link rel="stylesheet" th:href="|${serverUrl}/css/mui.min.css|"/>
+    <style>
+        .mui-input-group:first-child {
+            margin-top: 20px;
+        }
+
+        .mui-content-padded {
+            margin-top: 25px;
+        }
+
+        .footer {
+            padding-bottom: 20px;
+            position: absolute;
+            bottom: 3px;
+            color: #BBB;
+            font-size: 10px;
+            text-align: center;
+            line-height: 12px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">招投标信息采集系统账号绑定</h1>
+    <script th:src="|${serverUrl}/js/jquery.min.js|"></script>
+    <script th:src="|${serverUrl}/js/Reeye_LoadMore.js|"></script>
+    <script th:inline="javascript">
+        function check(form) {
+            if (form.username.value == '' || form.pwd.value == '') {
+                mui.toast('请输入用户名和密码');
+                return false;
+            }
+            return true
+        }
+        mui("body").on('tap', '#reg', function() {
+
+        });
+    </script>
+</header>
+    <div class="mui-content">
+        <form id='login-form' th:action="${#request.getContextPath() + '/wx/doLogin'}" method="post" onsubmit="return check(this)">
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>用户名</label>
+                    <input name='username' type="text" class="mui-input-clear mui-input" placeholder="请输入用户名" value="">
+                </div>
+                <div class="mui-input-row">
+                    <label>密码</label>
+                    <input name='pwd' type="password" class="mui-input-clear mui-input" placeholder="请输入密码" value="">
+                </div>
+                <input type="hidden" name="openid" th:value="${user != null ? user.wxopenid : 0}">
+            </div>
+            <div class="mui-content-padded" style="padding: 0 15px;">
+                <input type="submit" value="绑定" class="mui-btn mui-btn-block mui-btn-primary" style="height: 45px;"/>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <!--<div>版权所有:&nbsp;安徽省城建设计研究总院</div>-->
+        <div>技术支持:&nbsp;安徽沃特水务科技有限公司</div>
+    </div>
+</body>
+
+</html>

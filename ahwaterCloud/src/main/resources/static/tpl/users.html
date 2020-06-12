@@ -1,0 +1,217 @@
+<div ng-controller='userCtrl' class="content users">
+	<h4>用户列表</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+      <form>        	       
+        <input type="text" placeholder="功能开发中"/>
+        <button type="button" class="btn btn-default" ng-click="searchServer($event)">搜索</button>
+      </form>            
+      <div class="actionBtn">
+      	<button type="button" class="btn btn-primary" ng-click="createUser()">
+      	<i class="fa fa-plus"></i> 添加用户</button>
+        <button type="button" class="btn btn-danger deleteBatch" ng-click="removeUserBatch()">
+      	<i class="fa fa-trash"></i> 删除用户</button>
+      </div>      
+	  </div>
+	  <div class="cloudlist col-xs-12">
+      	<table width="100%" cellpadding="10" cellspacing="6" >
+      		<thead>
+      			<tr>
+      				<th><input type="checkbox"/></th>
+	            <th style="text-align: left;padding-left: 6px;width: 20%;">用户名</th>
+	           
+	            <th style="text-align: left; width: 20%;">邮箱</th>
+	            <th style="text-align: left;width: 20%;">用户ID</th>
+	            <th>是否激活</th>
+	            <th>操作</th>	            
+      			</tr>
+      		</thead>
+      		<tbody>
+      			<tr>
+      				<td colspan="10">
+      					<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+      				</td>
+      			</tr>
+      			<tr ng-repeat='item in usersData'>
+      				<td><input type="checkbox" uid={{item.userId}} ng-click="userChoose($event)" /></td>
+      				<td style="text-align: left;padding-left: 6px;">{{item.userName}}</td>
+      			   				
+      				<td style="text-align: left;"><a ng-href="mailto:{{item.email}}">{{item.email}}</a></td>
+      				<td style="text-align: left;">{{item.userId}}</td>
+      				<td>{{item.enabled}}</td>
+      				<td>
+      					<a href="javascript:void(0)" uname={{item.userName}} umail={{item.email}} uid={{item.userId}}  ng-click="editUser($event)">修改资料</a>
+      					&nbsp;<a href="javascript:void(0)" uid={{item.userId}} ng-click="delUser($event)" >删除</a>
+      				</td>
+      			</tr>
+      		</tbody>
+      	</table>
+      </div>
+	  <!--创建用户-->
+	  <div class="modal fade rbtajsEcsModal" id="createUserModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	新建一个用户
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		      	<form class="form-horizontal">
+			    		<div class="form-group">
+			    			<label for="userName" class="control-label col-xs-3">用户名:</label>
+			    			<div class="col-xs-8">
+			    				<input type="text" class="form-control" id="userName" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="userEmail" class="control-label col-xs-3">邮箱:</label>
+			    			<div class="col-xs-8">
+			    				<input type="email" class="form-control" id="userEmail" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="userPwd" class="control-label col-xs-3">密码:</label>
+			    			<div class="col-xs-8">
+			    				<input type="password" class="form-control" id="userPwd" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="cofUserPwd" class="control-label col-xs-3">确认密码:</label>
+			    			<div class="col-xs-8">
+			    				<input type="password" class="form-control" id="cofUserPwd" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="tenantUser" class="control-label col-xs-3">主项目:</label>
+			    			<div class="col-xs-8">
+			    				<select id="tenantUser" style="float: left;color:#333;width: 86%; height: 34px;padding: 6px 12px;border-radius: 4px;margin-right: 10px;">
+			    					<option value="-1">-请选择-</option>
+			    					<option ng-repeat="item in teList" txt={{item.tennatName}} value={{item.tenantId}}>
+			    						{{item.tennatName}}
+			    					</option>
+			    				</select>
+			    				<button ng-click="createTenantFromUserList()" type="button" style="height: 32px; background: #eee; line-height: 28px; font-size: 20px;color: #555;outline: none; border: 1px solid #DDDDDD;" >+</button>
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="userRole" class="control-label col-xs-3">用户角色:</label>
+			    			<div class="col-xs-8">
+			    				<select id="userRole" class="form-control">		    					
+			    					<option ng-repeat="item in roleList" value={{item.roleName}}>
+			    						{{item.roleName}}
+			    					</option>
+			    				</select>
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<div class="col-xs-offset-4 col-xs-8">
+						      <div class="checkbox">
+						        <label>
+						          <input id="userEnabled" type="checkbox" checked>激活
+						        </label>
+						      </div>
+						    </div>
+			    		</div>		    		
+			    	</form>		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" id="createUserActionBtn" ng-click="createUserAction()">添加</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<!--新建项目-->
+		<div class="modal fade rbtajsEcsModal" id="createTntFromUserModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	创建项目
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		      	<form class="form-horizontal">
+			    		<div class="form-group">
+			    			<label for="newuserName" class="control-label col-xs-3">名称:</label>
+			    			<div class="col-xs-8">
+			    				<input type="text" class="form-control" required placeholder="请输入项目名称" id="userTntName" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="newuserEmail" class="control-label col-xs-3">描述:</label>
+			    			<div class="col-xs-8">
+			    				<input type="text" class="form-control" required placeholder="请输入描述内容" id="userTntDesc" />
+			    			</div>
+			    		</div>   		
+			    	</form>		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancleCreateTntFromUser()">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="createTntFromUserAction()">创建</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>	
+		<!--更新用户信息-->
+	  <div class="modal fade rbtajsEcsModal" id="updateUserModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	更新用户信息
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		      	<form class="form-horizontal">
+			    		<div class="form-group">
+			    			<label for="newuserName" class="control-label col-xs-3">用户名:</label>
+			    			<div class="col-xs-8">
+			    				<input type="text" class="form-control" placeholder="不更改则留空" id="newuserName" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="newuserEmail" class="control-label col-xs-3">邮箱:</label>
+			    			<div class="col-xs-8">
+			    				<input type="email" class="form-control" placeholder="不更改则留空" id="newuserEmail" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="newuserPwd" class="control-label col-xs-3">密码:</label>
+			    			<div class="col-xs-8">
+			    				<input type="password" class="form-control" placeholder="不更改则留空" id="newuserPwd" />
+			    			</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<label for="newtenantUser" class="control-label col-xs-3">主项目:</label>
+			    			<div class="col-xs-8">
+			    				<select id="newtenantUser" class="form-control">			    					
+			    					<option ng-repeat="item in teList" value={{item.tenantId}}>
+			    						{{item.tennatName}}
+			    					</option>
+			    				</select>
+			    			</div>
+			    		</div>			    		
+			    		<div class="form-group">
+			    			<div class="col-xs-offset-4 col-xs-8">
+						      <div class="checkbox">
+						        <label>
+						          <input id="newuserEnabled" type="checkbox" checked>激活
+						        </label>
+						      </div>
+						    </div>
+			    		</div>		    		
+			    	</form>		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="updateUserAction()">保存</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+	</div>
+</div>

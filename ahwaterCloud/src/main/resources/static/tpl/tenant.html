@@ -1,0 +1,242 @@
+<div ng-controller='tenantCtrl' class="content tenantBox">
+	<h4>租户资源管理</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+      <form>        	       
+        <input type="text" placeholder="功能开发中"/>
+        <button type="button" class="btn btn-default" ng-click="searchServer($event)">搜索</button>
+      </form>            
+      <div class="actionBtn">
+      	<button type="button" class="btn btn-primary" ng-click="createTenant()">
+      	<i class="fa fa-plus"></i> 新建项目</button>
+        <button type="button" class="btn btn-danger deleteBatch" ng-click="removeTenantBatch()">
+      	<i class="fa fa-trash"></i> 删除项目</button>
+      </div>      
+	  </div>
+	  <div class="cloudlist col-xs-12">
+      	<table width="100%" cellpadding="10" cellspacing="6" >
+      		<thead>
+      			<tr>
+      				<th><input type="checkbox"/></th>
+	            <th style="text-align: left;padding-left: 20px;width: 20%;">名称</th>
+	            <th style="text-align: left; width: 15%;">描述</th>
+	            <th>ID</th>
+	            <th>是否激活</th>
+	            <th>操作</th>	            
+      			</tr>
+      		</thead>
+      		<tbody>
+      			<tr>
+      				<td colspan="6">
+      					<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+      				</td>
+      			</tr>
+      			<tr ng-repeat='item in TeanntListData'>
+      				<td><input type="checkbox" tid={{item.tenantId}} ng-click="Typechoose($event)" /></td>
+      				<td style="text-align: left;padding-left: 20px;">{{item.tenantName}}</td>
+      				<td style="text-align: left;">{{item.tenantDescription}}</td>      				
+      				<td>{{item.tenantId}}</td>
+      				<td>{{item.tenantActive}}</td>
+      				<td class="action">
+      					<a href="javascript:void(0)" tid={{item.tenantId}} ng-click="managerUser($event)">更改成员</a>
+      					&nbsp;<a href="javascript:void(0)" tname={{item.tenantName}} tdesc={{item.tenantDescription}} tid={{item.tenantId}} ng-click="editTenant($event)" >编辑</a>
+      					<div class="dropdown moreBox">
+                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                      更多<i class="caret"></i>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                      <li role="presentation">
+                          <a tid={{item.tenantId}} ng-click="changeQuota($event)" role="menuitem" href="javascript:void(0)">修改配额</a>
+                      </li>
+                      <li role="presentation">
+                          <a tid={{item.tenantId}} ng-click="delTenant($event)" role="menuitem" href="javascript:void(0)">删除</a>
+                      </li>                 
+                  </ul>
+	              </div>
+      				</td>
+      			</tr>
+      		</tbody>
+      	</table>
+      </div>
+	  <!--新建项目-->
+	  <div class="modal fade rbtajsEcsModal" id="createTenantModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	创建项目
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <div role="tabpanel">
+		        	<ul class="nav nav-tabs ServerTypeTab" role="tablist" id="createTenantTab">
+						    <li role="presentation" class="active">
+						    	<a href="#basicInfo"  role="tab" data-toggle="tab">基本信息</a>
+						    </li>
+    						
+  						</ul>
+  						<!-- Tab panes -->
+						  <div class="tab-content">
+						    <div role="tabpanel" class="tab-pane active" id="basicInfo">
+						    	<form >
+						    		<div class="form-group">
+						    			<label for="serverTypeName">项目名称:</label>
+						    			<input type="text" class="form-control" id="tntName" />
+						    		</div>						    		
+						    		<div class="form-group">
+						    			<label for="serverTypeTDisk">描述:</label>
+						    			<input type="text" class="form-control" id="tntDesc" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeSDisk">是否激活:</label>
+						    			<input type="checkbox" id="tntActive" checked />
+						    		</div>
+						    	</form>
+						    </div>
+						  </div>
+						</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="createTenantAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<!--更改成员-->
+	  <div class="modal fade rbtajsEcsModal" id="managerUserModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	更改项目成员
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <p class="text-center">选择新的项目成员</p>
+	        	<div class="accessControl">
+	        		<div class="panel" style="margin: 0;">
+	        			<ul class="list-unstyled list-group">
+				        	<li ng-repeat="item in tntUserData" class="list-group-item" >{{item.userName}}
+				        		<button ng-click="checkUserBtn($event)" uid={{item.userId}}  type="button"></button>
+				        		<select id="tntUserRole">
+				        			<option  ng-repeat="item in tntRoleData" value={{item.roleId}}>{{item.roleName}}</option>
+				        		</select>
+							    </li>
+			        	</ul>	
+	        		</div>
+	        	</div>
+		      </div> 
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="managerUserAction()">保存更改</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<!--修改默认值-->
+		<div class="modal fade rbtajsEcsModal" id="changeTntQuotaModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	修改当前租户配额
+		        </h4>
+		      </div>
+		      <div class="modal-body" style="overflow: hidden;">
+		      	<div class="form-left col-xs-6">
+		      		<form class="">
+			      		<div class="form-group">
+				    			<label for="metaCount" class="control-label  ">元数据条目:</label>
+				    			<input type="number" class="form-control" id="metaCount" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="fileLimit" class="control-label  ">注入的文件:</label>
+				    			<input type="number" class="form-control" id="fileLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="fileByte" class="control-label  ">文件字节数:</label>
+				    			<input type="number" class="form-control" id="fileByte" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="serverGroupMember" class="control-label  ">主机组成员:</label>
+				    			<input type="number" class="form-control" id="serverGroupMember" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="serverGroup" class="control-label  ">主机组:</label>
+				    			<input type="number" class="form-control" id="serverGroup" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="cpuLimit" class="control-label  ">CPU:</label>
+			    				<input type="number" class="form-control" id="cpuLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="ipsCount" class="control-label  ">浮动IP:</label>
+			    				<input type="number" class="form-control" id="ipsCount" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="serverLimit" class="control-label  ">云主机:</label>
+			    				<input type="number" class="form-control" id="serverLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="memoryLimit" class="control-label  ">内存:</label>
+			    				<input type="number" class="form-control" id="memoryLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="keyLimit" class="control-label  ">密钥对:</label>
+			    				<input type="number" class="form-control" id="keyLimit" />
+				    		</div>
+				    	</form>		        
+		      	</div>
+		      	<div class="form-right col-xs-6">
+		      		<form class="">
+		      			<div class="form-group">
+				    			<label for="volShotLimit" class="control-label">云硬盘和快照总大小:</label>
+				    			<input type="number" class="form-control" id="volShotLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="snapShotLimit" class="control-label  ">云硬盘快照:</label>
+				    			<input type="number" class="form-control" id="snapShotLimit" />
+				    		</div>
+		      			<div class="form-group">
+				    			<label for="volLimit" class="control-label  ">云硬盘:</label>
+				    			<input type="number" class="form-control" id="volLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="ruleLimit" class="control-label  ">安全组规则:</label>
+				    			<input type="number" class="form-control" id="ruleLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="seGroupLimit" class="control-label  ">安全组:</label>
+				    			<input type="number" class="form-control" id="seGroupLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="subnetLimit" class="control-label  ">子网数:</label>
+				    			<input type="number" class="form-control" id="subnetLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="routeLimit" class="control-label  ">路由数:</label>
+				    			<input type="number" class="form-control" id="routeLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="portLimit" class="control-label  ">端口:</label>
+				    			<input type="number" class="form-control" id="portLimit" />
+				    		</div>
+				    		<div class="form-group">
+				    			<label for="netLimit" class="control-label  ">网络:</label>
+				    			<input type="number" class="form-control" id="netLimit" />
+				    		</div>
+				    		<div class="form-group " style="margin-top: 40px;">
+				    			<button type="button" class="btn btn-default" data-dismiss="modal" style="margin: 0 20px;">取消</button>
+		        			<button type="button" class="btn btn-primary" ng-click="changeTntQuotaAction()">保存</button>
+				    		</div>
+		      		</form>
+		      	</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>

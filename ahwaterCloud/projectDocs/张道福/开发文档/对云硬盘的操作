@@ -1,0 +1,32 @@
+
+1.管理已挂载的云硬盘
+   url：/ahwaterCloud/cont/manageVolume
+   (1)将云硬盘挂载到主机
+       url：/ahwaterCloud/cont/attachVolumeServer
+                     参数：serverId， volumeId，
+   (2)将云硬盘从主机卸载
+       url:/ahwaterCloud/cont/detachVolumeServer
+                    参数：serverId, attachmentId, volumeId
+
+2.创建云硬盘快照
+    url：/ahwaterCloud/cont/createVolumeSnapshot
+             参数：volumeSnapshotName, volumeSnapshotDescription, volumeId
+             
+3.删除云硬盘
+    url:/ahwaterCloud/cont/deleteVolume
+             参数:volumeId
+             
+4.批量删除云硬盘
+    url:/ahwaterCloud/cont/deleteMultiVolume
+             参数:volumeIds
+
+
+5.列出云平台上的所有云硬盘
+    url：/ahwaterCloud/cont/adminListAllVolumes
+            参数：tenantId
+
+6.更改云硬盘的状态
+    url：/ahwaterCloud/cont//resetVolumeState
+            参数： newState   (注：newState为in_use，error，creating，deleting，detaching断开中，error_deleting，available)
+       
+                

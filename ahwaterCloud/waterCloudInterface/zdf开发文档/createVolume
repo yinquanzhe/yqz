@@ -1,0 +1,15 @@
+1.从快照创建云硬盘
+  (1)列出所有快照（名字，大小，Id） url：/ahwaterCloud/cont/listVolumeSnapshotsNameIdSize
+  
+  (2)创建云硬盘 url：/ahwaterCloud/cont/createVolumefromVolumeSnapshot
+                             所需参数：volumeName，volumeDescription，volumSize，volumeSnapshotId
+                             
+2.从云硬盘创建云硬盘
+   (1)列出所有可用云硬盘（名字，大小，Id）url：/ahwaterCloud/cont/listVolumesNameIdSize
+   (2)创建云硬盘url：/ahwaterCloud/cont/createVolumefromVolume
+                               所需参数：volumeName，volumeDescription，volumSize，volumeId
+
+3.从镜像创建云硬盘
+   (1)列出所有镜像(名字，Id)url： /ahwaterCloud/cont/listImageNameId
+   (2)创建云硬盘url：/ahwaterCloud/cont/createVolumefromImage
+                               所需参数：volumeName，volumeDescription，volumSize，imageId

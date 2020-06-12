@@ -1,0 +1,15 @@
+<一.对应语言开发库>
+1.for python on ubuntu
+	python-libvirt
+
+2.for c on ubuntu
+	libvirt-dev
+
+<二.配置(Source=通常是云计算头节点 -> dest=计算节点) host pawdless>
+
+<三.Mysql-python库>
+
+<四.hisMonitorDataToDB、tempHostDataToDB、tempDiskDataToDB所用到的库表-表结构及权限>
+
+<五.管理员用户tenant_id传入>
+

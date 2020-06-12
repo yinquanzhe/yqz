@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ahwater.dao.WxMsgDao">
+
+    <insert id="addOne" parameterType="net.ahwater.bean.WxMsg">
+        insert into t_base_wxmsg(id, user_id, time, title, local_img, wx_img, content)
+        values(SEQ_T_BASE_WXMSG_ID.nextval, #{msg.user_id}, to_date(#{msg.time},'yyyy-mm-dd hh24:mi:ss'), #{msg.title}, #{msg.local_img},
+        #{msg.wx_img}, #{msg.content})
+    </insert>
+
+</mapper>

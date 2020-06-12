@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.ahwater.dataServ.dao.InterfacesDao">
+
+    <resultMap id="InterfaceResult" type="net.ahwater.dataServ.entity.vo.InterfacesVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sid" property="sid"/>
+        <result column="servicelog" property="servicelog"/>
+        <result column="reqtype" property="reqtype"/>
+        <result column="info" property="info"/>
+        <result column="requrl" property="requrl"/>
+        <result column="aid" property="aid"/>
+        <result column="resformat" property="resformat"/>
+        <result column="ressample" property="ressample"/>
+        <collection property="interfacesParamVOS"
+                    ofType="net.ahwater.dataServ.entity.vo.InterfacesParamVO">
+            <id column="p_id" property="id"/>
+            <result column="p_name" property="name"/>
+            <result column="iid" property="iid"/>
+            <result column="issue" property="issue"/>
+            <result column="datatype" property="datatype"/>
+            <result column="remark" property="remark"/>
+            <result column="type" property="type"/>
+        </collection>
+    </resultMap>
+    <select id="listByIid" resultMap="InterfaceResult">
+        select a.id,a.name,a.sid,a.servicelog,a.reqtype,a.requrl,a.info,a.aid,a.resformat,
+                a.ressample,b.id as p_id,b.name as p_name,b.iid,b.issue,b.datatype,b.remark,b.type
+        from d_interfaces a
+        left join d_interfaces_param b
+        on a.id = b.iid
+        where a.id=#{id}
+    </select>
+</mapper>

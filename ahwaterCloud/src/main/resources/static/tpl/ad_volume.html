@@ -1,0 +1,222 @@
+<div ng-controller="advolCtrl" class="content cloudDetail">
+	<h4>云硬盘</h4>
+	<div class="container-fluid list">
+		<div role="tabpanel">
+		  <!-- tab页 -->
+		  <ul class="nav nav-tabs cloudInfoTab" role="tablist" id="advolumeListTab">
+		    <li role="presentation" class="active">
+		    	<a href="#advolumeList" role="tab" data-toggle="tab">云硬盘</a>
+		    </li>
+		    <li role="presentation">
+		    	<a href="#adsnapShotList" role="tab" data-toggle="tab">云硬盘快照</a>
+		    </li>
+		  </ul>
+		  <!-- 云硬盘列表 ，快照 -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="advolumeList">
+		    	<!--搜索，删除-->
+		    	<div class="search col-xs-12">
+						<form>
+							<input type="text" placeholder="请输入关键字搜索" />
+						<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+						</form>
+						<div class="actionBtn">
+							<button type="button" class="btn btn-danger delVolumeBatch" ng-click="delVolumeBatch()"  >删除云硬盘</button>
+						</div>
+					</div>
+					<!--云硬盘列表-->
+					<div class="cloudlist col-xs-12">
+						<table cellspacing="6" cellpadding="10" width="100%">
+							<thead>
+								<tr>
+									<th>
+										<input  type="checkbox" />
+									</th>
+									<th style="text-align: left; padding-left: 6px;">沃特云项目</th>
+									<th style="text-align: left;padding-left: 6px;">主机</th>
+									<th style="width: 15%; text-align: left;padding-left: 6px;">云硬盘名称</th>
+									<th style="text-align: left;width: 12%;">描述</th>
+									<th style="text-align: left;">连接的主机</th>
+									<th>大小</th>
+									<th>状态</th>	
+									<th>创建时间</th>									
+									<th style="width: 10%;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="11">
+										<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+									</td>
+								</tr>				
+								<tr ng-repeat='item in volumeData'>
+									<td class="myvid">
+										<input type="checkbox" vid={{item.volumeId}} ng-click="choose($event)" />
+									</td>
+									<td style="text-align: left; padding-left: 6px;">{{item.tenantName}}</td>
+									<td style="text-align: left; padding-left: 6px;">{{item.hostName}}</td>
+									<td style="text-align: left; padding-left: 6px;">
+										{{item.volumeName}}
+									</td>
+									<td style="text-align: left;">{{item.volumeDescription}}</td>
+									<td style="text-align: left;" class="connectServer">
+										<a ng-href="#/server/{{item.volumeAttachment.serverId}}">{{item.volumeAttachment.serverName}}<br></a>
+									</td>
+									<td>
+										{{item.volumeSize}}GB
+									</td>
+									<td>
+										{{item.volumeStatus}}
+									</td>
+									<td>
+										{{item.date}}
+									</td>
+									<td class="action">
+										<a vid={{item.volumeId}} href="javascript:void(0)" ng-click="changeVolState($event)">修改状态</a>
+										<a ng-if="item.volumeStatus=='available'||item.volumeStatus=='error'" vid={{item.volumeId}} href="javascript:void(0)" ng-click="remAdminVol($event)">删除</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		    </div>
+		    
+		  	<div role="tabpanel" class="tab-pane" id="adsnapShotList">
+		  		<div class="search col-xs-12">
+		  			<div class="actionBtn">
+		  				<button type="button" class="btn btn-danger delVolShotBatch" ng-click='delVolShotBatch()'>
+		  					<i class="fa fa-trash"></i>
+		  					删除快照</button>
+		  			</div>
+		  		</div>
+		  		
+		  		<!--云硬盘快照列表-->
+		    	<div class="cloudlist col-xs-12">
+						<table cellspacing="6" cellpadding="10" width="100%">
+							<thead>
+								<tr>
+									<th>
+										<input type="checkbox" />
+									</th>
+									<th style="text-align: left;padding-left: 6px;">沃特云项目</th>
+									<th style="width: 15%; text-align: left;">名称</th>
+									<th>描述</th>
+									<th>大小</th>
+									<th>状态</th>	
+									<th>创建时间</th>
+									<th>云硬盘名称</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="10">
+										<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+									</td>
+								</tr>				
+								<tr ng-repeat="item in volomeShotData">
+									<td class="mysid">
+										<input type="checkbox" vid={{item.volumeSnapshotId}} ng-click='Shotchoose($event)'/>
+									</td>
+									<td style="text-align: left;padding-left: 6px;">{{item.volumeName}}</td>
+									<td style="text-align: left;">
+											{{item.volumeSnapshotName}}</td>
+									<td>
+										{{item.volumeSnapshotDescription}}
+									</td>
+									<td>
+										<span>{{item.volumeSnapshotSize}}GB</span>
+									</td>
+									<td>
+										{{item.volumeSnapshotState}}
+									</td>
+									<td>
+										{{item.date}}
+									</td>
+									<td>
+										{{item.volumeName}}
+									</td>
+									<td class="action">
+										<a vid={{item.volumeSnapshotId}} href="javascript:void(0)" ng-click="changeVolShotState($event)">修改状态</a>
+										<a vid={{item.volumeSnapshotId}} href="javascript:void(0)" ng-click="deleteVolShot($event)">删除</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		    </div>
+		  </div>		
+		</div>
+		
+		
+		<!--修改云硬盘状态-->
+		<div class="modal fade rbtajsEcsModal" id="changeStateModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	更新状态
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="typeChangeBox" class="col-xs-3 control-label">状态:</label>
+						    <div class="col-xs-8">
+						      <select class="form-control" id="stateVolBox">
+		        				<option value="-1">选择一个新的状态</option>
+										<option value="in_use">挂载中</option>
+										<option value="available">可用配额</option>
+										<option value="creating">创建中</option>
+										<option value="deleting">删除中</option>
+										<option value="detaching">断开中</option>
+										<option value="error">错误</option>
+										<option value="error_deleting">删除错误</option>
+		        			</select>
+						    </div>
+						  </div>
+						</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="changeStateAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<!--修改云硬盘快照状态-->
+		<div class="modal fade rbtajsEcsModal" id="changeShotStateModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	更新状态
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="typeChangeBox" class="col-xs-3 control-label">状态:</label>
+						    <div class="col-xs-8">
+						      <select class="form-control" id="stateShotBox">
+		        				<option value="-1">选择一个新的状态</option>
+										<option value="creating">创建中</option>
+										<option value="deleting">删除中</option>
+										<option value="error">错误</option>
+										<option value="error_deleting">删除错误</option>
+		        			</select>
+						    </div>
+						  </div>
+						</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="changeShotStateAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+	</div>
+</div>

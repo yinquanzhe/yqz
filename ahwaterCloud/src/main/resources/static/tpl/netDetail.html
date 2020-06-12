@@ -1,0 +1,155 @@
+<div ng-controller="netDetailCtrl" class="content cloudDetail">
+	
+	<h4>
+		<img src="img/netlogo.png" alt="" />
+		&nbsp;{{netName}}
+	</h4>
+	<div class="loading-wrap">
+		<i class="fa fa-spinner fa-pulse fa-fw"></i>
+		加载中...
+	</div>
+	<!--<div class="actionBox">
+		<button type="button" class="refresh" ng-click="getRouteInfoBtn()">
+			<i class="fa fa-refresh"></i>
+			刷新</button>		
+	</div>
+	-->
+	<div role="tabpanel">
+  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs cloudInfoTab" role="tablist" id="netInfoTab">
+	    <li role="presentation" class="active">
+	    	<a href="#netInfo"  role="tab" ng-click="getnetInfoBtn()">概况</a>
+	    </li>
+	    <li role="presentation">
+	    	<a href="#netPort"  role="tab" ng-click="getPort()">端口</a>
+	    </li>	    
+	  </ul>
+	
+	  <!-- Tab panes -->
+	  <div class="tab-content list">
+	    <div role="tabpanel" class="tab-pane active" id="netInfo">
+	    	<div class="serverBox row">
+					<!--基本信息-->
+					<div class="col-xs-12 col-md-4">
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+						  	基本信息						  					  	
+						  </div>
+						  <div class="panel-body">
+						    <ul class="list-group">
+								  <li class="list-group-item">
+								  	<span>名称：</span>
+								  	{{net.networkName}}
+								  </li>
+								  <li class="list-group-item"><span>ID：</span>{{net.networkId}}</li>
+								  <li class="list-group-item"><span>项目ID：</span>{{net.tenantId}}</li>
+								  <li class="list-group-item"><span>状态：</span>{{net.networkState}}</li>
+								  <li class="list-group-item"><span>管理员状态：</span>{{net.networkIsAdminStateUp}}</li>
+								  <li class="list-group-item"><span>共享的：</span>{{net.networkIsShared}}</li>
+								  <li class="list-group-item"><span>是否外部网络：</span>{{net.isExternal}}</li>
+								</ul>
+							</div>
+						</div>
+						<div class="panel panel-default">
+						  <div class="panel-heading">提供者网络</div>
+						  <div class="panel-body">
+						    <ul class="list-group">
+								  <li class="list-group-item"><span>网络类型：</span>{{net.networkType}}</li>
+								  <li class="list-group-item"><span>物理网络：</span>{{net.phycialNetwork}}</li>
+								  <li class="list-group-item"><span>段ID：</span>{{net.segId}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				  <!--子网列表-->  		
+					<div class="col-xs-12 col-md-8">
+						<h4 class="text-center">子网列表</h4>
+						<div class="cloudlist">
+							<table cellspacing="6" cellpadding="10" width="100%">						
+								<thead>
+									<tr>
+										<th><input type="checkbox" /></th>
+										<th style="text-align: left;">名称</th>
+										<th>网络地址</th>
+										<th>IP版本</th>
+										<th>网关IP</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="5">
+											<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+										</td>
+									</tr>						
+									<tr ng-repeat="item in subNetTable">
+										<td><input type="checkbox" /></td>
+										<td class="imageAllName">
+											<span>
+												<a href="javascript:void(0)" ng-click="toggleDetailSubNet($event)" nid={{item.subNetId}}>{{item.subnetName}}</a>
+												<!--子网详情弹框-->
+					          		<div class="imageDetailBox animated fadeIn">
+					          			<div class="imageClose text-right">
+					          				<span style="cursor: pointer;" ng-click="DetailClose()">&times;</span>
+					          			</div>
+					          			<div class="imgDetailCont" style="padding-left: 15px;">
+												  	<p class="text-left"><span>ID：</span>{{subNetdetailData.subNetId}}</p>
+												  	<p class="text-left"><span>网络ID：</span>{{subNetdetailData.networkId}}</p>
+												  	<p class="text-left"><span>地址池：</span>从{{subNetdetailData.ipstart}}到{{subNetdetailData.ipend}}</p>
+												  	<p class="text-left"><span>DHCP：</span>{{subNetdetailData.enableDHCP}}</p>
+												  	<p class="text-left"><span>子网资源池：</span>{{subNetdetailData.subnetPoolId}}</p>
+												  	<p class="text-left"><span>DNS服务器：</span>{{subNetdetailData.dns_nameservers}}</p>
+												  	<p class="text-left"><span>CIDR：</span>{{subNetdetailData.subnetCidr}}</p>
+					          			</div>
+					          		</div>
+											</span>
+										</td>
+										<td>{{item.subnetCidr}}</td>	
+										<td>IP{{item.ipVersion}}</td>
+										<td>{{item.gateway}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>		
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="netPort">    	
+	    	<div class="cloudlist col-xs-12">
+						<table cellspacing="6" cellpadding="10" width="100%">
+							<thead>
+								<tr>
+									<th style="text-align: left;padding-left: 30px;">名称</th>
+									<th>固定IP</th>
+									<th>状态</th>
+									<th>管理员状态</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4">
+										<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+									</td>
+								</tr>						
+								<tr ng-repeat="item in interfaceTable">
+									<td class="imageAllName" style="padding-left: 30px;">
+										<span>
+											<i class="fa fa-pencil" ng-click="editPort($event)" style="cursor: pointer;" pid={{item.portId}}></i>
+											<b style="font-weight: normal;">{{item.portName}}</b>
+										</span>
+									</td> 
+									<td>{{item.portFixedIps[0]}}</td>
+									<td>{{item.portState}}</td>
+									<td>{{item.portisAdminStateUp}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+	    </div>	   
+	  </div>
+
+	</div>
+	
+</div>
+
+
+

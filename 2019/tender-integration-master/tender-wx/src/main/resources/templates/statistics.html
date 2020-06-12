@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="ui-page-login" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>分析统计</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -khtml-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+
+        body > div {
+            background: #fff;
+            margin-top: 10px;
+        }
+
+        html, body {
+            height: 100%;
+            background: #f5f5f5;
+            min-width: 300px;
+            margin: 0 !important;
+        }
+
+        #chart1 {
+            height: 200px;
+            margin-top: 0;
+        }
+
+        #chart2 {
+            height: 180px;
+        }
+
+        #chart3 {
+            height: 120px;
+            width: 50%;
+        }
+
+        #nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 0 10px 0;
+            position: relative;
+            font-weight: 300;
+        }
+
+        #nav > p {
+            position: absolute;
+            top: 10px;
+        }
+        #nav > div {
+            float: left;
+        }
+
+        #nav > div > p:before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 2px;
+        }
+
+        #nav > div > .p1:before {
+            background: #3dd294;
+        }
+
+        #nav > div > .p2:before {
+            background: #f5a748;
+        }
+
+        .noData {
+            color: #AAA;
+            text-align: center;
+            position: relative;
+            top: 48%;
+        }
+    </style>
+</head>
+<body>
+<div id="chart1"></div>
+<div id="chart2"></div>
+<div id="nav">
+    <p>上月推送数量对比</p>
+    <div>
+        <p class="p1"
+           th:text="|本月推送数量: ${chart3.get(0).get('month') == 'this_month' ? chart3.get(0).get('count') : chart3.get(1).get('count')}|">
+            本月推送数量: 335</p>
+        <p class="p2"
+           th:text="|上月推送数量: ${chart3.get(1).get('month') == 'last_month' ? chart3.get(1).get('count') : chart3.get(0).get('count')}|">
+            上月推送数量: 310</p>
+    </div>
+    <div id="chart3"></div>
+    <div style="clear:both;"></div>
+</div>
+<script th:src="|${serverUrl}/js/jquery.min.js|"></script>
+<script th:src="|${serverUrl}/js/echarts.common.min.js|"></script>
+<script th:inline="javascript">
+    let chart1Data = [[${chart1}]]
+    let chart2Data = [[${chart2}]]
+    let chart3Data = [[${chart3}]]
+    let days = [], data = []
+    for (let i = 0; i < 31; i++) {
+        days.push('12.' + (i + 1) + '')
+        data.push(Math.ceil(Math.random() * 10))
+    }
+
+    let chart1 = echarts.init($('#chart1').get(0));
+    var option = {
+        title: {
+            text: '本月每日推送数量',
+            show: true,
+            textStyle: {
+                fontSize: '12px'
+            },
+            left: 'center',
+            top: 10
+        },
+        grid: {
+            left: '2%',
+            right: '2%',
+            bottom: '5%',
+            containLabel: true
+        },
+        tooltip: {
+            formatter: function (param) {
+                return param.name.split('-')[0] + '月' + param.name.split('-')[1] + '日推送: ' + param.value + '条'
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: chart1Data.map(e => e['day'].substr(5, 5))
+        },
+        yAxis: {
+            type: 'value',
+            min: 0
+        },
+        series: [{
+            data: chart1Data.map(e => e['count']),
+            type: 'line',
+            label: {
+                normal: {
+                    show: true
+                }
+            }
+        }],
+        color: '#3dd294',
+        textStyle: {
+            color: '#555',
+            fontSize: 10,
+            fontWeight: 300
+        }
+    }
+    chart1.setOption(option);
+
+    let chart2 = echarts.init($('#chart2').get(0));
+    option = {
+        title: {
+            text: '本月关键词推送数量TOP3',
+            show: true,
+            textStyle: {
+                fontSize: '12px'
+            },
+            left: 'center',
+            top: 10
+        },
+        grid: {
+            left: '-2%',
+            right: '5%',
+            bottom: '5%',
+            containLabel: true
+        },
+        tooltip: {
+            formatter: function (param) {
+                return '本月推送[' + param.name + ']信息: ' + param.value + '条'
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: chart2Data.map(e => e['name']),
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            }
+        },
+        yAxis: {
+            type: 'value',
+            show: false
+        },
+        series: [{
+            data: chart2Data.map((e, i) => {
+                return {
+                    value: e['kw_count'] || 0,
+                    itemStyle: {
+                        color: ['#DFD4F9', '#A299DC',  '#FF9999'][i]
+                    }
+                }
+            }),
+            type: 'bar',
+            barWidth: '15px',
+            label: {
+                show: true,
+                position: 'top'
+            }
+        }],
+        textStyle: {
+            color: '#555',
+            fontSize: 12,
+            fontWeight: 300
+        }
+    }
+    chart2.setOption(option);
+    if (chart2Data.length === 0) {
+        $('#chart2>div:eq(0)').append('<p class="noData">暂无数据</p>')
+    }
+
+    let chart3 = echarts.init($('#chart3').get(0));
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{b}: {c} ({d}%)"
+        },
+        series: [
+            {
+                type:'pie',
+                radius: ['50%', '80%'],
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: '{d}%',
+                        position: 'inside'
+                    },
+                },
+                labelLine: {
+                    show: false
+                },
+                data:[
+                    {value: chart3Data[0]['month'] == 'this_month' ? chart3Data[0]['count'] : chart3Data[1]['count'], name:'本月推送数量'},
+                    {value: chart3Data[1]['month'] == 'last_month' ? chart3Data[1]['count'] : chart3Data[0]['count'], name:'上月推送数量'}
+                ]
+            }
+        ],
+        color: ['#3dd294', '#f5a748'],
+        textStyle: {
+            fontSize: 12,
+            fontWeight: 400
+        }
+    }
+    chart3.setOption(option);
+</script>
+</body>
+</html>

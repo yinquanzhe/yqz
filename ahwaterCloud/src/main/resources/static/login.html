@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>沃特云 - 登录</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge,Chrome=1"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="bookmark" href="favicon.ico"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/login.css"/>
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="css/flavr.css" />
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/flavr.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/particleground.all.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+    	sessionStorage.clear()
+    </script>
+</head>
+<body>
+  <div id="loginBox">
+  	<div class="container text-center">
+  		<div class="logo">
+  			<a href="#"><img src="img/admin/logo-white.png"/></a>
+  			<img src="img/xixian.png"/>
+  		</div>
+  		<div class="main">
+  			<div class="userBox">
+  				<div class="alert alert-danger" id="alertInfo"><i class="glyphicon glyphicon-remove"></i><span>您还未输入账号</span></div>
+  				<div class="usernameBox">
+  					<input type="text" class="form-control"   id="username"  placeholder="请输入用户名" />
+  					<!--<span id="clearUname">X</span>-->
+  				</div>
+  				<div class="userpwdBox">
+  					<input type="password" class="form-control" onpaste="return false" id="userpwd" placeholder="密码" />
+  					<span><i class="glyphicon glyphicon-eye-open"></i></span>
+  				</div>
+  				<div class="loginBtnBox">
+  					<button type="button" id="loginBtn">登录</button>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  <footer id="footer">
+  	<p><a href="#">关于我们</a><a href="#">访问官网</a><a href="#">法律声明</a></p>
+  	<p>Copyright©2016-2017 安徽沃特水务科技有限公司  沃特云 版权所有</p>
+  </footer>
+    <script>
+    	$('#username').val('');
+    	$('#username').focus();
+    	$('#userpwd').val('');
+    	/*function showSpan(e){
+    		if($(e).val()!=''){
+    			$(e).next().show()
+    		}else{
+    			$(e).next().hide()
+    		}
+    	}
+    	function hideSpan(e){
+    		$(e).next().hide()
+    	}
+    	$('#clearUname').click(function(){
+    		$('#username').val('');
+    		$(this).hide()
+    	});*/
+	    function disp3Seconds(){
+	    	setTimeout(function(){
+	    		$('.alert-danger').css({
+	          	visibility: 'hidden'
+	          });
+	    	},3000)
+	    }
+	    
+	    $('#loginBtn').click(function(e){
+	        e.preventDefault();
+	        if(!$('#username').val()){
+	          $('.alert-danger').children('span').html("您还未输入账号");
+	          $('.alert-danger').css({
+	          	visibility: 'visible'
+	          });
+	          disp3Seconds();  
+	        }else if(!$('#userpwd').val()){
+	        	$('.alert-danger').children('span').html("请输入密码");
+	          $('.alert-danger').css({
+	          	visibility: 'visible'
+	          });
+	          disp3Seconds();
+	        }else {
+	        	
+	        	
+            $.ajax({
+              type: 'post',
+              url: '/ahwaterCloud/ctr/LoginProcess', //接收数据的后台页面
+              data: {'username': $('#username').val(), 'userpwd': $('#userpwd').val()},//发送的数据
+              dataType: 'json',                  
+              success: function (msg) {
+                  if(msg.statu=='succ'){
+                  	sessionStorage.setItem('user',$('#username').val());
+                  	if(msg.isAdmin=="admin"){
+                  		location.replace('admin.html');  //this tab                      
+                  	}else{
+                  		location.replace('user.html');
+                  	}
+                  }else{
+                    $('.alert-danger').children('span').html("账号或密码错误");
+					          $('.alert-danger').css({
+					          	visibility: 'visible'
+					          });
+					          disp3Seconds(); 
+                  }
+                  
+              },
+              error:function(){
+              	new $.flavr({ 
+	            		content : '连接失败,请检查网络并设置允许cookie',
+	                autoclose : true,
+	                timeout : 2500,
+	                buttons:{
+	                	确定:{style:'danger'}
+	                }
+	            	});
+              }
+            })
+	        }
+	    })  			  					   			
+   		
+   		$("body").keydown(function(){
+		    if(event.keyCode=="13"){//13回车键
+		       $('#loginBtn').click();
+		    }
+			});    
+    
+    </script>
+</body>
+</html>

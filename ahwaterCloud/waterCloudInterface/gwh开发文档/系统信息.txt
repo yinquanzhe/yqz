@@ -1,0 +1,8 @@
+1.服务
+
+/ahwaterCloud/ctr/listService
+
+
+2.计算服务
+
+/ahwaterCloud/ctr/listSysComputeService

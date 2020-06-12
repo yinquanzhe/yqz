@@ -1,0 +1,7 @@
+spring:
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    in-memory: true
+    non-blocking-redelivery: false
+    password: admin
+    user: admin

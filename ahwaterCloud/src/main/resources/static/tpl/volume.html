@@ -1,0 +1,279 @@
+<div ng-controller="volumeCtrl" class="content">
+	<h4>云硬盘</h4>
+	<div class="container-fluid list">
+		<div role="tabpanel">
+
+		  <!-- tab页 -->
+		  <ul class="nav nav-tabs" role="tablist" id="volumeListTab">
+		    <li role="presentation" class="active" style="margin-right: 5px;">
+		    	<a href="#volumeList" role="tab" data-toggle="tab">云硬盘</a>
+		    </li>
+		    <li role="presentation">
+		    	<a href="#snapShotList" role="tab" data-toggle="tab">云硬盘快照</a>
+		    </li>
+		  </ul>
+		
+		  <!-- 云硬盘列表 ，快照 -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="volumeList">
+		    	<!--搜索，删除-->
+		    	<div class="search col-xs-12">
+						<form>
+							<input type="text" placeholder="请输入关键字搜索" />
+						<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+						</form>
+						<div class="actionBtn">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVolModal" ng-click="createVolume()">创建云硬盘</button>
+							<button type="button" class="btn btn-danger delVolumeBatch" ng-click="delVolumeBatch()"  >删除云硬盘</button>
+							<!--创建云硬盘-->
+							<div class="volModal modal" id="createVolModal">
+								<div class="modal-dialog">
+									<div class="modal-content animated">
+										<div class="modal-header">
+											<h4 class="text-center">创建云硬盘</h4>
+											<p class="text-center">卷是可以被附属连接到实例的块设备。</p>
+										</div>
+										<div class="modal-body">
+											<form class="form-horizontal" id="volForm">
+												<div class="form-group">
+													<label for="volName" class="control-label col-xs-3">云硬盘名称</label>
+													<div class="col-xs-9">
+														<input type="text" id="volName" class="form-control" placeholder="请输入云硬盘名称" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="volDesc" class="control-label col-xs-3">描述</label>
+													<div class="col-xs-9">
+														<textarea style="resize: none;" class="form-control" rows="3" cols="30" id="volDesc"></textarea>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="volSrc" class="control-label col-xs-3">云硬盘源</label>
+													<div class="col-xs-9">
+														<select class="form-control" id="volSrc">
+															<option tag='1' value="空白的">空白的</option>
+															<option tag='2' value="快照">快照</option>
+															<option tag='3' value="镜像">镜像</option>
+															<option tag='4' value="云硬盘">云硬盘</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group imgBox">
+													<label for="volImg" class="control-label col-xs-3">使用镜像作为源</label>
+													<div class="col-xs-9">
+														<select class="form-control" id="volImg">
+															<option ng-repeat="item in imageListData" value={{item.imageId}}>{{item.imageName}}</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group volTypeBox">
+													<label for="volType" class="control-label col-xs-3">云硬盘类型</label>
+													<div class="col-xs-9">
+														<select class="form-control" id="volType">
+															<option>暂无</option>
+														</select>
+													</div>
+												</div>
+												
+												<div class="form-group shotBox">
+													<label for="quickShot" class="control-label col-xs-3">使用快照作为源</label>
+													<div class="col-xs-9">
+														<select id="quickShot" class="form-control">
+															<option ng-repeat="item in imageShotData" value={{item.volumeSnapshotId}}>{{item.volumeSnapshotName}}</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group volBox">
+													<label for="volVol" class="control-label col-xs-3">使用云硬盘作为源</label>
+													<div class="col-xs-9">
+														<select class="form-control" id="volVol">
+															<option ng-repeat="item in imageVolData" value={{item.volumeId}}>{{item.volumeName}}</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group volSizeBox">
+													<label for="volSize" class="control-label col-xs-3">大小(GB)</label>
+													<div class="col-xs-9">
+														<input type="number" id="volSize" class="form-control" value="1"/>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" ng-click="cancelVolBtn()">取消</button>
+											<button type="button" ng-click="createVolBtn()">创建</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--云硬盘列表-->
+					<div class="cloudlist col-xs-12">
+						<table cellspacing="6" cellpadding="10" width="100%">
+							<thead>
+								<tr>
+									<th>
+										<input  type="checkbox" />
+									</th>
+									<th style="width: 20%; text-align: left; padding-left: 6px;">云硬盘名称</th>
+									<th style="width: 20%; text-align: left;">描述</th>
+									<th>大小</th>									
+									<th>状态</th>	
+									<th>连接的主机</th>
+									<th>创建时间</th>
+									<th style="width: 10%;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="8">
+										<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+									</td>
+								</tr>				
+								<tr ng-repeat="item in volumeData">
+									<td class="myvid">
+										<input type="checkbox" vid={{item.volumeId}} ng-click="choose($event)" />
+									</td>
+									<td style="padding-left: 6px; text-align: left;">
+										<p style="margin-bottom: 0;">{{item.volumeName}}</p>
+										<!--<p style="font-size: 12px; margin-bottom: 0; color: #777;">{{item.volumeId}}</p>-->
+									</td>
+									<td style="text-align: left;">
+										{{item.volumeDescription}}
+									</td>
+									<td>
+										<span vid={{item.volumeId}}>{{item.volumeSize}}GB</span>
+										<i style="cursor: pointer;" class="fa fa-pencil" onclick="changeVolSize(this)"></i>
+									</td>
+									
+									<td>
+										{{item.volumeStatus}}
+									</td>
+									<td class="connectServer">
+										<a ng-href="#/server/{{item.volumeAttachment.serverId}}" ng-show="{{item.volumeStatus=='in-use'}}">{{item.volumeAttachment.serverName}}<br></a>
+										<i style="cursor: pointer; color: #09c;" vid={{item.volumeId}}  class="fa fa-plus-square" ng-hide="{{item.volumeStatus=='in-use'}}" ng-click="addToServer($event)">&nbsp;挂载</i>
+										<i style="cursor: pointer; color: #fa0;" sid={{item.volumeAttachment.serverId}} aid={{item.volumeAttachment.attachmentId}}  class="fa fa-share" ng-show="{{item.volumeStatus=='in-use'}}"  ng-click="removeVolume($event)">&nbsp;卸载</i>
+										
+										<div class="modal fade " id="AddtoServerModal"  role="dialog">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">		       
+										        <h4 class="modal-title text-center">
+										        	将硬盘连接到主机
+										        </h4>
+										      </div>
+										      <div class="modal-body">
+										        <form class="form-horizontal">
+														  <div class="form-group">
+														    <label for="typeChangeBox" class="col-xs-4 control-label">选择云主机:</label>
+														    <div class="col-xs-6">
+														      <select class="form-control" id="cloudServerBox">
+										        				<option ng-repeat='item in cloudServerData track by $index' value={{item.serverId}}>{{item.serverName}}</option>
+										        			</select>
+														    </div>
+														  </div>
+														</form>
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn" data-dismiss="modal">取消</button>
+										        <button type="button" class="btn" ng-click="addToServerAction()">确定</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
+									</td>
+									<td>
+										{{item.date}}
+									</td>
+									<td class="action">
+										<a vid={{item.volumeId}} vname={{item.volumeName}} vdesc={{item.volumeDescription}} href="javascript:void(0)" ng-click="editVol($event)">编辑</a>
+										<a vid={{item.volumeId}} href="javascript:void(0)" ng-click="createShot($event)">创建快照</a>
+										<a vid={{item.volumeId}} href="javascript:void(0)" ng-click="deleteShot($event)">删除</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		    </div>
+		    
+		 
+		  	<div role="tabpanel" class="tab-pane" id="snapShotList">
+		  		<div class="search col-xs-12">
+		  			<div class="actionBtn">
+		  				<button type="button" class="btn btn-danger delVolShotBatch" ng-click='delVolShotBatch()'>
+		  					<i class="fa fa-trash"></i>
+		  					删除快照</button>
+		  			</div>
+		  		</div>
+		  		
+		  		<!--云硬盘快照列表-->
+		    	<div class="cloudlist col-xs-12">
+						<table cellspacing="6" cellpadding="10" width="100%">
+							<thead>
+								<tr>
+									<th>
+										<input type="checkbox" />
+									</th>
+									<th style="width: 20%;text-align: left; padding-left: 6px;">名称</th>
+									<th style="width: 20%;text-align: left;">描述</th>
+									<th>大小</th>
+									<th>状态</th>	
+									<th>云硬盘名称</th>
+									<th>创建时间</th>
+									<th style="width: 10%;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="8">
+										<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+									</td>
+								</tr>				
+								<tr ng-repeat="item in volomeShotData track by $index">
+									<td class="mysid">
+										<input type="checkbox" vid={{item.volumeSnapshotId}} ng-click='Shotchoose($event)'/>
+									</td>
+									<td style="padding-left: 6px; text-align: left;">
+										<p style="margin-bottom: 0;">
+											{{item.volumeSnapshotName}}
+										</p>
+									<!--	<p style="margin-bottom: 0; font-size: 12px; color: #777;">{{item.volumeSnapshotId}}</p>-->
+									</td>
+									<td style="text-align: left;">
+										{{item.volumeSnapshotDescription}}
+									</td>
+									<td>
+										<span>{{item.volumeSnapshotSize}}GB</span>
+									</td>
+									<td>
+										{{item.volumeSnapshotState}}
+									</td>
+									<td>
+										{{item.volumeName}}
+									</td>
+									<td>
+										{{item.date}}
+									</td>
+									<td class="action">
+										<a vid={{item.volumeSnapshotId}} vsname={{item.volumeSnapshotName}} vsdesc={{item.volumeSnapshotDescription}} href="javascript:void(0)" ng-click="editVolShot($event)">编辑</a>
+										<a vid={{item.volumeSnapshotId}} href="javascript:void(0)" ng-click="deleteVolShot($event)">删除</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		    </div>
+		  </div>		
+		</div>
+
+		
+
+
+
+
+		
+			
+
+	</div>
+</div>

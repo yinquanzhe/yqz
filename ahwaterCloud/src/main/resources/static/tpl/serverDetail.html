@@ -1,0 +1,183 @@
+<div ng-controller="serverDetailCtrl" class="content cloudDetail">
+	
+	<h4>
+		<img src="img/serverIcon.png" alt="" />
+		&nbsp;{{serverName}}
+	</h4>
+	<div class="loading-wrap">
+		<i class="fa fa-spinner fa-pulse fa-fw"></i>
+		加载中...
+	</div>
+	<div class="actionBox">
+		<button type="button" class="refresh" ng-click="getServerInfoBtn()">
+			<i class="fa fa-refresh"></i>
+			刷新</button>
+		<button ng-if="status=='运行中'" type="button" class="stopServer" ng-click="stopServer()">停止</button>
+		<button ng-if="status=='运行中'" type="button" class="restart" ng-click="actionServer('重启中','softReBootServer')">重启</button>
+		<button ng-if="status=='关机'" type="button" class="restart" ng-click="actionServer('启动中','hardRebootServer')">启动</button>		
+		<button ng-if="status=='暂停'" type="button" class="restart" ng-click="actionServer('恢复中','unPause')">恢复</button>
+		<button ng-if="status=='挂起'" type="button" class="restart" ng-click="actionServer('恢复中','resume')">恢复</button>
+	</div>
+	
+	<div role="tabpanel">
+
+  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs cloudInfoTab" role="tablist" id="serverInfoTab">
+	    <li role="presentation" class="active">
+	    	<a href="#serverInfo"  role="tab" ng-click="getServerInfoBtn()">概况</a>
+	    </li>
+	    <li role="presentation">
+	    	<a href="#daily"  role="tab" ng-click="getDaily()">日志</a>
+	    </li>
+	    <li role="presentation">
+	    	<a href="#record"  role="tab" ng-click="getRecord()" >操作记录</a>
+	    </li>
+	  </ul>
+	
+	  <!-- Tab panes -->
+	  <div class="tab-content">
+	    <div role="tabpanel" class="tab-pane active" id="serverInfo">
+	    	<div class="serverBox row">
+					<!--基本信息-->
+					<div class="col-xs-12 col-md-4">
+						<div class="panel col-xs-6 col-md-12 panel-default">
+						  <div class="panel-heading">
+						  	基本信息
+						  	<button type="button" ng-click="vncControl()">进入控制台</button>					  	
+						  </div>
+						  <div class="panel-body">
+						    <ul class="list-group">
+								  <li class="list-group-item"><span>名称：</span>{{server.serverName}}<i style="margin-left: 3px; cursor: pointer;" class="fa fa-pencil" ng-click="editServerName($event)"></i></li>
+								  <li class="list-group-item"><span>ID：</span>{{server.serverId}}</li>
+								  <li class="list-group-item"><span>可用域：</span>{{server.availabilityZone}}</li>
+								  <li class="list-group-item"><span>实例类型：</span>{{server.flavorName}}</li>
+								  <li class="list-group-item"><span>创建时间：</span>{{server.createdTime}}</li>
+								  <li class="list-group-item"><span>主机：</span>{{server.host}}</li>
+								  <li class="list-group-item"><span>已创建：</span>{{server.timeFromCreated}}</li>
+								  <li class="list-group-item"><span>镜像ID：</span>{{server.imageId}}</li>
+								</ul>
+							</div>
+						</div>
+						<div class="panel col-xs-6 col-md-12 panel-default">
+						  <div class="panel-heading">配置信息</div>
+						  <div class="panel-body">
+						    <ul class="list-group">
+								  <li class="list-group-item"><span>CPU：</span>{{server.vcpus}}核</li>
+								  <li class="list-group-item"><span>内存：</span>{{server.ram>1024?server.ram/1024+'GB':server.ram+'MB'}}</li>
+								  <li class="list-group-item"><span>磁盘：</span>{{server.disk}}GB</li>
+								  <li class="list-group-item">
+								  	<span>IP地址：</span>
+								  	<div class="ipBox" ng-repeat="ip in ipArr track by $index">
+								  		<span>{{ip.name}}</span>：<span>{{ip.addr}}</span>
+								  	</div>
+								  </li>
+								  <li class="list-group-item"><span>镜像名称：</span>{{server.imageName}}</li>
+								  <li class="list-group-item"><span>安全组：</span>
+								  	<b style="font-weight: normal;" ng-repeat="sitem in existGroupList">{{sitem.securityGroupName}} </b>
+								  </li>								  
+								</ul>
+							</div>
+						</div>
+					</div>
+				  <!--监控信息-->  		
+					<div class="col-xs-12 col-md-8" style="position: relative; ">
+						<div class="serverStatusBox">
+							<div class="computer">
+								<i class="fa fa-desktop" style="font-size: 60px;"></i>
+							</div>
+							<div class="line">
+								<img src="img/ecs-rightline.png"/>
+							</div>
+							<div class="contentBox">
+								<div class="volumeCnt">
+									<i class="fa fa-hdd-o"></i>
+									云硬盘：
+									<span ng-repeat='item in volumeList'>{{item.volumeName}}</span>
+								</div>
+								<div class="serverStatus">
+									<i class="fa fa-power-off"></i>
+									状态：<span>{{server.status}}</span>
+								</div>
+								<div class="serverImage">
+									<i class="glyphicon glyphicon-cd"></i>
+									镜像：{{server.imageName}}
+								</div>
+							</div>												
+						</div>
+						<div class="chooseTimeBox col-xs-12">
+							<div class="col-xs-12 col-md-12 col-lg-6 text-center" style="margin-bottom: 15px;">
+								<button type="button" ng-click="twoHous($event)">2小时内</button>
+								<button type="button" ng-click="sixHous($event)">6小时内</button>
+								<button class="active" type="button" ng-click="twelveHous($event)" >12小时内</button>
+								<button type="button" ng-click="twofourHous($event)">24小时内</button>
+							</div>
+							<div class="col-xs-12  col-md-12 col-lg-6 text-center">
+								<span>选择时间：</span>
+								<input class="datainp" id="inpstart" readonly  placeholder="开始时间" type="text" />
+								—
+								<input class="datainp" id="inpend" readonly  placeholder="结束时间" type="text" />
+							</div>
+						</div>
+						<div id="serverChartCPU" class="col-xs-12"  style="height: 300px; padding: 0; "></div>
+						<div id="serverChartMem" class="col-xs-12"  style="height: 300px; padding: 0;"></div>
+				</div>				
+					<div id="serverChartDiskPercent" class="col-xs-6"  style="height: 300px; padding: 0; margin-top: 20px;"></div>
+					<div id="serverChartNet" class="col-xs-6"  style="height: 300px; padding: 0;margin-top: 20px;"></div>
+					<div id="serverChartDiskIn" class="col-xs-6"  style="height: 300px; padding: 0;"></div>
+					<div id="serverChartDiskOut" class="col-xs-6"  style="height: 300px; padding: 0;"></div>
+				</div>		
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="daily">    	
+	    	<div class="dailyBox">
+	    		<div>
+	    			<span>日志行数：</span>
+	    			<input type="number" id="dailyRow" value="30" />
+	    			<button type="button"  ng-click="getDaily()">提交</button>
+	    		</div>
+	    		<div class="dailyContent">
+	    			<pre style="white-space: pre-wrap;">
+	    				{{dailyData.output}}
+	    			</pre>
+	    		</div>
+	    	</div>
+	    </div>
+	    <div role="tabpanel" class="tab-pane list" id="record">
+	    	<div class="cloudlist col-xs-12">
+					<table cellspacing="6" cellpadding="10" width="100%">
+						<thead>
+							<tr>						
+								<th style="text-align: left; width: 25%;padding-left: 20px;">请求ID</th>
+								<th>动作</th>
+								<th>操作时间</th>
+								<th style="text-align: left;width: 25%;">用户ID</th>									
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="5">
+									<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+								</td>
+							</tr>						
+							<tr ng-repeat="item in recordList">					
+								<td style="text-align: left; padding-left: 20px;">{{item.request_id}}</td>
+								<td>{{item.action}}</td>
+								<td>
+									{{item.start_time}}
+								</td>
+								<td style="text-align: left;">
+									{{item.user_id}}
+								</td>	
+								<td>{{item.message}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+	    </div>
+	  </div>
+
+	</div>
+	
+</div>
+
+
+

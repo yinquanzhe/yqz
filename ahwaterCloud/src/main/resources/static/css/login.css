@@ -1,0 +1,99 @@
+body {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+  background-image: url(../img/loginbg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#loginBox {
+  flex: 1;
+  padding-top: 50px;
+  background: rgba(0, 0, 0, 0.4);
+}
+#loginBox .logo {
+  position: relative;
+}
+#loginBox .logo a img {
+  height: 45px;
+}
+#loginBox .logo > img {
+  position: absolute;
+  left: 50%;
+  bottom: -110px;
+}
+#loginBox .main > .userBox {
+  width: 450px;
+  height: 350px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 2px #888;
+  margin: 100px auto ;
+  padding: 45px 60px;
+}
+#loginBox .main > .userBox button {
+  padding: 10px 50px;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  height: 40px;
+  outline: none;
+  border: none;
+  background: #1CB4E5;
+  transition: background 0.5s ;
+}
+#loginBox .main > .userBox button:hover {
+  background: #1AA5D3;
+}
+#loginBox .main > .userBox div:first-child {
+  border: none;
+  background: #fff;
+  text-align: left;
+  padding: 6px;
+  font-size: 14px;
+  color: #FC6300;
+  visibility: hidden;
+  margin-bottom: 5px;
+  transition: all 0.5s;
+}
+#loginBox .main > .userBox > div:not(:first-child) {
+  margin-bottom: 40px;
+  position: relative;
+}
+#loginBox .main > .userBox > div:not(:first-child) input {
+  height: 40px;
+  padding-left: 10px;
+}
+#loginBox .main > .userBox > div:not(:first-child) span {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  border-radius: 50%;
+  background: #c5c5c5;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  display: none;
+}
+#footer {
+  height: 60px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+#footer p {
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+#footer p a {
+  color: rgba(255, 255, 255, 0.9);
+  margin-right: 15px;
+  text-decoration: none;
+}

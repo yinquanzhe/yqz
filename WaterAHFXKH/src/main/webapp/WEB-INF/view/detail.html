@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>${title}</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="static/css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			h4 {
+				text-align: center;
+				margin-bottom: 10px;
+                color: #ff6600;
+			}
+			
+			.mui-content-padded p {
+				text-indent: 1.5em;
+			}
+		</style>
+	</head>
+
+	<body>
+        <header class="mui-bar mui-bar-nav">
+            <a id="backBtn" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">${title}</h1>
+        </header>
+		<div class="mui-content">
+		    <div class="mui-content-padded">
+                ${content}
+			</div>
+		</div>
+		<script src="static/js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,103 @@
+<div ng-controller="sysCtrl" class="content cloudDetail">
+	<h4>系统信息</h4>
+	<div class="container-fluid list">
+		<div role="tabpanel">
+		  <!-- tab页 -->
+		  <ul class="nav nav-tabs cloudInfoTab" role="tablist" id="systemTab">
+		    <li role="presentation" class="active">
+		    	<a href="#adService" role="tab" data-toggle="tab">服务</a>
+		    </li>
+		    <li role="presentation">
+		    	<a href="#adCompService" role="tab" data-toggle="tab">计算服务</a>
+		    </li>
+		  </ul>
+		  <!-- 服务和计算服务 -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="adService">
+		    	<!--搜索-->
+		    	<div class="search col-xs-12">
+						<form>
+							<input type="text" placeholder="开发中" />
+						<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+						</form>						
+					</div>
+					<!--服务列表-->
+					<div class="cloudlist col-xs-12">
+						<table cellspacing="6" cellpadding="10" width="100%">
+							<thead>
+								<tr>									
+									<th style="text-align: left; padding-left: 20px; width: 25%;">名称</th>
+									<th style="text-align: left; width: 15%;">主机</th>
+									<th>服务</th>									
+									<th>状态</th>										
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4">
+										<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+									</td>
+								</tr>				
+								<tr ng-repeat='item in serviceData'>																		
+									<td style="text-align: left; padding-left: 20px;">
+										{{item.name}}
+									</td>
+									<td style="text-align: left;">
+										{{item.host}}
+									</td>
+									<td>
+										{{item.type}}
+									</td>
+									<td>
+										{{item.enabled}}
+									</td>																
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		    </div>
+		    
+		  	<div role="tabpanel" class="tab-pane" id="adCompService">
+		  		<div class="search col-xs-12">		  			
+						<form>
+							<input type="text" placeholder="开发中" />
+						<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+						</form>						
+		  		</div>
+		  		
+		  		<!--计算服务列表-->
+		    	<div class="cloudlist col-xs-12">
+						<table cellspacing="6" cellpadding="10" width="100%">
+							<thead>
+								<tr>
+									<th style="text-align: left; padding-left: 20px; width: 20%;">名称</th>
+									<th style="text-align: left; width: 15%; ">主机</th>
+									<th>域</th>
+									<th>状态</th>
+									<th>管理员状态</th>
+									<th>最近更新</th>	
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="6">
+										<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+									</td>
+								</tr>				
+								<tr ng-repeat="item in compServiceData">
+									<td style="text-align: left; padding-left: 20px;">{{item.binary}}</td>
+									<td style="text-align: left;">{{item.host}}</td>									
+									<td>{{item.zone}}</td>
+									<td>{{item.status}}</td>
+									<td>{{item.state}}</td>
+									<td>{{item.updated_at.slice(0,10)}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		    </div>
+		  </div>		
+		</div>
+							
+	</div>
+</div>

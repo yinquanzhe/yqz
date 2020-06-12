@@ -1,0 +1,58 @@
+<div ng-controller="monitorCtrl" class="content monitor">
+	<h4>云监控</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+			<form>
+				<input type="text" placeholder="开发中" />
+			<button type="button" ng-click="filterNet()" class="btn btn-default">筛选</button>
+			</form>
+		</div>		
+		<div class="cloudlist col-xs-12">
+			<table cellspacing="6" cellpadding="10" width="100%">
+				<thead>
+					<tr>						
+						<th style="text-align: left; padding-left: 10px;">云主机名称</th>
+						<th style="text-align: left; width: 15%;">CPU使用率(%)</th>
+						<th>VM进程所占内存(GB)</th>
+						<th style="text-align: left;">磁盘使用(%)</th>
+						<th>磁盘总读/写(MB)</th>
+						<th>入网/出网流量(GB)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="6">
+							<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+						</td>
+					</tr>						
+					<tr ng-repeat="item in monitorData">					
+						<td style="text-align: left; padding-left: 10px;"><a  ng-href="#/server/{{item.uuid}}">{{item.cloud_hostname}}</a></td>
+						<td class="cpuPencentBox">
+							<div class="progress">
+							  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow={{item.vcpu_usage_rate}} aria-valuemin="0" aria-valuemax="100" ng-style="{'width':item.vcpu_usage_rate+'%'}">
+							  </div>
+							</div>
+							<span>{{item.vcpu_usage_rate}}</span>
+						</td>
+						<td>
+							{{item.vmem_rss_size}}
+						</td>
+						<td class="cpuPencentBox">
+							<div class="progress">
+							  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow={{item.diskPercent}} aria-valuemin="0" aria-valuemax="100" ng-style="{'width':item.diskPercent+'%'}">
+							  </div>
+							</div>
+							<span>{{item.diskPercent}}</span>
+						</td>	
+						<td>
+							{{item.diskRead}}/{{item.diskWrite}}
+						</td>	
+						<td>
+							{{item.vnet_flow_rx_bytes}}/{{item.vnet_flow_tx_bytes}}
+						</td>	
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

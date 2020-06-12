@@ -1,0 +1,107 @@
+
+需要前台给后台传递两个参数
+serverId
+actionName（需要跟上面给出的操作名一致）
+
+访问的URL  /ahwaterCloud/crl/serverAction
+
+根据状态列举操作
+if status=="运行中"
+有操作：
+
+绑定浮动ip(addFloatingIP)
+编辑云主机(editServer)
+编辑安全组(editsecurityGroups)
+控制台(console)
+查看日志(lookLog)
+暂停（pause）
+挂起（suspend）
+废弃实例（shelve）
+调整云主机大小(resize)
+锁定实例(lock)
+解锁实例(unLock)
+软重启实例(softReBootServer)
+硬重启实例(hardRebootServer)
+关闭实例(stop)
+重建云主机(rebuild)
+删除云主机(deleteServer)
+
+1.	编辑云主机
+/ahwaterCloud/crl/editServer
+需要传给后台
+serverId
+newServerName
+
+成功后后台返回succ
+2.	编辑安全组
+  /ahwaterCloud/crl/editSecurityGroups
+需要传给后台
+serverId
+和两个数组字符串：
+addSecGroupNames（需要增加的安全组名字数组）
+removeSecGroupNames（需要删除的安全组名字数组）
+
+成功后后台返回succ
+
+3.	调整云主机大小
+/ahwaterCloud/crl/resizeServer
+需要传给后台
+serverId
+flavorId
+
+成功后后台返回succ
+
+4.	重建云主机
+/ahwaterCloud/crl/rebuild
+需要传给后台
+serverId
+imageId
+
+成功后后台返回succ
+
+
+
+1.批量删除
+  /ahwaterCloud/ctr/serverBatchDelete
+  前台需要传给后台：
+  serverIdStr（server ID数组的字符串）
+  成功则返回data.succ
+  
+2.server操作日志
+  /ahwaterCloud/ctr/listActionForServer
+  前台需要传给后台：
+  serverId
+  返回操作列表
+  
+  
+  
+1. 云主机概况
+基本信息	
+String serverName;
+	String serverId;
+	String status;
+	String availabilityZone;
+	String createdTime;
+	String timeFromCreated;
+	String host;
+
+规格
+
+	String flavorName;
+	String flavorId;
+	int ram;
+	int vcpus;
+	int disk;
+IP地址
+	Map<String,String> ipAddrs;
+元数据
+	Map<String,String> metaData;
+键名称
+	String keyName;
+	String imageId;
+	String imageName;
+
+
+url   /ahwaterCloud/ctr/serverOverviewShow
+
+需要传给后台的数据：serverId

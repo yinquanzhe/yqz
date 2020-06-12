@@ -1,0 +1,44 @@
+（1）虚拟机管理器概述
+    /ahwaterCloud/ctr/getStatistics
+	后台返回内容
+	int vcspus;
+	int vcpusUsed;
+	float memory;
+	float memoryUsed;
+	float localDisk;
+	float localDiskUsed;
+（2）虚拟机管理程序列表
+	/ahwaterCloud/ctr/listHypervisors
+	返回一个对象数组
+	每个对象内容为：
+	String id;
+	String hostname;
+	String type;
+	int usedVcpu;
+	int vcpus;
+	float localMemoryUsed;
+	float localMemory;
+	float localDiskUsed;
+	float localDisk;
+	int runningVM;
+（3）虚拟机管理程序服务器
+	/ahwaterCloud/ctr/listHypervisorServers
+	前台给后台传参数：
+	hypervisorsId
+	后台返回一个数组
+	
+（4）计算主机列表
+	/ahwaterCloud/ctr/listComputeServices
+	返回一个对象数组
+（5）关闭服务
+	/ahwaterCloud/ctr/disableComputeService
+	前台给后台传参数：
+	host（主机名）
+	reason（原因）
+	返回操作后的主机信息
+（6）开启服务
+	/ahwaterCloud/ctr/enableComputeService
+	前台给后台传参数：
+	host（主机名）
+	返回操作后的主机信息
+

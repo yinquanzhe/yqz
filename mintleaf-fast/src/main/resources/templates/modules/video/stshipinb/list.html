@@ -1,0 +1,235 @@
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>视频列表</title>
+	 <link rel="stylesheet" type="text/css" href="${ctxPath!}/plugins/easyui/themes/metro/easyui.css">
+	 <link rel="stylesheet" type="text/css" href="${ctxPath!}/plugins/easyui/themes/icon.css">
+
+	<script type="text/javascript" src="${ctxPath!}/plugins/jquery/jquery.min.js" ></script>
+	<script type="text/javascript" src="${ctxPath!}/plugins/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${ctxPath!}/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="${ctxPath!}/plugins/easyui/jquery-easyui-datagridview/datagrid-groupview.js"></script>
+	<style type="text/css">
+		#fm
+		{
+			margin: 0;
+			padding: 10px 30px;
+		}
+		.ftitle
+		{
+			font-size: 14px;
+			font-weight: bold;
+			padding: 5px 0;
+			margin-bottom: 10px;
+			border-bottom: 1px solid #ccc;
+		}
+		.fitem
+		{
+			margin-bottom: 5px;
+		}
+		.fitem label
+		{
+			display: inline-block;
+			width: 80px;
+		}
+	</style>
+	<script>
+
+        var url;
+        var type;
+        function newuser() {
+            $("#dlg").dialog("open").dialog('setTitle', '新增视频点信息');
+            $("#fm").form("clear");
+            url = "${ctxPath!}/stshipinb/add.do";
+//            document.getElementById("hidtype").value="submit";
+        }
+        function edituser() {
+            var row = $("#dg").datagrid("getSelected");
+            if (row) {
+                $("#dlg").dialog("open").dialog('setTitle', '修改视频点信息');
+                $("#fm").form("load", row);
+                url = "${ctxPath!}/stshipinb/update.do";
+            }else{
+
+                $.messager.alert("提示信息", "请选择");
+			}
+        }
+        function saveuser() {
+            $("#fm").form("submit", {
+                url: url,
+                onsubmit: function () {
+                    return $(this).form("validate");
+                },
+                success: function (result) {
+                    if (result == "1") {
+                        $.messager.alert("提示信息", "操作成功");
+                        $("#dlg").dialog("close");
+                        $("#dg").datagrid("load");
+                    }
+                    else {
+                        $.messager.alert("提示信息", result.msg);
+                    }
+                }
+            });
+        }
+        function destroyUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $.messager.confirm('提示', '确定删除当前此条（操作不可恢复）?', function (r) {
+                    if (r) {
+                        console.log(row.id);
+                        $.post('${ctxPath!}/stshipinb/delete.do', { id: row.id }, function (result) {
+                            if (result.success) {
+                                $('#dg').datagrid('reload');    // reload the user data
+                            } else {
+                                $.messager.show({   // show error message
+                                    title: 'Error',
+                                    msg: result.msg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            }else{
+                $.messager.alert("提示信息", "请选择");
+            }
+        }
+        function style(value,row,index){
+        				if (value == "正常"){
+        					return 'background-color:#5FB878;color:white;';
+
+        				}else if(value == "异常"){
+        				return 'background-color:#FF5722;color:white;';
+        				}
+        			}
+	</script>
+
+</head>
+<body >
+<table id="dg"  class="easyui-datagrid" style="width: 100%; height: 100%"
+	   url="${ctxPath!}/stshipinb/page.json" pageSize="30" toolbar="#toolbar" pagination="true" rownumbers="true"
+	   fitcolumns="true" singleselect="true" remoteSort="false">
+	<thead>
+	<tr>
+		<th field="id" width="20">
+			ID
+		</th>
+		<th field="sszz" width="50">
+			所属监测点
+		</th>
+		<th field="name" width="50">
+			名称
+		</th>
+		<th field="videoId" width="80">
+			通道号
+		</th>
+		<th field="pass" width="20" sortable="true" styler="style">
+			连通性
+		</th>
+		<th field="swz" width="50">
+			所属水文站
+		</th>
+		<th field="swzId" width="50">
+			所属水文站编码
+		</th>
+		<th field="e" width="50">
+			位置/经度
+		</th>
+		<th field="n" width="50">
+			位置/纬度
+		</th>
+
+	</tr>
+	</thead>
+</table>
+<div id="toolbar">
+	<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" onclick="newuser()" plain="true">添加</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" onclick="edituser()" plain="true">修改</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" onclick="destroyUser()" plain="true">删除</a>
+</div>
+
+<div id="dlg" class="easyui-dialog" style="width: 400px; height: 400px; padding: 10px 20px;"
+	 closed="true" buttons="#dlg-buttons">
+	<div class="ftitle">
+		信息维护
+	</div>
+	<form id="fm" method="post">
+
+		<div class="fitem">
+			<label>
+				所属监测点
+			</label>
+
+			<input name="sszz" class="easyui-combobox" data-options="
+		valueField: 'label',
+		textField: 'value',
+		data: [{
+			label: '国家防汛二期监测点',
+			value: '国家防汛二期监测点'
+		},{
+			label: '黄河防凌防汛监控点',
+			value: '黄河防凌防汛监控点'
+		}]" />
+		</div>
+		<div class="fitem">
+			<label>
+				名称
+			</label>
+			<input name="name" class="easyui-validatebox" required="true" />
+		</div>
+		<div class="fitem">
+			<label>
+				通道号</label>
+			<input name="videoId" class="easyui-validatebox" required="true" />
+		</div>
+		<div class="fitem">
+			<label>
+				连通性</label>
+
+			<input name="pass" class="easyui-combobox" data-options="
+		valueField: 'label',
+		textField: 'value',
+		data: [{
+			label: '正常',
+			value: '正常'
+		},{
+			label: '异常',
+			value: '异常'
+		}]" />
+		</div>
+		<div class="fitem">
+			<label>
+				所属水文站</label>
+			<input name="swz" class="easyui-validatebox"  />
+		</div>
+		<div class="fitem">
+			<label >
+				所属水文站编码</label>
+			<input name="swzId" class="easyui-validatebox"  />
+		</div>
+		<div class="fitem">
+			<label>
+				位置/经度</label>
+			<input name="e" class="easyui-validatebox" />
+		</div>
+		<div class="fitem">
+			<label>
+				位置/纬度</label>
+			<input name="n" class="easyui-validatebox" />
+		</div>
+
+
+		<input type="hidden" name="id" />
+		<!--<input type="hidden" name="action" id="hidtype" />-->
+	</form>
+</div>
+<div id="dlg-buttons">
+	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveuser()" iconcls="icon-save">保存</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')"
+	   iconcls="icon-cancel">取消</a>
+</div>
+
+
+</body>
+</html>

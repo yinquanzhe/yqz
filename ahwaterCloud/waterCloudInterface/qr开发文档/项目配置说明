@@ -1,0 +1,11 @@
+1.云监控预需求配置说明
+	libvirt库
+	采集数据节点到被采集节点linux passless
+	code implement 主机节点主机名
+	
+2.云主机temp数据入库
+
+3.云磁盘temp数据入库
+
+4.云环境物理资源及cinder Vgroup diskSpace监控
+

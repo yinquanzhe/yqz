@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>我的</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <link rel="stylesheet" th:href="|${serverUrl}/lib/swiper_4.3.3/swiper.min.css|">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -khtml-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+        input, select {
+            -moz-user-select: auto;
+            -webkit-user-select: auto;
+            -ms-user-select: auto;
+            -khtml-user-select: auto;
+            -o-user-select: auto;
+            user-select: auto;
+        }
+        html, body {
+            height: 100%;
+            background: #f5f5f5;
+            min-width: 300px;
+            margin: 0!important;
+        }
+        .content {
+            height: 100%;
+            margin: 0!important;
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .nav1 {
+            text-align: center;
+            height: 120px;
+            background: #6bd4c0;
+            padding: 20px 0;
+        }
+        .nav1>p>img {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+        }
+        .nickname {
+            margin-top: 5px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        .usedDays {
+            margin-top: 5px;
+            color: #fdfcfc;
+            font-size: 12px;
+        }
+        .nav2, .nav3 {
+            text-align: center;
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+        }
+        .nav2>div>p {
+            float: left;
+            width: calc((100% - 1px) / 2);
+        }
+        .nav2>div>p:nth-child(2) {
+            width: 1px!important;
+            height: 25px;
+            background: #ccc;
+            position: relative;
+            top: 5px;
+        }
+        .nav3, .nav4 {
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        .nav3>div>p:nth-child(1) {
+            float: left;
+        }
+        .nav3>div>p:nth-child(2) {
+            float: right;
+            text-align: right;
+        }
+        .nav3>p {
+            border-top: 1px dashed #eee;
+            margin-top: 3px;
+            padding-top: 3px;
+        }
+        .right {
+            position: relative;
+            float: right;
+            left: 40px;
+            bottom: 24px;
+            opacity: 0.6;
+        }
+        .nav4 {
+            text-align: center;
+            background: #fff;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            padding-left: 10px;
+            border-top: 1px dashed #eee;
+        }
+        .nav4>div {
+            width: calc(100% - 30px)!important;
+        }
+        .nav4>div>p:nth-child(1) {
+            float: left;
+        }
+        .nav4>div>p:nth-child(2) {
+            float: right;
+            position: relative;
+            left: 40px;
+        }
+        .nav4>div>div {
+            clear: both;
+        }
+        .nav4.new {
+            margin-top: 10px;
+            border-top: 0!important;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 60%;
+            position: fixed;
+            bottom: 0;
+        }
+        .mask {
+            width: 100%;
+            height: 40%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .content:nth-child(2) {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        .swiper-slide {
+            border-radius: 5px;
+            height: 80%;
+            margin: auto 0;
+            text-align: center;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.75);
+            /* Center slide text vertically */
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .parallax-bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 130%;
+            height: 100%;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center;
+        }
+        .swiper-pagination {
+            bottom: 20px!important;
+            pointer-events: none!important;
+        }
+        .actionsheet {
+            padding: 20px;
+            text-align: center;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        #websiteUL, #keywordUL {
+            list-style: none;
+            text-align: left;
+        }
+        #keywordUL>li{
+            display: inline-block;
+            width: 50%;
+            margin-bottom: 5px;
+        }
+        #keywordUL>li>input {
+            width: 70%;
+            padding: 1px 2px;
+            font-size: 16px;
+        }
+        #keywordUL>li>button {
+            background: #4cd964;
+            border: 1px solid #4cd964;
+            border-radius: 5px;
+            color: #fff;
+            padding: 1px 5px;;
+            position: relative;
+            left: 20px;
+            top: 1px;
+            font-size: 16px;
+        }
+        span.kwNo {
+            padding: 0 5px;
+            width: 10px;
+            display: inline-block;
+            text-align: right;
+        }
+        .layui-m-layerbtn {
+            padding-bottom: 20px!important;
+        }
+        .kwDelete {
+            border-radius: 50%;
+            border: 1px solid #f00;
+            width: 16px;
+            height: 16px;
+            font-size: 16px;
+            line-height: 16px;
+            display: inline-block;
+            text-align: center;
+            color: #f00;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content active">
+        <div class="nav1">
+            <p>
+                <img th:src="${avatar}"/>
+            </p>
+            <p class="nickname" th:text="${nickname}">昵称</p>
+            <p class="usedDays" th:text="|您使用沃特招标通的第${days}天|">您使用沃特招标通的第1天</p>
+        </div>
+        <div class="nav2">
+            <p>运行状态</p>
+            <div>
+                <p th:utext="|最新抓取时间: <br/>${lastTime}|">最新抓取时间: <br/>今日15:30</p>
+                <p></p>
+                <p th:utext="|今日已推送: <br/>${todayCount}条|">今日已推送: <br/>10条</p>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <div class="nav3"
+             th:onclick="${user.roleId} <= 3 ? 'javascript:void(0)' : 'vipLevel()'"
+             th:style="${user.roleId} <= 3 ? 'padding-right: 10px;' : 'padding-right: 40px;'">
+            <div th:with="expiredTime=${#dates.format(user.expiredTime, 'yyyy-MM-dd')}">
+                <p style="line-height: 32px;">我的会员级别</p>
+                <p th:if="${user.roleId} <= 3" th:utext="|${role.name}<br/>永不过期|">超级会员<br/>永不过期</p>
+                <p th:unless="${user.roleId} <= 3">
+                    <span th:utext="|${role.name}<br/>${expiredTime == null || #strings.startsWith(expiredTime, '2099') ? '永不过期' : expiredTime + '到期'}|">
+                        超级会员<br/>2019-05-20到期
+                    </span>
+                </p>
+                <div style="clear: both;"></div>
+            </div>
+            <p style="color: #aaa; font-size: 12px;"
+               th:text="|可抓取网站数量: ${role.websiteCount == -1 ? '无限制' : role.websiteCount}&nbsp;&nbsp;&nbsp;&nbsp;可配置关键词数量: ${role.keywordCount == -1 ? '无限制' : role.keywordCount}|">
+                可抓取网站数量: 50&nbsp;&nbsp;&nbsp;&nbsp;可配置关键词数量: 15
+            </p>
+            <img th:if="${user.roleId} &gt; 3"  class="right" th:src="@{/img/right.png}" style="bottom: 40px;"/>
+        </div>
+        <div class="nav4 new" onclick="pushTime()">
+            <div>
+                <p>推送时间设置</p>
+                <p id="pushTime" th:text="${user.pushTime == -1 ? '实时推送' : ('每日' + user.pushTime + '时')}">每日08时</p>
+                <div></div>
+            </div>
+            <img class="right" th:src="@{/img/right.png}"/>
+        </div>
+        <div class="nav4" onclick="chooseWebsite()">
+            <div>
+                <p>抓取网站设置</p>
+                <p id="website" th:text="|已选择${user.websites.size()}个|">已选择20个</p>
+                <div></div>
+            </div>
+            <img class="right" th:src="@{/img/right.png}"/>
+        </div>
+        <div class="nav4" onclick="setKeyword()">
+            <div>
+                <p>关键词设置</p>
+                <p id="keywordsNo"  th:text="|已设置${user.keywords.size()}组|">已设置5组</p>
+                <div></div>
+            </div>
+            <img class="right" th:src="@{/img/right.png}"/>
+        </div>
+        <div class="nav4 new" th:onclick="|javascript:location.href='statistics?openid=${openid}'|">
+            <div>
+                <p>分析统计</p>
+                <div></div>
+            </div>
+            <img class="right" th:src="@{/img/right.png}"/>
+        </div>
+    </div>
+    <div class="content">
+        <div class="mask"></div>
+        <div class="swiper-container">
+            <div class="parallax-bg"
+                 style="background-image:url(/img/roles_bg.jpg);"
+                 data-swiper-parallax="-23%"
+                 data-swiper-parallax-duration="800"></div>
+            <div class="swiper-wrapper">
+                <div th:each="r, stat : ${roles}" class="swiper-slide">
+                    <div class="levelName" th:text="${r.name}">
+                        普通会员
+                    </div>
+                    <span th:text="${r.id == role.id ? '(当前等级)' : ''}">当前等级</span>
+                    <div class="levelWsCount"
+                         th:text="|可抓取的网站数量: ${r.websiteCount == -1 ? '无限制' : r.websiteCount}|">可抓取的网站数量: 5</div>
+                    <div class="levelKwCount"
+                         th:text="|可配置的关键词数量: ${r.keywordCount == -1 ? '无限制' : r.keywordCount}|">可配置的关键词数量: 20</div>
+                    <div class="levelPrices">
+                        <span th:if="${r.prices.size()} > 0">价格:<br/></span>
+                        <div th:each="p : ${r.prices}">
+                            <label>
+                                <input name="price" type="radio" th:value="${p.id}" />
+                                <span th:text="${(p.months == -1 ? '永久开通: ' : '开通' + p.months + '个月:') + p.price + '元'}">
+                                    开通1个月: 10元
+                                </span>
+                            </label>
+                        </div>
+                        <button class="buy" th:if="${r.prices.size()} > 0" th:text="${r.id == role.id ? '续费' : '开通'}">开通</button>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <script th:src="|${serverUrl}/js/jquery.min.js|"></script>
+    <script th:src="|${serverUrl}/lib/swiper_4.3.3/swiper.min.js|"></script>
+    <script th:src="|${serverUrl}/lib/layer_mobile-v2.0/layer.js|"></script>
+    <script th:inline="javascript">
+        var user = [[${user}]]
+        var role = [[${role}]]
+        var userPushTime = [[${user.pushTime}]]
+        let websites = [[${websites}]]
+        var swiper
+
+        function vipLevel() {
+            // $('.content:eq(0)').toggleClass('active')
+            $('.content:eq(1)').show()
+            swiper = new Swiper('.swiper-container', {
+                slidesPerView: 1.4,
+                spaceBetween: 20,
+                slideToClickedSlide: true,
+                centeredSlides: true,
+                parallax : true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                }
+            })
+        }
+
+        $('.mask').click(function() {
+            if (swiper) {
+                $('.content:eq(1)').fadeOut()
+                swiper = null
+            }
+        })
+        
+        function fixedTimePush(e) {
+            if (e.checked) {
+                if ($(e).val() == -1) {
+                    $('#fixedTime').attr('disabled', true)
+                } else if ($(e).val() == 0) {
+                    $('#fixedTime').attr('disabled', false)
+                }
+            }
+        }
+
+        function pushTime() {
+            var options = '';
+            for (let i = 0; i < 24; i++) {
+                options += '<option' + (userPushTime === i ? ' selected' : '') + ' value="' + i + '">' + i + '时</option>'
+            }
+            layer.open({
+                type: 1,
+                content: '<div class="actionsheet">' +
+                '   <form>' +
+                '       <label>' +
+                '           <input type="radio" name="pushTimeRadio" value="-1" ' + (userPushTime === -1 ? 'checked' : '') + ' onchange="fixedTimePush(this)"/>' +
+                '       实时推送</label>' +
+                '       <label style="margin-left: 50px;">' +
+                '           <input type="radio" name="pushTimeRadio" value="0" ' + (userPushTime !== -1 ? 'checked' : '') + ' onchange="fixedTimePush(this)"/>' +
+                '       定时推送</label>' +
+                '       <select id="fixedTime"' + (userPushTime === -1 ? ' disabled' : '') + '>' +
+                options +
+                '       </select>' +
+                '   </form>' +
+                '</div>',
+                anim: false,
+                style: 'position:fixed; bottom:0; left:0; width: 100%; border:none;',
+                btn: ['确定', '取消'],
+                yes: function(index){
+                    let pushHour
+                    if ($('#fixedTime').attr('disabled') === 'disabled') {
+                        pushHour = -1
+                    } else {
+                        pushHour = parseInt($('#fixedTime').val())
+                    }
+                    $.ajax({
+                        url: 'updateUserPushTime',
+                        type: "POST",
+                        dataType: 'json',
+                        data: {
+                            openid: [[${openid}]],
+                            hour: pushHour
+                        },
+                        success: function (res) {
+                            if (res === 1) {
+                                userPushTime = pushHour
+                                $('#pushTime').text(userPushTime === -1 ? '实时推送' : '每日' + userPushTime + '时')
+                            }
+                            layer.open({
+                                content: res === 1 ? '设置成功' : '设置失败',
+                                skin: 'msg',
+                                time: 2
+                            })
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr, status, error)
+                            layer.open({
+                                content: error,
+                                skin: 'msg',
+                                time: 2
+                            })
+                        }
+                    })
+                    layer.close(index)
+                }
+            })
+        }
+
+        function chooseWebsiteChanged() {
+            let max = [[${role.websiteCount}]]
+            var size = 0
+            if (max !== -1) {
+                let checkboxs = $('input[name="choosedWebsite"]')
+                for (let i = 0; i < checkboxs.length; i++) {
+                    if (checkboxs[i].checked) {
+                        size++
+                    }
+                }
+                if (size < max) {
+                    checkboxs.attr('disabled', false)
+                } else {
+                    for (let i = 0; i < checkboxs.length; i++) {
+                        if (!checkboxs[i].checked) {
+                            $(checkboxs[i]).attr('disabled', true)
+                        }
+                    }
+                }
+            }
+        }
+
+        function chooseWebsite() {
+            var lis = '';
+            for (let i = 0; i < websites.length; i++) {
+                lis += '<li>' +
+                    '<label>' +
+                    '<input type="checkbox" name="choosedWebsite"' + (user.websites.map(e => e.id).indexOf(websites[i].id) >= 0 ? ' checked' : '') +
+                    ' onchange="chooseWebsiteChanged()" value="' + websites[i].id + '">' +
+                    websites[i].name + '(' + websites[i].domain + ')' +
+                    '</label>' +
+                    '</li>'
+            }
+            layer.open({
+                type: 1,
+                content: '<div class="actionsheet" style="max-height: ' + (document.body.clientHeight * 0.5 + 'px') + '">' +
+                '   <form>' +
+                '       <ul id="websiteUL">' +
+                    lis +
+                '       </ul>' +
+                '   </form>' +
+                '</div>',
+                anim: false,
+                style: 'position:fixed; bottom:0; left:0; width: 100%; border:none;',
+                success: function(ele) {
+                    chooseWebsiteChanged()
+                },
+                btn: ['确定', '取消'],
+                yes: function(index){
+                    let websiteArr = []
+                    let checkboxs = $('input[name="choosedWebsite"]')
+                    for (let i = 0; i < checkboxs.length; i++) {
+                        if (checkboxs[i].checked) {
+                            websiteArr.push(parseInt($(checkboxs[i]).val()))
+                        }
+                    }
+                    if (websiteArr.length < 1) {
+                        layer.open({
+                            content: '至少选择一个',
+                            skin: 'msg',
+                            time: 2
+                        })
+                        return
+                    }
+                    $.ajax({
+                        url: 'updateUserWebsite',
+                        type: "POST",
+                        dataType: 'json',
+                        data: {
+                            openid: [[${openid}]],
+                            wsids: websiteArr
+                        },
+                        success: function (res) {
+                            if (res > 0) {
+                                $('#website').text('已选择' + res + '个')
+                                user.websites = websites.filter(e => websiteArr.indexOf(e.id) >= 0)
+                            }
+                            layer.open({
+                                content: res > 0 ? '设置成功' : '设置失败',
+                                skin: 'msg',
+                                time: 2
+                            })
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr, status, error)
+                            layer.open({
+                                content: '出错了',
+                                skin: 'msg',
+                                time: 2
+                            })
+                        }
+                    })
+                    layer.close(index)
+                }
+            })
+        }
+
+        function newKeyword(e) {
+            $(e).parent().before('<li>' +
+                '<span class="kwNo">' + ($('.kwNo').length + 1) + '</span>' +
+                '<input type="text" onfocus="kwOnfocus(this)" onblur="kwOnblur(this)" placeholder="输入关键词">' +
+                '<span class="kwDelete" onclick="kwDelete(this)">X</span>' +
+                '</li>')
+        }
+
+        var kwFocusedInput
+        function kwOnfocus(e) {
+            kwFocusedInput = $(e).val()
+        }
+        function insertOrUpdateKeyword(e, data) {
+            $.ajax({
+                url: 'insertOrUpdateKeyword',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                success: function (res) {
+                    layer.open({
+                        content: '设置成功',
+                        skin: 'msg',
+                        time: 2
+                    })
+                    $(e).attr('data-id', res.id)
+                    if (user.keywords.some(ele => ele.id === res.id)) {
+                        user.keywords.forEach((ele, i, arr) => {
+                            if (ele.id === res.id) {
+                                arr[i].name = res.name
+                            }
+                        })
+                    } else {
+                        user.keywords.push(res)
+                        $('#keywordsNo').text('已设置' + user.keywords.length + '组')
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr, status, error)
+                    layer.open({
+                        content: '出错了',
+                        skin: 'msg',
+                        time: 2
+                    })
+                }
+            })
+        }
+        function kwOnblur(e) {
+            if (!$(e).val() || $(e).val().trim() === '') {
+                $(e).val(null)
+                return
+            }
+            if (kwFocusedInput) {
+                if ($(e).attr('data-id')) {    // 已存在
+                    if (kwFocusedInput !== $(e).val()) {    // 需要update
+                        insertOrUpdateKeyword(e, {
+                            id: $(e).attr('data-id'),
+                            openid: [[${openid}]],
+                            name: $(e).val(),
+                            groupName: null
+                        })
+                    }
+                } else {
+                    insertOrUpdateKeyword(e, {
+                        openid: [[${openid}]],
+                        name: $(e).val(),
+                        groupName: null
+                    })
+                }
+            } else {
+                insertOrUpdateKeyword(e, {
+                    openid: [[${openid}]],
+                    name: $(e).val(),
+                    groupName: null
+                })
+            }
+            kwFocusedInput = null
+        }
+        function kwDelete(e) {
+            let kwid = $(e).siblings('input').attr('data-id')
+            if (kwid && kwid !== '') {
+                layer.open({
+                    content: '确定要删除此组关键词吗?',
+                    btn: ['确定', '取消'],
+                    yes: function(index){
+                        $.ajax({
+                            url: 'deleteKeyword',
+                            type: "POST",
+                            dataType: 'json',
+                            data: {
+                                keywordId: kwid
+                            },
+                            success: function (res) {
+                                if (res === 1) {
+                                    layer.open({
+                                        content: '删除成功',
+                                        skin: 'msg',
+                                        time: 2
+                                    })
+                                    user.keywords = user.keywords.filter(ele => ele.id !== kwid)
+                                    if (role.keywordCount === -1) {
+                                        $(e).parent('li').remove()
+                                    } else {
+                                        $(e).siblings('input').attr('data-id', null)
+                                        $(e).siblings('input').val(null)
+                                    }
+                                    $('#keywordsNo').text('已设置' + user.keywords.length + '组')
+                                } else {
+                                    layer.open({
+                                        content: '删除失败',
+                                        skin: 'msg',
+                                        time: 2
+                                    })
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(xhr, status, error)
+                                layer.open({
+                                    content: '出错了',
+                                    skin: 'msg',
+                                    time: 2
+                                })
+                            }
+                        })
+                        layer.close(index);
+                    }
+                })
+            } else {
+                if (role.keywordCount === -1) {
+                    $(e).parent('li').remove()
+                }
+            }
+        }
+        function setKeyword() {
+            var html = '<ul id="keywordUL">'
+            if (role.keywordCount !== -1) {
+                for (let i = 0; i < role.keywordCount; i++) {
+                    html += '<li>' +
+                        '<span class="kwNo">' + (i + 1) + '</span>' +
+                        '<input type="text" onfocus="kwOnfocus(this)" onblur="kwOnblur(this)" ' +
+                        (user.keywords[i] ? 'data-id="' + user.keywords[i].id + '"' : '') +
+                        ' placeholder="输入关键词" ' + (user.keywords[i] ? 'value="' + user.keywords[i].name + '"': '') + '/>' +
+                        '<span class="kwDelete" onclick="kwDelete(this)">X</span>' +
+                        '</li>'
+                }
+            } else {
+                for (let i = 0; i < user.keywords.length; i++) {
+                    html += '<li>' +
+                        '<span class="kwNo">' + (i + 1) + '</span>' +
+                        '<input type="text" onfocus="kwOnfocus(this)" onblur="kwOnblur(this)" ' +
+                        (user.keywords[i] ? 'data-id="' + user.keywords[i].id + '"' : '') +
+                        ' placeholder="输入关键词" ' + (user.keywords[i] ? 'value="' + user.keywords[i].name + '"': '') + '/>' +
+                        '<span class="kwDelete" onclick="kwDelete(this)">X</span>' +
+                        '</li>'
+                }
+                html += '<li><button onclick="newKeyword(this)">新增关键词</button></li>'
+            }
+            html += '</ul>'
+            layer.open({
+                type: 1,
+                content: '<div class="actionsheet" style="max-height: ' + (document.body.clientHeight * 0.5 + 'px') + '">' +
+                html +
+                '</div>',
+                anim: false,
+                style: 'position:fixed; bottom:0; left:0; width: 100%; border:none;'
+            })
+        }
+    </script>
+</body>
+</html>

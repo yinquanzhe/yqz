@@ -1,0 +1,33 @@
+问题：
+先认证一个普通用户，返回os；再认证一个admin用户返回os1，结果原普通os有os1的权限
+
+
+例如：
+OSClientV2 os = OSFactory.builderV2()
+                .endpoint("http://ahwater-cloud-controller:5000/v2.0")
+                .credentials("ahwater", "ahwater")
+                .tenantName("ahwater")
+                .perspective(Facing.PUBLIC)
+                .authenticate();
+List<? extends Tenant> tenants_user = os.identity().tenants().list();
+System.out.println("tenants_user"+" "+tenants_user.size());
+
+OSClientV2 os1 = OSFactory.builderV2()
+                //.endpoint("http://ahwater-cloud-controller:35357/v2.0")
+				.endpoint("http://ahwater-cloud-controller:5000/v2.0")
+                .credentials("admin", "ahwater")
+                .tenantName("admin")
+                .perspective(Facing.ADMIN)
+                .authenticate();
+
+List<? extends Tenant> tenants_os1 = os1.identity().tenants().list();
+System.out.println("tenants_os1"+" "+tenants_os1.size());
+
+List<? extends Tenant> tenants = os.identity().tenants().list();
+System.out.println("tenants"+" "+tenants.size());
+
+执行的结果吧为：
+tenants_user 1
+tenants_os1 10
+tenants 10
+

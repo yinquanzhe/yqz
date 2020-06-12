@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>招投标信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="full-screen" content="yes">
+        <meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" th:href="|${serverUrl}/css/mui.min.css|"/>
+		<link rel="stylesheet" th:href="|${serverUrl}/css/Reeye_LoadMore.css|"/>
+		<link rel="stylesheet" th:href="|${serverUrl}/css/icons-extra.css|"/>
+		<style>
+			html, body {
+				background: #ffffff;
+			}
+            .li-content {
+                padding-right: 5%;
+            }
+            .li-tag {
+                text-align: right;
+            }
+            .li-tag-clock {
+                color: #666;
+                font-size: 14px;
+                position: relative;
+                top: 1px;
+                left: 3px;
+            }
+            .li-tag-time {
+                background: #fff;
+                color: #999;
+                font-size: 12px;
+            }
+            .mui-ellipsis-2 {
+                color: #333;
+            }
+            .mui-content>.mui-table-view:first-child {
+                margin-top: 0px;
+            }
+            html, body, .mui-content, .mui-content>ul {
+                height: 100%;
+            }
+            h5 {
+                line-height: 16px!important;
+            }
+            .mui-table-view:after {
+                height: 0;
+            }
+            a:visited {
+                color: #CCC;
+            }
+            .li-tag-time>i:after {
+                content: 'new';
+                color: transparent;
+                background: linear-gradient(to right, red, blue);
+                -webkit-background-clip: text;
+            }
+            h5>span {
+                color: #ff7800;
+                background: linear-gradient(to right, #41e8d1, #ece72f);
+                border-radius: 6px;
+                padding: 0 2px;
+                font-size: 12px;
+                line-height: 12px;
+                text-align: center;
+                animation: neon1 1.5s ease-in-out infinite alternate;
+                -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
+            }
+		</style>
+	</head>
+
+	<body>
+        <input id="userid" type="hidden" th:value="${user != null ? user.id : 0}">
+		<div class="mui-content">
+			<div id="pullLoadMore" class="mui-content">
+				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" style="overflow: auto;">
+			        <!--<li class="mui-table-view-cell" data-href="news.html">-->
+						<!--<a class="mui-navigate-right" href="#">-->
+							<!--<div class="li-content">-->
+								<!--<h5 class="mui-ellipsis-2">凤台县丁集镇瓦岗行政村大岗中心村美丽乡村建设项目道路、下水道、供水及污水处理设施工程</h5>-->
+                                <!--<div class="li-tag">-->
+                                    <!--<span class="mui-badge mui-badge-primary">合肥</span>&nbsp;-->
+                                    <!--<span class="mui-badge mui-badge-success">污水,设计</span>-->
+                                    <!--<span class="mui-badge li-tag-time">-->
+                                        <!--<span class="mui-icon-extra mui-icon-extra-outline li-tag-clock"></span>-->
+                                        <!--2018-02-12</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+						<!--</a>-->
+			        <!--</li>-->
+			    </ul>
+			</div>
+		</div>
+
+        <script th:src="|${serverUrl}/js/jquery.min.js|"></script>
+        <script th:src="|${serverUrl}/js/Reeye_LoadMore.js|"></script>
+		<script th:inline="javascript">
+            function date2Str(time) {
+                if (time) {
+                    let t = time.split('-')
+                    let pt = new Date(t[0], t[1] - 1, t[2])
+                    let oneDay = 1000 * 60 * 60 * 24
+                    let diff = new Date().getTime() - pt.getTime();
+                    if (diff < oneDay * 7) {
+                        let days = diff / oneDay
+                        if (days < 1) {
+                            // return '今天<i>&nbsp;</i>'
+                            return '今天'
+                        } else if (days < 2) {
+                            return '昨天'
+                        } else {
+                            return parseInt(days) + '天前'
+                        }
+                    } else {
+                        return time
+                    }
+                }
+            }
+
+            function getQueryString(name) {
+                let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+                let r = window.location.search.substr(1).match(reg)
+                return r ? decodeURIComponent(r[2]) : null
+            }
+            let pushCode = getQueryString('pushCode')
+
+            var pageIndex = 0
+            var pageSize = 10
+
+            $('#pullLoadMore>ul').loadMore({
+                doLoad: function(e) {
+                    $.ajax({
+                        type : 'POST',
+                        url : [[${serverUrl}]] + '/wx/listAllByPage',
+                        data: {
+                            userId: $('#userid').val(),
+                            pushCode: pushCode,
+                            current: pageIndex + 1,
+                            size: pageSize
+                        },
+                        dataType : 'json',
+                        success : function(data) {
+                            if (data) {
+                                if (pushCode != null && pushCode.length === 32) {
+                                    document.title = '本次共推送' + data.total + '条'
+                                }
+                                if (data.pages != null) {
+                                    if (data.records && data.records.length > 0) {
+                                        let list = data.records
+                                        for (let i = 0; i < list.length; i++) {
+                                            $('ul.mui-table-view').append(`<li class="child mui-table-view-cell">
+                                                <a class="mui-navigate-right" href="${list[i].url}">
+                                                    <div class="li-content">
+                                                        <h5 class="mui-ellipsis-2">${(pageSize * pageIndex + i + 1) + '. ' + list[i].title}
+                                                            <!-- ${pushCode && pushCode === list[i].code ? '<span>NEW</span>' : ''}-->
+                                                        </h5>
+                                                        <div class="li-tag">
+                                                            <span class="mui-badge mui-badge-primary">${list[i].keywords}</span>&nbsp;
+                                                            <span class="mui-badge mui-badge-success">${list[i].dname}</span>
+                                                            <span class="mui-badge li-tag-time">
+                                                                <span class="mui-icon-extra mui-icon-extra-outline li-tag-clock"></span>
+                                                                ${date2Str(list[i].pub_time)}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>`);
+                                        }
+                                        if (data.pages == pageIndex + 1) {
+                                            e.noMore()
+                                        }
+                                        pageIndex++
+                                        e.done()
+                                    } else {
+                                        e.noMore()
+                                        e.done()
+									}
+                                }
+                            }
+                        },
+                        error: function(err) {
+                            e.done()
+                        }
+                    })
+                }
+            })
+		</script>
+	</body>
+
+</html>

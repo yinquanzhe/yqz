@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.ahwater.dao.AddvcdDao">
+
+    <!--返回全部-->
+    <select id="listAddvcd" resultType="net.ahwater.bean.Hh_addvcd">
+       SELECT ADDVCD,PUBYEAR,ADDVNM
+       FROM  HH_ADDVCD
+    </select>
+    <!--只返回所有市-->
+    <select id="listAddvcdOfCity" resultType="net.ahwater.bean.Hh_addvcd">
+        SELECT ADDVCD,PUBYEAR,ADDVNM
+        FROM  HH_ADDVCD
+        WHERE  to_number(substr(ADDVCD,3,4)) > '0' AND to_number(substr(ADDVCD,5,length(ADDVCD))) = '0'
+    </select>
+
+    <!--只返回所有区县-->
+    <select id="listAddvcdOfCounty" resultType="net.ahwater.bean.Hh_addvcd">
+        SELECT ADDVCD,PUBYEAR,ADDVNM
+        FROM  HH_ADDVCD
+        where addvcd like substr(#{addvcd}, 0, 4)||'%'
+        and substr(addvcd, 5, 2)!='00'
+    </select>
+
+    <!--只返回市下所有区县-->
+    <select id="listAddvcdOfCountyByCity" resultType="net.ahwater.bean.Hh_addvcd">
+        <![CDATA[
+            SELECT ADDVCD,PUBYEAR,ADDVNM
+            FROM  HH_ADDVCD
+            WHERE  to_number(substr(ADDVCD,5,6)) > '0' AND to_number(substr(ADDVCD,7,length(ADDVCD))) = '0'
+            AND ADDVCD like substr(#{addvcd},1,4)||'%'
+        ]]>
+    </select>
+
+</mapper>

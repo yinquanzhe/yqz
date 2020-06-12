@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ahwater.tender.db.mapper.KeywordMapper">
+
+    <cache-ref namespace="net.ahwater.tender.db.mapper.KeywordMapper"/>
+
+    <select id="selectTop3KeywordByUserId" resultType="java.util.Map">
+        select t2.name,t1.kw_count
+        from (
+                 select t.keyword_id, t.kw_count
+                 from (
+                     select keyword_id, count(1) kw_count
+                     from t_push_log
+                     where user_id=#{userId}
+                     and date_format(push_time, '%Y-%m')=date_format(now(), '%Y-%m')
+                     group by keyword_id
+                     order by count(1) desc
+                 ) t
+                limit 3
+        ) t1
+        left join t_keyword t2
+        on t1.keyword_id=t2.id
+    </select>
+
+    <select id="selectCurrentMonthByUserId" resultType="java.util.Map">
+        select t1.day, case when t2.count is null then 0 else t2.count end as count
+        from (
+            select date_add(curdate(), interval - cast(help_topic_id as signed integer) day) day
+            from mysql.help_topic
+            where help_topic_id  &lt; day(last_day(curdate()))
+            and help_topic_id &lt; day(curdate())
+            order by help_topic_id
+        ) t1
+        left join (
+            select cast(push_time as date) day, count(1) count
+            from t_push_log
+            where user_id=#{userId}
+            and date_format(push_time, '%Y-%m')=date_format(curdate(), '%Y-%m')
+            group by cast(push_time as date)
+        ) t2
+        on t1.day=t2.day
+        order by t1.day
+    </select>
+
+    <select id="selectTwoMonthByUserId" resultType="java.util.Map">
+        select 'this_month' month,count(1) count
+        from t_push_log
+        where user_id=#{userId}
+        and date_format(push_time, '%Y-%m')=date_format(now(), '%Y-%m')
+        union
+        select 'last_month' month,count(1) count
+        from t_push_log
+        where user_id=#{userId}
+        and date_format(push_time, '%Y-%m')=date_format(date_add(now(), interval -1 month), '%Y-%m')
+    </select>
+
+    <select id="selectUserIdByModuleId" resultType="java.lang.Integer">
+        select user_id
+        from t_user_website
+        where website_id=(
+            select website_id
+            from t_module
+            where id=#{mid}
+        )
+    </select>
+
+</mapper>

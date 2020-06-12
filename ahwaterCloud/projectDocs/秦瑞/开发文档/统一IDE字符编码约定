@@ -1,0 +1,9 @@
+a.为了避免 开发者字符编码的不一致 造成的中文字符乱码问题:
+	统一设置IDE字符编码为utf-8
+	eg:Ecplise设置字符编码为utf-8
+	Window->Preferences->General ->Content Type->Text->JSP 最下面设置为UTF-8
+	Window->Preferences->General->Workspace   面板Text file encoding 选择UTF-8
+	Window->Preferences->Web->JSP Files 面板选择 ISO 10646/Unicode(UTF-8)
+	
+	
+	其他IDE自行查阅资料配置.

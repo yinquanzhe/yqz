@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="static/css/mui.min.css" rel="stylesheet" />
+		<style>
+			iframe {
+				height: 100%;
+				width: 100%;
+				background-color: #fff;
+				border: 0px;
+			}
+			#content p {
+				color:#000;
+				line-height: 180%;
+			}
+			#content p img{
+				width:335px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 id="title" class="mui-title"></h1>
+		</header>
+		
+		<div class="mui-content" style="padding-left: 10px;padding-right: 10px;">
+			<div class="bt" style="padding-top:15px;font-size: 22px;line-height: 140%;font-weight: 400;"></div>
+			<div class="sj" style="padding-top: 10px;color: #999;"></div>
+			<div id="content" style="padding-top: 15px;"></div>
+		</div>
+		
+		<script src="static/js/jquery-1.11.3.min.js"></script>
+		<script src="static/js/mui.min.js"></script>
+		<script>
+			$(function(){
+       			//获取url中的参数
+       			function getUrlParam(name) {
+           			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+           			var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+           			if (r != null) return decodeURI(r[2]); return null; //返回参数值
+       			}
+       			
+       			//接收URL中的参数booksId
+       			var sj = getUrlParam('time');
+       			var dz = getUrlParam('url');
+       			var bt = getUrlParam('title');
+       			console.log(dz);
+       			console.log(sj);
+       			console.log(bt);      			
+       			
+       			$('.bt').text(bt);
+       			$('#title').text(bt);
+       			$('.sj').text(sj);
+       			
+       			$.get(dz,function(data) {
+					$('#content').append(data);
+				})
+       		})
+		</script>
+	</body>
+</html>

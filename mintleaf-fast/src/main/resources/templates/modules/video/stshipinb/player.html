@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>播放方式</title>
+	<link rel="stylesheet" type="text/css" href="${ctxPath!}/plugins/layui/css/layui.css" media="all"/>
+	<script type="text/javascript" src="${ctxPath!}/plugins/layui/layui.js"></script>
+	<style>
+	.layui-bg-blue,.layui-bg-gray{ cursor: pointer;}
+	</style>
+</head>
+<script>
+	layui.use(['element'], function () {
+    var $ = layui.jquery;
+	var url;
+	var videoId="${videoId!}";
+	
+	$("#flash").on("click",function(){
+	url="${ctxPath!}/stshipinb/ckplayer.html?videoId="+videoId;
+	window.open(url,"_self");
+	});
+	
+	$("#hls").on("click",function(){
+        url="${ctxPath!}/stshipinb/hlsplayer.html?videoId="+videoId;
+	window.open(url,"_self");
+	});
+
+	});
+</script>
+<body>
+	<div class="layui-container">
+		<div class="layui-row">
+			<div class="layui-col-xs12">
+				<fieldset class="layui-elem-field layui-field-title">
+					<legend>请选择播放方式</legend>
+				</fieldset>
+			</div>
+		</div>
+ 		 <div class="layui-row">
+			 <div class="layui-col-xs12">
+      			<div id="flash" style="margin-top:10px;height:40px;text-align:center;line-height:40px;" class="layui-bg-blue">flash播放(推荐)</div>
+			 </div>
+		 </div>
+  		 <div class="layui-row">
+			 <div class="layui-col-xs12">
+      			<div id="hls" style="margin-top:10px;height:40px;text-align:center;line-height:40px;" class="layui-bg-blue">hls播放</div>
+   		 	 </div>
+  		</div>
+  	</div>
+</body>
+</html>

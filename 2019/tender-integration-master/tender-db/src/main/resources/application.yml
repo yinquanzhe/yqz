@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 5MB
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.11.163:3306/tender?serverTimezone=GMT%2B8
+    username: reeye
+    password: 1024
+  thymeleaf:
+    cache: false
+  resources:
+    cache:
+      cachecontrol:
+        no-cache: true
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: net.ahwater.tender.db.entity
+  global-config:
+    refresh: true
+    db-config:
+      db-type: mysql
+      id-type: auto
+      capital-mode: false
+      table-prefix: t_
+      table-underline: true
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    jdbc-type-for-null: 'null'
+    map-underscore-to-camel-case: true

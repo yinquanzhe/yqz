@@ -1,0 +1,568 @@
+<div ng-controller="shiliCtrl" class="content">
+    <h4>实例列表</h4>
+    <div class="container-fluid list">
+        <div class="search col-xs-12">
+            <form>        	
+                <select name="searchBy" id="searchBy" onchange="changeTip(this)">
+                    <option value="1">云主机名称</option>
+                    <option value="2">状态</option>
+                </select>
+                <input type="text" placeholder="功能开发中"/>
+                <button type="button" class="btn btn-default" ng-click="searchServer($event)">搜索</button>
+            </form>            
+            <div class="actionBtn">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#startCloud" ng-click="createHost()">创建云主机</button>
+                <button type="button" class="btn btn-danger deleteBatch" ng-click="deleteBatch()">删除实例</button>
+
+                <div class="modal fade" id="startCloud" role="dialog" aria-labelledby="startCloudLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title" id="startCloudLabel">启动云主机</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div role="tabpanel">
+                                    <ul class="nav nav-tabs nav-justified" role="tablist" id="myTab">
+                                        <li role="presentation" class="active"><a ng-click="percent20()" href="#detail" aria-controls="home" role="tab" data-toggle="tab">详情</a></li>
+                                        <li role="presentation"><a ng-click="percent40()" href="#security" aria-controls="profile" role="tab" data-toggle="tab">访问&安全</a></li>
+                                        <li role="presentation"><a ng-click="percent60()" href="#network" aria-controls="messages" role="tab" data-toggle="tab">网络</a></li>
+                                        <li role="presentation"><a ng-click="percent80()" href="#created" aria-controls="settings" role="tab" data-toggle="tab">创建后</a></li>
+                                        <li role="presentation"><a ng-click="percent100()" href="#Advanced" aria-controls="settings" role="tab" data-toggle="tab">高级选项</a></li>
+                                    </ul>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow={{percentage}} aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        </div>
+                                    </div>
+                                    <div class="tab-content" style="overflow: hidden">
+                                        <div role="tabpanel" class="tab-pane active" id="detail">
+                                          <div class="detail-left">
+                                            <form enctype="multipart/form-data">
+                                              <div class="form-group">
+                                                <label for="availableField">可用域</label>
+                                                <select class="form-control" id="availableField">
+                                                  <option ng-repeat="item in fieldList track by $index" value={{item}}>{{item}}</option>
+                                                </select>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="serverName">云主机名称</label>
+                                                <input type="text" class="form-control" onblur="CheckServerName(this)" id="serverName" placeholder="请输入云主机名称"/>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="serverType">云主机类型</label>
+                                                <select class="form-control" id="serverType">
+                                                  <option ng-repeat="item in typeList track by $index" value={{item.flavorId}}>{{item.flavorName}}</option>
+                                                </select>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="serverCount">云主机数量</label>
+                                                <input type="number" id="serverCount" class="form-control" value="1" placeholder="请输入云主机数量"/>
+                                              </div>
+                                              <div class="form-group startSrcBox">
+                                                <label for="startSrc">云主机启动源</label>
+                                                <select id="startSrc" class="form-control">
+                                                  <option ng-repeat="item in sourceList track by $index" value={{item}} tag={{$index}}>{{item}}</option>
+                                                </select>
+                                              </div>
+                                              <div class="form-group imageBox">
+                                                <label for="imgName">镜像名称</label>
+                                                <select id="imgName" class="form-control">
+                                                  <option value="-1">--请选择--</option>
+                                                  <option ng-repeat="item in imageList track by $index" value={{item.imageId}}>{{item.imagePersonalName}}</option>
+                                                </select>
+                                              </div>
+                                              <div class="form-group quickShotBox">
+                                                <label for="quickShot">云主机快照</label>
+                                                <select id="quickShot" class="form-control">
+                                                  <option value="-1">--请选择--</option>
+                                                  <option ng-repeat="item in snapshotList track by $index" value={{item}}>{{item}}</option>
+                                                </select>
+                                              </div>
+                                            
+                                            </form>
+                                          </div>
+                                          <div class="detail-right">
+                                            <p>指定创建云主机的详细信息</p>
+                                            <p>详细说明启动云主机的情况,下面的图表显示此项目所使用的资源和关联的项目配额。</p>
+                                            <table class="table table-striped">
+                                              
+                                            </table>
+                                            
+                                          </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="security">
+                                          <div class="security-left">
+                                            <form>
+                                              <div class="form-group">
+                                                <label for="codeKey">密钥对</label>
+                                                <select id="codeKey" class="form-control">
+                                                	<option value="">请选择</option>
+                                                  <option ng-repeat="item in keyList track by $index" value={{item}}>{{item}}</option>
+                                                </select>
+                                                <!--todo createKey-->
+                                                
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="securityGroup">安全组</label>
+                                                <div id="securityGroup">
+                                                  <div ng-repeat="item in securityList track by $index" class="checkbox">
+                                                    <label>
+                                                      <input type="radio" name="securityItem" value={{item}}>
+                                                      <span>{{item}}</span>
+                                                    </label>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          <div class="security-right">
+                                            <p>通过密钥对、防火墙、和其它机制控制你的云主机权限</p>
+                                            <p>安全组不选则默认default</p>
+                                          </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="network">
+                                          <div class="network-left">
+                                            <form>
+                                              <div class="form-group">
+                                                <label for="chooseNet">已选择的网络</label>
+                                                <div id="chooseNet">
+                                                  <div class="checkbox" ng-repeat="item in ipList track by $index">
+                                                  	<label>
+                                                  		<input type="checkbox" name="netWorkItem" value={{item.networkId}} />
+                                                  		<span>{{item.networkName}}</span>
+                                                  	</label>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          <div class="network-right">
+                                            <p>请选择云主机所在的网络</p>
+                                          </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="created">
+                                          <div class="created-left">
+                                            <form enctype="multipart/form-data">
+                                              <div class="form-group">
+                                                <label for="scriptSrc">定制脚本源</label>
+                                                <select id="scriptSrc" class="form-control">
+                                                  <option value="1">直接输入</option>
+                                                  <option value="2">文件</option>
+                                                </select>
+                                              </div>
+                                              <div ng-show="false" class="form-group">
+                                                <label style="vertical-align: top" for="scriptData">脚本数据</label>
+                                                <div>
+                                                  <textarea class="form-control" style="resize: none;margin-top: 10px" id="scriptData" cols="30" rows="10"></textarea>
+                                                </div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label for="scriptFile">脚本文件</label>
+                                                <input type="file" id="scriptFile"/>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          <div class="created-right">
+                                            <p>当你的实例使用下面选项启动后，你可以定制它。</p>
+                                            <p>"定制脚本"与其它系统中的"用户数据"类似.</p>
+                                          </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="Advanced">
+                                          <div class="advanced-left">
+                                            <form>
+                                              <div class="form-group">
+                                                <label for="partition">磁盘分区</label>
+                                                <select class="form-control" id="partition">
+                                                  <option value="1">手动</option>
+                                                  <option value="2">自动</option>
+                                                </select>
+                                              </div>
+                                              <div class="form-group">
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox"/>配置驱动器
+                                                  </label>
+                                                </div>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          <div class="advanced-right">
+                                            <p>指定启动实例时使用的高级选项</p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" ng-click="goAction()">创建</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+        <div class="cloudlist col-xs-12">
+            <table  cellpadding="6" cellspacing="10" width="100%">
+                <thead>
+                <tr>
+                    <th><input type="checkbox"/></th>
+                    <th style="width: 15%; text-align: left; padding-left: 6px;">云主机名称</th>
+                    <th>镜像名称</th>
+                    <th>ip地址</th>
+                    <th>配置</th>
+                    <th style="width: 10%;">状态</th>
+                    <th>运行时间</th>
+                    <th style="width: 15%;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                	<tr>
+                		<td colspan="12">
+                			<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                		</td>
+                	</tr>
+                <tr ng-repeat="item in shiliData track by $index">
+                    <td class="mysid">
+                    	<input sid={{item.serverId}} type="checkbox" ng-click="choose($event)"/>
+                    </td>
+                    <td class="myServerName imageAllName" style="padding-left: 6px;">
+                    	<span>
+                    		<a sid={{item.serverId}} href="javascript:void(0)" ng-click="serverDetail($event)">{{item.serverName}}</a>
+                    		<i ng-mouseover="showtoolBar($event)" data-toggle="tooltip" data-placement="top" ng-init="title=item.imageOStype+'&nbsp;'+item.imageOSVersion+'&nbsp;'+item.imageOSBit+'位'"  title={{title}} class={{item.imageOStype}}></i>
+                    	</span>
+                    </td>
+                    <td>{{item.imagePersonalName}}</td>
+                    <td>
+                    	<p ng-repeat="ip in item.ipAddr">{{ip}}</p>
+                    </td>
+                    <td flavorId={{item.flavorId}} class="configure">
+                        	CPU:{{item.vcpus}}核，内存:{{item.ram>1024?item.ram/1024+'GB':item.ram+'MB'}}，硬盘:{{item.disk}}G
+                    </td>
+                    <td  class={{item.status}}>
+                    	<span class="ecs-status">
+                    		<i></i>
+                    		{{item.status}}
+                    	</span>
+                    </td>
+                    <td>{{item.timeFromCreated}}</td>
+                    <!--运行中的操作-->
+                    <td class="action" ng-if="item.status=='运行中'">
+                        <a href="javascript:void(0)" ng-click='createFastShot($event)'>创建快照</a>&nbsp;
+                        <a href="javascript:void(0)" ng-click="pauseServer($event)">暂停</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="bindFloatIP($event)" role="menuitem"  href="javascript:void(0)">绑定浮动IP</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="VNCConsole($event)" href="javascript:void(0)">控制台</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem"  href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="editSeGroup($event)" role="menuitem"  href="javascript:void(0)">编辑安全组</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-href="#/server/{{item.serverId}}">进入日志</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="suspendEcs($event)"  href="javascript:void(0)">挂起实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="stopEcs($event)" role="menuitem" href="javascript:void(0)">关闭实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="shelveEcs($event)" href="javascript:void(0)">废弃实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} fname={{item.flavorName}} role="menuitem" ng-click="adjustEcs($event)"  href="javascript:void(0)">调整云主机大小</a>
+                                        
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="lockEcs($event)"  href="javascript:void(0)">锁定实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="unlockEcs($event)" role="menuitem"  href="javascript:void(0)">解锁实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="softRebootEcs($event)" role="menuitem" tabindex="12" href="javascript:void(0)">软重启</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="hardRebootEcs($event)" role="menuitem" tabindex="13" href="javascript:void(0)">硬重启</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="rebuiltEcs($event)" role="menuitem" href="javascript:void(0)">重建云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem" tabindex="15" href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                 
+                    <!--暂停部分操作-->
+                    <td class="action" ng-if="item.status=='暂停'">
+                        <a href="javascript:void(0)" ng-click='createFastShot($event)'>创建快照</a>&nbsp;
+                        <a href="javascript:void(0)" sid={{item.serverId}} ng-click='resumeEcs($event,"unPause")'>恢复</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" >
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="bindFloatIP($event)" role="menuitem"  href="javascript:void(0)">绑定浮动IP</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem" href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="lockEcs($event)" href="javascript:void(0)">锁定实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="unlockEcs($event)" role="menuitem" href="javascript:void(0)">解锁实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem" href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                
+                		<!--挂起部分操作-->
+                		<td class="action" ng-if="item.status=='挂起'">
+                        <a href="javascript:void(0)" ng-click='createFastShot($event)'>创建快照</a>&nbsp;
+                        <a href="javascript:void(0)" sid={{item.serverId}} ng-click='resumeEcs($event,"resume")'>恢复</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="bindFloatIP($event)" role="menuitem" href="javascript:void(0)">绑定浮动IP</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem"  href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="lockEcs($event)" tabindex="10" href="javascript:void(0)">锁定实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="unlockEcs($event)" href="javascript:void(0)">解锁实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="softRebootEcs($event)" role="menuitem" href="javascript:void(0)">软重启</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="hardRebootEcs($event)" role="menuitem" href="javascript:void(0)">硬重启</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="rebuiltEcs($event)" role="menuitem" href="javascript:void(0)">重建云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem" href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!--卸载搁置部分操作-->
+                    <td class="action" ng-if="item.status=='卸载搁置'">
+                        <a ng-click="bindFloatIP($event)" href="javascript:void(0)" sid={{item.serverId}}>绑定浮动IP</a>&nbsp;
+                        <a href="javascript:void(0)" sid={{item.serverId}} ng-click="unShelveEcs($event)">取消废弃</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem" href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="lockEcs($event)"  href="javascript:void(0)">锁定实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="unlockEcs($event)" href="javascript:void(0)">解锁实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem"  href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!--关机部分操作-->
+                    <td class="action" ng-if="item.status=='关机'">
+                        <a href="javascript:void(0)" ng-click='createFastShot($event)'>创建快照</a>&nbsp;
+                        <a href="javascript:void(0)" ng-click="bindFloatIP($event)" sid={{item.serverId}}>绑定浮动IP</a>
+                        <div class="moreBox">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    更多<i class="caret"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} sname={{item.serverName}} ng-click="editEcs($event)" role="menuitem" href="javascript:void(0)">编辑云主机</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="lockEcs($event)" href="javascript:void(0)">锁定实例</a>
+                                    </li>
+                                    
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="hardRebootEcs($event)" role="menuitem"  href="javascript:void(0)">启动</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} role="menuitem" ng-click="unlockEcs($event)" href="javascript:void(0)">解锁实例</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" role="menuitem" href="javascript:void(0)">删除实例</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!--错误部分操作-->
+                    <td class="action"  ng-if="item.status=='错误'">
+                        <a sid={{item.serverId}} ng-click="deleteEcs($event)" href="javascript:void(0)">删除实例</a>
+                    </td>
+                    
+                    <!--创建中-->
+                    <td class="action"  ng-if="item.status=='创建中'">
+                        	等待创建完成
+                    </td>
+                </tr>
+                </tbody>                
+            </table>
+        </div>
+     
+    	<div class="modal fade rbtajsEcsModal" id="adjustEcsModal"  role="dialog">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">		       
+			        <h4 class="modal-title text-center">
+			        	调整云主机大小
+			        </h4>
+			      </div>
+			      <div class="modal-body">
+			        <p id="oldServertype"></p>	        
+			        <form class="form-horizontal">
+							  <div class="form-group">
+							    <label for="typeChangeBox" class="col-xs-3 control-label">选择类型:</label>
+							    <div class="col-xs-8">
+							      <select class="form-control" id="typeChangeBox">
+			        				<option ng-repeat='item in typeChangeList track by $index' value={{item.flavorId}}>{{item.flavorName}}</option>
+			        			</select>
+							    </div>
+							  </div>
+							</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			        <button type="button" class="btn btn-primary" ng-click="adjustAction()">确定</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		
+		<div class="modal fade rbtajsEcsModal" id="rebuiltEcsModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	重建云主机
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>
+		        	选择镜像以重建你的云主机。
+		        </p>	        
+		        <form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="typeChangeBox" class="col-xs-3 control-label">选择镜像:</label>
+						    <div class="col-xs-8">
+						      <select class="form-control" id="imageChangeBox">
+		        				<option ng-repeat='item in imageChangeList track by $index' value={{item.imageId}}>{{item.imageName}}</option>
+		        			</select>
+						    </div>
+						  </div>
+						</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="rebuiltAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="modal fade rbtajsEcsModal" id="bindFloatIPModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	绑定浮动IP
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <p class="text-center">为当前云主机绑定浮动IP</p>	        
+		        <form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="typeChangeBox" class="col-xs-3 control-label">IP地址:</label>
+						    <div class="col-xs-8">
+						      <select class="form-control" id="avaIPBox">
+		        				<option ng-repeat='item in IPListBox track by $index' value={{item.Id}}>{{item.floatingIpAddress}}</option>
+		        			</select>
+						    </div>
+						  </div>
+						</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="bindIPAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+    
+    	<div class="modal fade rbtajsEcsModal" id="editSeGroupModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	编辑安全组
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <p class="text-center">调整云主机所在安全组</p>	        
+		        <p>当前用户所在安全组：<span ng-repeat="item in existGroupList track by $index">{{item.securityGroupName}} </span></p>
+		        <form id="secGroupBox">
+		        	<div class="form-group" ng-repeat="item in allGroupList track by $index">
+		        		<input type="checkbox"  id={{item.securityGroupId}}  value={{item.securityGroupName}} />
+		        		<label for={{item.securityGroupId}}>{{item.securityGroupName}}</label>
+		        	</div>
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="editSeGroupAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+    </div>
+</div>

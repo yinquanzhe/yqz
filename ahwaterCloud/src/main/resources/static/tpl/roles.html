@@ -1,0 +1,45 @@
+<div ng-controller='roleCtrl' class="content roles">
+	<h4>角色</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+      <form>        	       
+        <input type="text" placeholder="功能开发中"/>
+        <button type="button" class="btn btn-default" ng-click="searchServer($event)">搜索</button>
+      </form>            
+      <div class="actionBtn">
+      	<button type="button" class="btn btn-primary" ng-click="createRole()">
+      	<i class="fa fa-plus"></i> 添加角色</button>
+        <button type="button" class="btn btn-danger deleteBatch" ng-click="delRoleBatch()">
+      	<i class="fa fa-trash"></i> 删除角色</button>
+      </div>      
+	  </div>
+	  <div class="cloudlist col-xs-12 rolesBox">
+      	<table width="100%" cellpadding="10" cellspacing="6" >
+      		<thead>
+      			<tr>
+      				<th><input type="checkbox"/></th>
+	            <th style="text-align: left;padding-left: 6px; width: 25%;">角色名称</th>
+	            <th style="text-align: left;">ID</th>
+	            <th>操作</th>	            
+      			</tr>
+      		</thead>
+      		<tbody>
+      			<tr>
+      				<td colspan="4">
+      					<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+      				</td>
+      			</tr>
+      			<tr ng-repeat='item in rolesData'>
+      				<td><input type="checkbox" rid={{item.roleId}} ng-click="roleChoose($event)" /></td>
+      				<td style="text-align: left;padding-left: 6px;">{{item.roleName}}</td>
+      				<td style="text-align: left;">{{item.roleId}}</td>      				     				
+      				<td>
+      					<a href="javascript:void(0)" rid={{item.roleId}} ng-click="editRole($event)">编辑</a>
+      					&nbsp;<a href="javascript:void(0)" rid={{item.roleId}} ng-click="delRole($event)" >删除</a>     					
+      				</td>
+      			</tr>
+      		</tbody>
+      	</table>
+     </div>
+	</div>
+</div>

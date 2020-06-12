@@ -1,0 +1,2 @@
+1.熟悉了openstack4j的API
+2.完成keypair的部分实现

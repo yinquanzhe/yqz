@@ -1,0 +1,199 @@
+<div ng-controller="magerRuleCtrl" class="content">
+	
+	<h4>		
+		安全组规则管理：&nbsp;{{seName}}
+	</h4>	
+	
+	<div  class="rulesBox list">
+		<div class="search actionBtn" style="margin-top: 0;">
+			<button  type="button" class="delRuleBtn btn btn-warning" ng-click="deleteRules()">
+				<i class="fa fa-remove"></i> 
+				批量删除
+			</button>
+			<button  type="button" class="btn btn-primary" ng-click="addRule()">
+				<i class="fa fa-plus"></i>
+				 添加规则
+			</button>
+		</div>
+  	<div class="cloudlist col-xs-12">
+			<table cellspacing="6" cellpadding="10" width="100%">
+				<thead>
+					<tr>
+						<th><input type="checkbox" /></th>
+						<th>方向</th>
+						<th>以太网类型</th>
+						<th>IP协议</th>
+						<th>端口范围</th>	
+						<th>远端IP前缀</th>
+						<th>远端安全组</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="8">
+							<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+						</td>
+					</tr>						
+					<tr ng-repeat="item in rulesData track by $index">
+						<td><input rid={{item.ruleId}} type="checkbox" ng-click="choose($event)"/></td>
+						<td>{{item.direction}}</td>
+						<td>{{item.etherType}}</td>
+						<td>
+							{{item.protocol}}
+						</td>
+						<td>
+							{{item.portRange}}
+						</td>	
+						<td>{{item.cidr}}</td>
+						<td>{{item.remoteSecurityGroup}}</td>
+						<td>
+							<button rid={{item.ruleId}} class="btn btn-danger" ng-click='delRule($event)'>
+								<i class="fa fa-trash"></i>
+								删除
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+  </div>
+	
+	<div class="addRuleModal">
+		<div class="addRuleBox">
+			<div class="addRuleContent">
+				<div class="addRuleHead text-center">
+					<span>添加规则</span>
+					<i class="fa fa-times" ng-click="hideRuleBox()"></i>
+				</div>
+				<div class="addRuleBody">
+					<form>
+						<div class="form-group ruleListBox">
+							<label for="ruleList" class="control-label">规则:</label>
+							<div>
+								<select class="form-control" id="ruleList" >
+									<option key="定制TCP规则"   value="TCP">定制TCP规则</option>
+									<option key="定制UDP规则" value="UDP">定制UDP规则</option>
+									<option key="定制ICMP规则" value="ICMP">定制ICMP规则</option>
+									<option key="其他协议" value="other">其他协议</option>
+									<option key="所有TCP协议" value="TCP">所有TCP协议</option>
+									<option key="所有UDP协议" value="UDP">所有UDP协议</option>
+									<option key="所有ICMP协议" value="ICMP">所有ICMP协议</option>
+									<option key="DNS" value="TCP">DNS</option>
+									<option key="HTTP" value="TCP">HTTP</option>
+									<option key="HTTPS" value="TCP">HTTPS</option>
+									<option key="IMAP" value="TCP">IMAP</option>
+									<option key="IMAPS" value="TCP">IMAPS</option>
+									<option key="LDAP" value="TCP">LDAP</option>
+									<option key="MS SQL" value="TCP">MS SQL</option>
+									<option key="MYSQL" value="TCP">MYSQL</option>
+									<option key="POP3" value="TCP">POP3</option>
+									<option key="POP3S" value="TCP">POP3S</option>
+									<option key="RDP" value="TCP">RDP</option>
+									<option key="SMTP" value="TCP">SMTP</option>
+									<option key="SMTPS" value="TCP">SMTPS</option>
+									<option key="SSH" value="TCP">SSH</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group directionBox">
+							<label for="derection" class="control-label">方向:</label>
+							<div>
+								<select class="form-control" id="derection">
+									<option value="ingress">入方向</option>
+									<option value="egress">出方向</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group ipProtocolBox">
+							<label for="ipProtocol" class="control-label">IP协议</label>
+							<div>
+								<input type="text" class="form-control" id="ipProtocol" placeholder="请输入0-255之间的整数" />
+							</div>
+						</div>
+						<div class="form-group openPortBox">
+							<label for="openPort" class="control-label">打开端口</label>
+							<div>
+								<select id="openPort" class="form-control">
+									<option value="false">端口</option>
+									<option value="true">端口范围</option>
+								</select>
+							</div>
+						</div>	
+						<div class="form-group portBox">
+							<label for="port" class="control-label">端口:</label>
+							<div>
+								<input type="num" id="port" class="form-control" placeholder="端口范围 1-65535" />
+							</div>
+						</div>
+						<div class="form-group portStartBox">
+							<label for="portStart" class="control-label">起始端口:</label>
+							<div>
+								<input type="number" id="portStart" class="form-control" placeholder="起始端口范围 1-65535" />
+							</div>
+						</div>
+						<div class="form-group portEndtBox">
+							<label for="portEnd" class="control-label">结束端口:</label>
+							<div>
+								<input type="number" id="portEnd" class="form-control" placeholder="结束端口范围 1-65535" />
+							</div>
+						</div>
+						<div class="form-group icmpTypeBox">
+							<label for="icmpType" class="control-label">类型:</label>
+							<div>
+								<input type="text" class="form-control" id="icmpType" placeholder="请输入ICMP类型值范围 (-1: 255)" />
+							</div>
+						</div>
+						<div class="form-group icmpCodeBox">
+							<label for="icmpCode" class="control-label">编码:</label>
+							<div>
+								<input type="text" class="form-control" id="icmpCode" placeholder="请输入ICMP代码范围 (-1: 255)" />
+							</div>
+						</div>
+						<div class="form-group remoteBox">
+							<label for="remote" class="control-label">远程:</label>
+							<div>
+								<select id="remote" class="form-control">
+									<option value="true">CIDR</option>
+									<option value="false">安全组</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group cidrBox">
+							<label for="cidr" class="control-label">CIDR:</label>
+							<div>
+								<input type="text" class="form-control" id="cidr" placeholder="192.168.0.0/24" />
+							</div>
+						</div>
+						<div class="form-group securityZuneBox">
+							<label for="securityZune" class="control-label">安全组:</label>
+							<div>
+								<select id="securityZune" class="form-control">
+									<option value="-1">-请选择-</option>
+									<option value={{item.securityGroupId}} ng-repeat="item in SecurityGroupData track by $index">{{item.securityGroupName}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group etherTypeBox">
+							<label for="etherType" class="control-label">以太网类型:</label>
+							<div>
+								<select id="etherType" class="form-control">
+									<option value="ipv4">IPv4</option>
+									<option value="ipv6">IPv6</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="addRuleFoot text-center">
+					<button ng-click="hideRuleBox()">取消</button>
+					<button ng-click="addRuleAction()">添加</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	 
+</div>
+
+
+

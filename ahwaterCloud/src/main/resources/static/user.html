@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>沃特云,云上的日子</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge,Chrome=1"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="bookmark" href="favicon.ico"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="css/flavr.css"/>
+    <link rel="stylesheet" type="text/css" href="css/network.css"/>
+    <link rel="stylesheet" type="text/css" href="css/volume.css"/>
+    <link rel="stylesheet" type="text/css" href="css/security.css"/>
+    <link rel="stylesheet" type="text/css" href="css/serverDetail.css"/>
+    <link rel="stylesheet" type="text/css" href="css/managerRule.css"/>
+    <link rel="stylesheet" type="text/css" href="jedate/skin/jedate.css"/>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/flavr.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="jedate/jquery.jedate.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    	/*左侧导航栏*/
+    	.slideBar{
+    		width: 13%;
+    		min-height: 100%;
+    		padding: 20px 0;
+    		background: #333744;
+    	}
+    	.slideBar ul li{
+    		height: 40px;
+    		line-height: 40px;
+				background: #42485B;
+    	}
+    	.slideBar ul li a.active  {    		
+    		background: #19B3B1;   		
+    	}
+    	.slideBar ul li a{
+    		font-size: 15px;
+    		display: block;   		
+    	}
+    	.slideBar ul li a i{
+    		font-size: 16px;
+    	}
+    	.main{
+    		width: 87%;
+    		margin-left: 13%;
+    	}
+    </style>
+</head>
+<body ng-controller="parentCtrl">
+    <!--顶部导航条-->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-header">
+        <div class="navbar-brand">
+          <a href="#/overview" onclick="guiling()">
+          	<img src="img/admin/logo-white.png" style="width: 160px;height: 25px;margin-top: -4px"/>
+          </a>
+        </div>
+        <button onclick="showManager()" class="glyphicon glyphicon-menu-hamburger"></button>
+      	<div class="userBox">
+      		<div>
+      			<img src="img/admin/photo.png" style="width: 40px;height: 40px;margin-top: 5px;margin-left: 20px;" class="img-responsive"/>
+      			<div class="userInfo">
+      				<div class="media">
+							  <div class="media-left">
+							    <a href="#">
+							      <img class="media-object" src="img/admin/photo.png" style="width: 52px;height: 52px" class="img-responsive">
+							    </a>
+							  </div>
+							  <div class="media-body">
+							    <h4 class="media-heading username">Admin</h4>
+							    <p class="userfield">用户组：普通用户</p>
+							  </div>
+							</div>
+      				<div class="quit">
+      					<a  href="#">用户设置</a>
+      					<a onclick="clearInfo()" href="login.html">退出</a>
+      				</div>
+      			</div>
+      		</div>
+      	</div>
+      	<div style="color: #fff;margin:15px 6px 0 20px;" class="pull-left">
+      		<span>项目:</span>
+      	</div>
+				<div class="dropdown pull-left">
+					<a class="dropdown-toggle" type="button" id="dropdownTenant" data-toggle="dropdown" tid={{defaultProj.tenantId}} >
+				    {{defaultProj.tenantName}}
+				    <span class="caret"></span>
+				  </a>
+				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownTenant" id="departBox">
+				    <li ng-repeat='item in tenantsData track by $index'  role="presentation">
+				    	<a role="menuitem" href="javascript:void(0)" tid={{item.tenantId}} ng-click="changePart($event)">
+				    		{{item.tenantName}}
+				    	</a>
+				    </li>				    
+				  </ul>
+				</div>
+      	
+      </div>
+    </div>
+    <!--左侧导航-->
+    <div class="slideBar">     
+      <ul class="slideBar-menu list-unstyled">
+        <li >
+        	<a id="d11" href="#/overview">
+          	<i class="glyphicon glyphicon-cloud"></i>&nbsp;&nbsp;概览
+        	</a>
+        </li>
+        <li><a id="d12" href="#/server">
+          <i class="glyphicon glyphicon-tasks"></i>&nbsp;&nbsp;云主机</a></li>
+        <li><a id="d13" href="#/volume">
+          <i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;云硬盘</a></li>
+        <li><a id="d14" href="#/imglist">
+          <i class="glyphicon glyphicon-cd"></i>&nbsp;&nbsp;镜像</a></li>
+        <li><a id="d15" href="#/security">
+          <i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;云安全</a></li>
+        <li><a id="d16" href="#/monitor">
+          <i class="fa fa-bar-chart"></i>&nbsp;&nbsp;云监控</a></li>       
+        <li><a id="d17" href="#/net">
+          <i class="glyphicon glyphicon-indent-left"></i>&nbsp;&nbsp;网络</a></li>
+        <li><a id="d18" href="#/router">
+          <i class="glyphicon glyphicon-move"></i>&nbsp;&nbsp;路由</a></li>
+        <li><a id="d19" href="#/balance">
+          <i class="fa fa-recycle"></i>&nbsp;&nbsp;负载均衡</a></li>
+      </ul>      
+    </div>
+    <!--主体部分-->
+       
+    <div class="main container">
+        <!--内容展示部分-->
+        <div ng-view></div>
+    </div>
+    
+    <script>   
+    		//sessionStorage.setItem('user','admin')
+    		//判断是否登录
+    		var user=sessionStorage.getItem('user');
+        	if(user==null){
+        		location.href='login.html';
+        	}  
+        	
+        	$('.userInfo .media-body .username').html(sessionStorage.getItem('user'))
+        	
+        	//返回overview
+        	function guiling(){
+        		$('#d11').addClass('active');       		
+        		$('#d11').parent().siblings().children('a').removeClass('active');
+        	}
+        	
+        //退出登录
+        function clearInfo(){
+          sessionStorage.clear();
+         }
+        
+        /*$('#showProductBox').click(function(e){
+            e.stopPropagation();
+            $('.productBox').fadeToggle();
+        })*/
+       
+       		function isTimeOut(){
+       			sessionStorage.clear();
+       			localStorage.clear()
+						location.replace('login.html')
+					}
+        	
+        	var myTime=setTimeout('isTimeOut()',60000*20)  //20分钟超时
+			
+					function resetTime(){
+						clearTimeout(myTime);
+						//console.log('倒计时已重置')
+						myTime=setTimeout('isTimeOut()',60000*20)
+					}
+					
+					document.documentElement.onkeydown=resetTime;
+					document.documentElement.onclick=resetTime;
+					document.documentElement.oncontextmenu=resetTime;
+					document.documentElement.onmousewheel=resetTime;
+					document.documentElement.ontouchmove=resetTime;
+       
+        $(document).click(function(){
+            $('.productBox').fadeOut();       
+            $('.configDetail').fadeOut();
+        })
+        window.onload=function(){
+        	var a=$("#"+sessionStorage.getItem('Subactive'));
+        	if(sessionStorage.getItem('Subactive')==null){
+        		$('#d11').addClass('active');
+        		sessionStorage.setItem('Subactive','d11');
+        	}
+        	else{
+        		a.addClass('active').parent().siblings().children('a').removeClass('active');       		
+        	} 
+        }
+    </script>
+    <script>
+    	//左侧导航点击事件
+    	$('.slideBar-menu').on('click','>li>a',function(e){
+            sessionStorage.setItem('Subactive',$(this).attr('id'));
+            $(this).addClass('active');
+            $(this).parent().siblings('li').children('a').removeClass('active');          
+        })
+    	//实例搜索框
+      function changeTip(e){
+          //console.log(e.value);
+          var k= e.value;
+          if(k==1){
+              $('#searchBy').next().attr("placeholder","请输入云主机名称进行查询");
+          }else if(k==2){
+              $('#searchBy').next().attr("placeholder","请输入状态名称进行查询");
+          }           
+      }
+			//汉堡包菜单点击
+      function showManager(){
+        $('.slideBar').toggleClass("activeSlide")
+        $('.main').toggleClass("phoneMain")
+      }
+    </script>
+
+    <script>
+        var app=angular.module('myApp',['ng','ngRoute']);
+				
+        app.config(function($routeProvider){
+            $routeProvider
+                .when('/overview',{templateUrl:'tpl/overview.html'})
+                .when('/server',{templateUrl:'tpl/server.html'})
+                .when('/imglist',{templateUrl:'tpl/image.html'})
+                .when('/net',{templateUrl:'tpl/net.html'})
+                .when('/netDetail/:netId',{templateUrl:'tpl/netDetail.html'})
+                .when('/volume',{templateUrl:'tpl/volume.html'})
+                .when('/security',{templateUrl:'tpl/security.html'})
+                .when('/server/:serverId',{templateUrl:'tpl/serverDetail.html'})
+                .when('/managerRule/:seName/:seId',{templateUrl:'tpl/managerRule.html'})
+                .when('/router',{templateUrl:'tpl/router.html'})
+                .when('/routerDetail/:routerId',{templateUrl:'tpl/routeDetail.html'})
+                .when('/monitor',{templateUrl:'tpl/monitor.html'})
+                .otherwise({redirectTo:'/overview'})
+        });
+
+        app.controller('parentCtrl',["$scope","$http","$location",function($scope,$http,$location){      	
+          
+          //获取租户列表
+          $http.get('/ahwaterCloud/ctr/tenantsListOfUser').success(function(tenantsList){
+            
+            $scope.tenantsData=tenantsList.tenantNames;
+            $scope.defaultProj={
+            	"tenantName":tenantsList.defaultName,
+            	"tenantId":tenantsList.defaultId
+            };
+            console.dir($scope.defaultProj);
+            if(tenantsList.tenantNames==null){
+            	$scope.tenantsData=['暂无可选项']
+            } 
+            if(sessionStorage.getItem('selectPart')!=null){
+            	$scope.defaultProj.tenantName=sessionStorage.getItem('selectPart');
+            	$scope.defaultProj.tenantId=sessionStorage.getItem('selectTid');
+            }
+          }) 
+          
+          
+          //切换部门
+          $scope.changePart=function($event){
+          	var e=$event.target;         	
+			    	var name=$(e).text().trim();
+			    	
+			    	sessionStorage.setItem('selectPart',name)
+			    	sessionStorage.setItem('selectTid',$(e).attr('tid'))
+			    	
+			    	$scope.defaultProj.tenantName=sessionStorage.getItem('selectPart');
+			    	$scope.defaultProj.tenantId=sessionStorage.getItem('selectTid');
+		    		$.ajax({
+		    			type:"get",
+		    			url:"/ahwaterCloud/ctr/changeTenant",
+		    			dataType:'text',
+		    			data:{tenantName:name},
+		    			success:function(rep){
+								if(rep=='admin'){
+									location.replace('admin.html')
+									sessionStorage.removeItem('Itemactive');
+          				sessionStorage.removeItem('Subactive');
+								}else if(rep=='user'){
+									location.replace('user.html')
+									sessionStorage.removeItem('Subactive');
+								}
+							}
+		    		});         	
+          }
+        }])                     
+    </script>
+
+    <script src="js/server.js"></script>
+    <script src="js/image.js"></script>
+    <script src="js/net.js"></script>
+    <script src="js/volume.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/overview.js"></script>
+    <script src="js/serverDetail.js"></script>
+    <script src="js/managerRule.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/routeDetail.js"></script>
+    <script src="js/netDetail.js"></script>
+    <script src="js/monitor.js"></script>
+</body>
+</html>

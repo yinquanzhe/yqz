@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:amq="http://activemq.org/config/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  			http://activemq.org/config/1.0 
+  			http://activemq.apache.org/schema/core/activemq-core-5.0.0.xsd">
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:quartz.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<amq:broker useJmx="false" persistent="true">
+		<amq:persistenceAdapter>  
+         	<amq:jdbcPersistenceAdapter id="jdbcAdapter" dataSource="#dataSource" createTablesOnStartup="true" useDatabaseLock="false"/>  
+      	</amq:persistenceAdapter>  
+		<amq:transportConnectors>
+			<amq:transportConnector uri="tcp://localhost:61616" />
+		</amq:transportConnectors>
+	</amq:broker>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">  
+     	<property name="driverClassName" value="${org.quartz.dataSource.myDS.driver}"/>
+     	<property name="url" value="${org.quartz.dataSource.myDS.URL}"/>  
+     	<property name="username" value="${org.quartz.dataSource.myDS.user}"/>  
+     	<property name="password" value="${org.quartz.dataSource.myDS.password}"/>  
+     	<property name="maxActive" value="200"/>  
+     	<property name="poolPreparedStatements" value="true"/>  
+   	</bean>  
+
+	<amq:connectionFactory id="connectionFactoryConsumer"
+		brokerURL="tcp://localhost:61616" />
+		
+	<amq:connectionFactory id="connectionFactoryProducer"
+		brokerURL="tcp://localhost:61616" />
+		
+	<amq:queue name="destination" physicalName="JmsQuartzTest" />
+
+	<bean id="messageConverter" class="com.dvs.activemq.DefaultMessageConverter" />
+
+	<bean id="jmsTemplate"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory">
+			<bean class="org.springframework.jms.connection.SingleConnectionFactory">
+				<property name="targetConnectionFactory" ref="connectionFactoryProducer" />
+			</bean>
+		</property>
+		<property name="messageConverter" ref="messageConverter"/>
+	</bean>
+
+	<bean id="messageProducer" class="com.dvs.activemq.MessageProducer">
+		<property name="template" ref="jmsTemplate" />
+		<property name="destination" ref="destination" />
+	</bean>
+
+	<bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactoryConsumer" />
+		<property name="destination" ref="destination" />
+		<property name="messageListener" ref="messageListener" />
+	</bean>
+
+	<bean id="messageConsumer" class="com.dvs.activemq.MessageConsumer" />
+
+	<bean id="messageListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg ref="messageConsumer" />
+		<property name="defaultListenerMethod" value="addResource" />
+		<property name="messageConverter" ref="messageConverter" />
+	</bean>
+
+</beans>

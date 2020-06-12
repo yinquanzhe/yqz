@@ -1,0 +1,32 @@
+<div ng-controller="aggrCtrl" class="content">
+	<h4>可用域</h4>
+	<div class="list">
+		<div class="cloudlist">
+			<table width='100%' cellpadding="10" cellspacing="6">
+				<thead>
+					<tr>
+						<th>可用域名称</th>
+						<th>主机名称</th>
+						<th>可分配</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="3">
+							<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+						</td>
+					</tr> 
+					<tr ng-repeat='item in aggrData track by $index '>
+						<td>{{item.zoneName}}</td>
+						<td>
+							<p ng-repeat="sitem in item.host ">
+								{{sitem}}
+							</p>
+						</td>
+						<td>{{item.zoneState}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

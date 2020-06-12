@@ -1,0 +1,105 @@
+<div ng-controller="overviewCtrl" class="content survey">
+    <h4>概况</h4>
+    <div class="container-fluid list">
+        <div class="col-xs-12">
+          <div class="widget orange">
+            <div class="widget-title">
+                <h4><i class="glyphicon glyphicon-tasks"></i>配额统计</h4>
+                <span class="tools">
+                    <a href="javascript:void(0)" class="glyphicon glyphicon-chevron-down" ng-click="togWidget($event)"></a>
+                    <!--<a href="javascript:void(0)" class="glyphicon glyphicon-remove"></a>-->
+                </span>
+                <button class="update-btn" ng-click="getoverview()"><i class="glyphicon glyphicon-repeat"></i>刷新</button>
+            </div>
+            <div class="widget-body">
+                <div class="row">
+                  <div id="serverView" class="pie-chart col-xs-12 col-md-3">
+                        
+                  </div>
+                  <div id="cpuView" class="pie-chart col-xs-12 col-md-3">
+                        
+                  </div>
+                  <div id="memoryView" class="pie-chart col-xs-12 col-md-3">
+                        
+                  </div>
+                	<div id="ipView" class="pie-chart col-xs-12 col-md-3">
+                        
+                  </div>
+                </div>
+                <div class="row">
+                	
+                	<div id="securityView" class="pie-chart col-xs-12 col-md-3">
+                        
+                  </div>
+                  <div id="volumeView" class="pie-chart col-xs-12 col-md-3">
+                        
+                  </div>
+                	<div id="diskView" class="pie-chart col-xs-12 col-md-3">
+                        
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    
+    	<div class="col-xs-12">
+    		<div class="widget blue">
+    			<div class="widget-title">
+    				<h4>
+    					使用概况
+    				</h4>
+    				<form class="form-inline">
+						  <div class="form-group">
+						    <label for="startTimeipt">从</label>
+						    <input type="date" class="form-control" id="startTimeipt" >
+						  </div>
+						  <div class="form-group">
+						    <label for="endTimeipt">到</label>
+						    <input type="date" class="form-control" id="endTimeipt">
+						  </div>
+						  <button type="button" class="btn btn-primary" ng-click="searchByTime()">查询</button>
+						</form>
+    			</div>
+    			<div class="widget-body">
+    				<div class="cloudlist"> 
+    					<table cellspacing="6" cellpadding="10" width="100%">
+    						<thead>
+    							<tr>
+    								<th>云主机名称</th>
+    								<th>CPU</th>
+    								<th>磁盘</th>
+    								<th>内存</th>
+    								<th>创建时间</th>
+    							</tr>
+    						</thead>
+    						<tbody>
+    							<tr>
+                		<td colspan="5">
+                			<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                		</td>
+                	</tr>
+                	<tr ng-repeat="item in serverList track by $index">
+                		<td>
+                			<a ng-href="#/server/{{item.serverId}}">{{item.serverName}}</a>
+                		</td>
+                		<td>
+                			{{item.vcpus}}核
+                		</td>
+                		<td>
+                			{{item.disk}}GB
+                		</td>
+                		<td>
+                			{{item.ram>1024?item.ram/1024+'GB':item.ram+'MB'}}
+                		</td>
+                		<td>
+                			{{item.timeFromCreated}}
+                		</td>
+                	</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ahwater.tender.db.mapper.ItemMapper">
+
+    <cache-ref namespace="net.ahwater.tender.db.mapper.ItemMapper"/>
+
+    <select id="selectItemsPageByUserId" resultType="java.util.Map" useCache="false">
+        select t1.id, t1.code, t1.create_time,
+            t2.id item_id, t2.url,t2.title,date_format(t2.pub_time, '%Y-%m-%d') pub_time,
+            t3.name keywords,
+            t6.name dname,
+            t7.id cid
+        from t_push_log t1
+        left join t_item t2
+        on t1.item_id=t2.id
+        left join t_keyword t3
+        on t1.keyword_id=t3.id
+        left join t_module t4
+        on t2.module_id=t4.id
+        left join t_website t5
+        on t4.website_id=t5.id
+        left join t_division t6
+        on t5.division_id=t6.id
+        left join t_collection t7
+        on t1.item_id=t7.item_id and t1.user_id=t7.user_id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+        order by t1.id desc
+    </select>
+
+    <select id="selectItemsPage" resultType="java.util.Map">
+        select t2.url,t2.title,date_format(t2.pub_time, '%Y-%m-%d') pub_time, null keywords, t6.name dname
+        from t_item t2
+        left join t_module t4
+        on t2.module_id=t4.id
+        left join t_website t5
+        on t4.website_id=t5.id
+        left join t_division t6
+        on t5.division_id=t6.id
+        order by t2.pub_time desc,t2.id desc
+    </select>
+
+</mapper>

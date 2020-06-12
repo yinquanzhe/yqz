@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:amq="http://activemq.org/config/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+   	<bean id="jobDetailBean" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.dvs.quartz.SendJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="messageProducer" value-ref="messageProducer"/>
+            </map>
+        </property>              
+    </bean>
+     
+	<bean id="jobDetailPOJO" class="com.dvs.quartz.SendPOJO">   
+		<property name="messageProducer">    
+			<ref bean="messageProducer"/>    
+		</property>   
+	</bean>
+		
+	<bean id="targetTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">    
+		<property name="targetObject">    
+			<ref bean="jobDetailPOJO" />    
+		</property>    
+     	<property name="targetMethod">    
+   			<value>execute</value>    
+    	</property>    
+	</bean>       
+	  
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="jobDetailBean"/>
+        <property name="repeatInterval" value="1000"/>
+        <property name="startDelay" value="1000"/>
+    </bean>
+       
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">    
+         <property name="jobDetail">    
+             <ref bean="targetTask" />    
+         </property>    
+         <property name="cronExpression">    
+             <!-- 排列顺序 秒 分 小时 日期 月 星期 年 -->
+             <value>0 * * * * ?</value>    
+         </property>    
+	</bean>    
+    
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+				<ref bean="simpleTrigger"/>
+                <ref bean="cronTrigger"/>    
+            </list>
+        </property>
+    </bean>
+    
+</beans>

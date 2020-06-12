@@ -1,0 +1,204 @@
+<div ng-controller='serverTypeCtrl' class="content">
+	<h4>云主机类型列表</h4>
+	<div class="container-fluid list">
+		<div class="search col-xs-12">
+      <form>        	       
+        <input type="text" placeholder="功能开发中"/>
+        <button type="button" class="btn btn-default" ng-click="searchServer($event)">搜索</button>
+      </form>            
+      <div class="actionBtn">
+      	<button type="button" class="btn btn-primary" ng-click="createAdminServerType()">
+      	<i class="fa fa-plus"></i> 新建模板</button>
+        <button type="button" class="btn btn-danger deleteBatch" ng-click="removeServerTypeBatch()">
+      	<i class="fa fa-trash"></i> 删除模板</button>
+      </div>      
+	  </div>
+	  <div class="cloudlist col-xs-12">
+      	<table width="100%" cellpadding="10" cellspacing="6" >
+      		<thead>
+      			<tr>
+      				<th><input type="checkbox"/></th>
+	            <th style="width: 10%;">云主机类型名称</th>
+	            <th>CPU</th>
+	            <th>内存</th>
+	            <th>根磁盘</th>
+	            <th>临时磁盘</th>
+	            <th>交换盘</th>
+	            <th style="width: 10%;">ID</th>
+	            <th>是否共有</th>
+	            <th style="width: 10%;">操作</th>
+      			</tr>
+      		</thead>
+      		<tbody>
+      			<tr>
+      				<td colspan="10">
+      					<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+      				</td>
+      			</tr>
+      			<tr ng-repeat='item in serverTypeData'>
+      				<td><input type="checkbox" tid={{item.id}} ng-click="Typechoose($event)" /></td>
+      				<td>{{item.name}}</td>
+      				<td>{{item.vcpus}}核</td>
+      				<td>{{item.ram>=1024?item.ram/1024+'GB':item.ram+'MB'}}</td>
+      				<td>{{item.disk}}GB</td>
+      				<td>{{item.ephemeral}}GB</td>
+      				<td>{{item.swap}}MB</td>
+      				<td>{{item.id}}</td>
+      				<td>{{item.public}}</td>
+      				<td>
+      					<a href="javascript:void(0)" tid={{item.id}} ng-click="editServerType($event)">模板编辑</a>
+      					&nbsp;<a href="javascript:void(0)" tid={{item.id}} ng-click="delAdminServerType($event)" >删除</a>
+      				</td>
+      			</tr>
+      		</tbody>
+      	</table>
+      </div>
+	  <!--新建云主机类型-->
+	  <div class="modal fade rbtajsEcsModal" id="createServerTypeModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	云资源模板创建
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <div role="tabpanel">
+		        	<ul class="nav nav-tabs ServerTypeTab" role="tablist" id="createServerTypeTab">
+						    <li role="presentation" class="active">
+						    	<a href="#basicConfig"  role="tab" data-toggle="tab">基本配置</a>
+						    </li>
+    						<li role="presentation">
+    							<a href="#serverTypeControl"  role="tab" data-toggle="tab">权限设置</a>
+    						</li>
+  						</ul>
+  						<!-- Tab panes -->
+						  <div class="tab-content">
+						    <div role="tabpanel" class="tab-pane active" id="basicConfig">
+						    	<form >
+						    		<div class="form-group">
+						    			<label for="serverTypeName">云主机类型名称:</label>
+						    			<input type="text" class="form-control" id="serverTypeName" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeCPU">CPU:(核)</label>
+						    			<input type="number" class="form-control" id="serverTypeCPU" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeMem">内存:(MB)</label>
+						    			<input type="number" class="form-control" id="serverTypeRam" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeDisk">根磁盘:(GB)</label>
+						    			<input type="number" class="form-control" id="serverTypeDisk" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeTDisk">临时磁盘:(GB)</label>
+						    			<input value="0" type="number" class="form-control" id="serverTypeTDisk" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeSDisk">交换磁盘:(MB)</label>
+						    			<input value="0" type="number" class="form-control" id="serverTypeSDisk" />
+						    		</div>
+						    	</form>
+						    </div>
+						    <div role="tabpanel" class="tab-pane accessControl" id="serverTypeControl">
+						    	<p class="text-center">指定哪些项目可以使用该云主机类型，未选择则默认全部可使用</p>
+						    	<div class="col-xs-10 col-xs-offset-1">
+						    		<div class="panel panel-default">
+										  <!-- Default panel contents -->
+										  <div class="panel-heading">所有项目</div>										  
+										  <!-- List group -->
+										  <ul class="list-group allAccess">
+										    								    
+										  </ul>
+										</div>
+						    	</div>
+						    	
+						    </div>    
+						  </div>
+						</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearItem()" >取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="createServerTypeAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<!--模板编辑-->
+	  <div class="modal fade rbtajsEcsModal" id="editTypeModal"  role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	修改模板配置
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <div role="tabpanel">
+		        	<ul class="nav nav-tabs ServerTypeTab" role="tablist" id="editServerTypeTab">
+						    <li role="presentation" class="active">
+						    	<a href="#bsConfig"  role="tab" data-toggle="tab">基本配置</a>
+						    </li>
+    						<li role="presentation">
+    							<a href="#newaccessControl"  role="tab" data-toggle="tab">权限设置</a>
+    						</li>
+  						</ul>
+  						<!-- Tab panes -->
+						  <div class="tab-content">
+						    <div role="tabpanel" class="tab-pane active" id="bsConfig">
+						    	<form >
+						    		<div class="form-group">
+						    			<label for="serverTypeName">云主机类型名称:</label>
+						    			<input type="text" class="form-control" id="newserverTypeName" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeCPU">CPU:(核)</label>
+						    			<input type="number" class="form-control" id="newserverTypeCPU" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeMem">内存:(MB)</label>
+						    			<input type="number" class="form-control" id="newserverTypeRam" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeDisk">根磁盘:(GB)</label>
+						    			<input type="number" class="form-control" id="newserverTypeDisk" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeTDisk">临时磁盘:(GB)</label>
+						    			<input type="number" class="form-control" id="newserverTypeTDisk" />
+						    		</div>
+						    		<div class="form-group">
+						    			<label for="serverTypeSDisk">交换磁盘:(MB)</label>
+						    			<input type="number" class="form-control" id="newserverTypeSDisk" />
+						    		</div>
+						    	</form>
+						    </div>
+						    <div role="tabpanel" class="tab-pane accessControl" id="newaccessControl">
+						    	<p class="text-center">指定哪些项目可以使用该云主机类型，不选则默认全部可使用</p>
+						    	<div class="col-xs-10 col-xs-offset-1">
+						    		<div class="panel panel-default">
+										  <!-- Default panel contents -->
+										  <div class="panel-heading">所有项目</div>										  
+										  <!-- List group -->
+										  <ul class="list-group allAccess">
+										   							    
+										  </ul>
+										</div>
+						    	</div>
+						    	
+						    </div>    
+						  </div>
+						</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearNewItem()">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="editServerTypeAction()">保存</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>

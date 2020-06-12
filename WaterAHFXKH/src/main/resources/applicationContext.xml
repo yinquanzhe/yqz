@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+    
+    <context:property-placeholder location="classpath:config.properties"/>
+
+	<!-- swagger测试 :注入SpringSwaggerConfig-->  
+    <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
+
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:config.properties" />
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${jdbc.initialSize}" />
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="${jdbc.maxActive}" />
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdle" value="${jdbc.maxIdle}" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${jdbc.minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${jdbc.maxWait}" />
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描mapping.xml文件，**表示迭代查找 -->
+        <property name="mapperLocations" value="classpath:net/ahwater/mapper/*.xml"/>
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 ,包下的类需要使用@MapperScan注解,否则容器注入会失败 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="net.ahwater.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 文件上传设置 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>52428900</value>
+        </property>
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+    
+    <!-- 配置SpringMVC -->
+    <!-- 1.开启SpringMVC注解模式 -->
+    <!-- 简化配置： 
+        (1)自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter 
+        (2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持 
+    -->
+    <mvc:annotation-driven>
+    	<!-- 设置@ResponseBody 返回字符串的编码 -->
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8"/>
+			</bean>
+		</mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- json转换器 -->
+    <!-- MappingJackson2HttpMessageConverter 通过ObjectMapper读取和编写json 类型 application/json -->
+    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters"><!-- 装配数据转换器 -->
+            <list>
+                <ref bean="jsonConverter" /><!-- 指定装配json格式的数据转换器 -->
+            </list>
+        </property>
+    </bean>
+ 
+    <!-- 2.静态资源默认servlet配置
+        (1)加入对静态资源的处理：js,gif,png
+        (2)允许使用"/"做整体映射
+     -->
+     <mvc:default-servlet-handler/>
+
+    <!-- Freemarker相关配置信息******** -->
+    <bean id="freemarkerResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="order" value="1" />
+        <property name="suffix" value=".html" />
+        <property name="contentType" value="text/html;charset=utf-8" />
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.freemarker.FreeMarkerView
+            </value>
+        </property>
+    </bean>
+
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath">
+            <value>/WEB-INF/view/</value><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        </property>
+        <property name="freemarkerSettings"><!-- 设置FreeMarker环境属性 -->
+            <props>
+                <prop key="template_update_delay">5</prop><!-- 刷新模板的周期，单位为秒 -->
+                <prop key="default_encoding">UTF-8</prop><!-- 模板的编码格式 -->
+                <prop key="locale">UTF-8</prop><!-- 本地化设置 -->
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop><!-- 显示日期格式 -->
+                <prop key="time_format">HH:mm:ss</prop><!-- 显示时间格式 -->
+                <prop key="number_format">0.####</prop><!-- 格式数字 -->
+                <prop key="boolean_format">true,false</prop>
+                <prop key="whitespace_stripping">true</prop><!-- 去掉多余的空格 -->
+                <prop key="tag_syntax">auto_detect</prop><!-- 设置标签类型 -->
+                <prop key="url_escaping_charset">UTF-8</prop><!--url编码utf-8 -->
+            </props>
+        </property>
+    </bean>
+     
+     <!-- 3.配置jsp 显示ViewResolver -->
+     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"/>
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".html"/>
+     </bean>
+ 
+
+     <!-- 4.扫描web相关的bean -->
+     <context:component-scan base-package="net.ahwater"/>
+
+</beans>

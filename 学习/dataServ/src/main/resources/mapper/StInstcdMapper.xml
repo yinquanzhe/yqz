@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.ahwater.dataServ.dao.StInstcdDao">
+
+    <select id="selectByStrt" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ST_INSTCD_E
+        WHERE ISSTARTS = #{isstarts} AND SUBSTRING(EXCIP, 0, 6) = '10.34'
+    </select>
+
+</mapper>

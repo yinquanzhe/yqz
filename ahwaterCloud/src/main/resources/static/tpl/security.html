@@ -1,0 +1,229 @@
+<div ng-controller='securityCtrl' class="content">
+	<h4>访问与安全</h4>
+	<div class="container-fluid list securityBox">
+		<div class="col-xs-12 col-md-6 seGroupBox">
+			<div>
+				<div class="search secSearch col-xs-12">
+					<span>
+						<i class=""></i>
+						安全组
+					</span>
+					<button><i ng-click="slideUpBtn($event)" class="fa fa-chevron-down"></i></button>
+					<button type="button" class="deleteSeGroup" ng-click="delSeBatch()" >
+						<i class="fa fa-remove"></i>
+						删除安全组
+					</button>
+					<button type="button" ng-click="createSeGroup()">
+						<i class="fa fa-plus"></i>
+						创建安全组
+					</button>
+					
+				</div>
+				<div class="cloudlist col-xs-12">
+				<table cellspacing="6" cellpadding="10" width="100%">
+					<thead>
+						<tr>
+							<th><input  type="checkbox" /></th>
+							<th>名称</th>
+							<th  style="width: 50%;">描述</th>
+							<th  style="width: 30%;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="4">
+								<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+							</td>
+						</tr>	
+						<tr ng-repeat='item in SecurityGroupData track by $index'>
+							<td><input kname={{item.securityGroupId}} type="checkbox" ng-click="schoose($event)"/></td>
+							<td>{{item.securityGroupName}}</td>
+							<td>{{item.description}}</td>
+							<td>
+								<a ng-href="#/managerRule/{{item.securityGroupName}}/{{item.securityGroupId}}">管理规则</a>
+								<a href="javascript:void(0)" ng-click="editSeGroup($event)" sid={{item.securityGroupId}}>编辑</a>
+								<a href="javascript:void(0)" sid={{item.securityGroupId}} ng-click="delSeGroup($event)">删除</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<table style="clear: both;"></table>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 keycodeBox">
+			<div>
+				<div class="search col-xs-12">
+					<span>
+						<i class=""></i>
+						密钥对</span>
+					<button><i ng-click="slideUpBtn($event)" class="fa fa-chevron-down"></i></button>
+					<button type="button" class="delKeycode" ng-click="dkps()">
+						<i class="fa fa-remove"></i>
+						删除密钥对</button>
+					<button type="button" ng-click="importKey()">
+						<i class="fa fa-share-square-o" ></i>
+						导入密钥对</button>
+					<button type="button" ng-click="createKeypair()">
+						<i class="fa fa-plus"></i>
+						创建密钥对</button>
+					
+				</div>
+				<div class="cloudlist col-xs-12">
+					<table cellspacing="6" cellpadding="10" width="100%">
+						<thead>
+							<tr>
+								<th><input type="checkbox" /></th>
+								<th>密钥对名称</th>
+								<th style="width: 60%;">指纹</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="4">
+									<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+								</td>
+							</tr>
+							<tr ng-repeat='item in KeyPairsData track by $index'>
+								<td><input kname={{item.keyPairName}} type="checkbox" ng-click="kchoose($event)"/></td>
+								<td>								
+									<a href="javascript:void(0)" ng-click="showKeyDe($event)">{{item.keyPairName}}</a>
+								</td>
+								<td>
+									{{item.fingerPrint}}
+								</td>
+								<td>
+									<a kname={{item.keyPairName}} href="javascript:void(0)" ng-click="delKeyPair($event)">删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table style="clear: both;"></table>
+			</div>
+		</div>
+		<div class="col-xs-12 floatIpBox">
+			<div>
+				<div class="search col-xs-12">
+					<span>
+						<i class=""></i>
+						浮动IP</span>
+						<button><i ng-click="slideUpBtn($event)" class="fa fa-chevron-down"></i></button>
+						<button type="button" class="delFloatIP" ng-click="delIPS()">
+							<i class="fa fa-trash-o"></i>
+							释放浮动IP
+						</button>
+					<button type="button" ng-click="devideIP()">
+						<i class="fa fa-sign-out"></i>
+						分配IP给项目</button>					
+				</div>
+				<div class="cloudlist col-xs-12">
+					<table cellspacing="6" cellpadding="10" width="100%">
+						<thead>
+							<tr>
+								<th><input type="checkbox" /></th>
+								<th>IP地址</th>
+								<th>已映射固定IP地址</th>
+								<th>资源池</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="6">
+									<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>							
+								</td>
+							</tr>
+							<tr ng-repeat='item in FloatIPData track by $index'>
+								<td><input fid={{item.id}} type="checkbox" ng-click="Ichoose($event)"/></td>
+								<td>								
+									{{item.floatingIpAddress}}
+								</td>
+								<td>
+									{{item.fixedIpAddress}}
+								</td>
+								<td>
+									{{item.pool}}
+								</td>
+								<td>
+									{{item.state}}
+								</td>
+								<td>
+									<a fid={{item.id}} href="javascript:void(0)" ng-click="delFloatIP($event)">释放浮动IP</a>
+									<a fip={{item.floatingIpAddress}} href="javascript:void(0)" ng-click="bindIPToEcs($event)">关联到主机</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<table style="clear: both;"></table>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade " id="bindIPModal">
+	<div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">		       
+		        <h4 class="modal-title text-center">
+		        	关联主机
+		        </h4>
+		      </div>
+		      <div class="modal-body">
+		        <p class="text-center">将当前IP关联到主机</p>	        
+		        <form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="typeChangeBox" class="col-xs-3 control-label">主机列表:</label>
+						    <div class="col-xs-8">
+						      <select class="form-control" id="serverBox">
+		        				<option ng-repeat='item in newServerData track by $index' value={{item.serverId}}>{{item.serverName}}:{{item.ipAddr}}</option>
+		        			</select>
+						    </div>
+						  </div>
+						</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" ng-click="bindToEcsAction()">确定</button>
+		      </div>
+		    </div>
+		  </div>
+</div>
+
+	<div class="modal fade " id="devideIPModal">
+		<div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">		       
+			        <h4 class="modal-title text-center">
+			        	分配IP到项目
+			        </h4>
+			      </div>
+			      <div class="modal-body">
+			        <p class="text-center">从指定的浮动IP池中分配一个浮动IP</p>	        
+			        <form class="form-horizontal">
+							  <div class="form-group">
+							    <label for="typeChangeBox" class="col-xs-3 control-label">资源池:</label>
+							    <div class="col-xs-8">
+							      <select class="form-control" id="poolBox">
+			        				<option ng-repeat='item in poolData track by $index' value={{item}}>{{item}}</option>
+			        			</select>
+							    </div>
+							  </div>
+							</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			        <button type="button" class="btn btn-primary" ng-click="devideIPAction()">确定</button>
+			      </div>
+			    </div>
+		</div>
+	</div>
+	
+	
+</div>
+
+
+
+
